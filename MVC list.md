@@ -30,6 +30,19 @@
 
   还有知乎答主对于这篇文章的解读https://zhuanlan.zhihu.com/p/58178060
 
+### 图对比学习
+
+- Dual Contrastive Learning Network for Graph Clustering
+  - [IEEE Xplore Full-Text PDF:](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10097557)
+  - https://github.com/XinPeng97/TNNLS_DCLN
+
+- Reinforcement Graph Clustering with Unknown Cluster Number (RGC)
+  - [2308.06827.pdf (arxiv.org)](https://arxiv.org/pdf/2308.06827.pdf)
+  - [yueliu1999/RGC: [ACM MM 2023\] An official source code for paper Reinforcement Graph Clustering with Unknown Cluster Number. (github.com)](https://github.com/yueliu1999/RGC)
+- Self-Contrastive Graph Diffusion Network
+  - [2307.14613.pdf (arxiv.org)](https://arxiv.org/pdf/2307.14613.pdf)
+  - https://github.com/kunzhan/SCDGN
+
 
 
 ---
