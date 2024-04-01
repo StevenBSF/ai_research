@@ -1,3 +1,15 @@
+## 重点关注对象
+
+### 基于因果表征学习
+
+- MULTI-VIEW CAUSAL REPRESENTATION LEARNING WITH PARTIAL OBSERVABILITY
+
+  - Self-supervised learning with data augmentations provably isolates content from style
+
+    这篇文章有相关参考术语
+
+
+
 ## 待看文章
 
 ### 使用autoencoder的相关文章
