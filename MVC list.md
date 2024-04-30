@@ -10,6 +10,16 @@
   
 - Causality Inspired Representation Learning for Domain Generalization CVPR2022
 
+- Meta-causal Learning for Single Domain Generalization CVPR2023
+
+  - [《Meta-causal Learning for Single Domain Generalization》-CSDN博客](https://blog.csdn.net/zibuyu1226/article/details/130615019)
+
+- Learning Causal Semantic Representation for Out-of-Distribution Prediction
+
+  - 数学理论较多，有点复杂
+
+-  Domain generalization using causal matching（引用250+）
+
 - 一篇博客
 
   - [因果推理综述——《A Survey on Causal Inference》一文的总结和梳理 - 打瞌睡的布偶猫 - 博客园 (cnblogs.com)](https://www.cnblogs.com/caoyusang/p/13518354.html)
