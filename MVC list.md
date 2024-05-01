@@ -7,6 +7,10 @@
   - Self-supervised learning with data augmentations provably isolates content from style
 
     这篇文章有相关参考术语
+    
+  - Weakly supervised causal representation learning
+  
+  - IDENTIFIABILITY RESULTS FOR MULTIMODAL CONTRASTIVE LEARNING
   
 - Causality Inspired Representation Learning for Domain Generalization CVPR2022
 
