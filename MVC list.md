@@ -22,7 +22,12 @@
 
   - 数学理论较多，有点复杂
 
--  Domain generalization using causal matching（引用250+）
+- Domain generalization using causal matching（引用250+）
+
+- Causality-Inspired Invariant Representation Learning for Text-Based Person Retrieval（AAAI-24）
+
+  - 做下游任务的，但似乎创新点感觉不太多，可以参考写作思路
+
 
 - 一篇博客
 
