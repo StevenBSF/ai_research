@@ -1,24 +1,13 @@
-## Week14
+# 8/22
 
-- 首要任务
+- 待看论文：
+  - https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9287516
+  - https://ieeexplore.ieee.org/abstract/document/9053219
+  - https://ieeexplore.ieee.org/abstract/document/9429921
 
-  - 计网网课
-  - 复习计网、计组、自动机
-  
-- 首先关注教学云平台作业
 
-  - 计网第二次实验
-  - 计网课设
-  
-- 其他
 
-  - java大作业
 
-- 学习
-
-  
-
-  
 
 
 
