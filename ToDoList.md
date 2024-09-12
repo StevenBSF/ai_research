@@ -1,16 +1,8 @@
-# 8/22
+# Week3
 
-- 待看论文：
-  - https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9287516
-  - https://ieeexplore.ieee.org/abstract/document/9053219
-  - https://ieeexplore.ieee.org/abstract/document/9429921
-
-
-
-
-
-
+- 程序设计实践和计网实践二选一
+- 跑步锻炼
+- 
 
 ​    
 
-​    
