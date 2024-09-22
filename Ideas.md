@@ -16,7 +16,7 @@
   - ![image-20240830143159431](C:\Users\12895\AppData\Roaming\Typora\typora-user-images\image-20240830143159431.png)
 - (CTCC)Cross-view Topology Based Consistent and Complementary Information for Deep Multi-view Clustering(ICCV 2023)
   - ![image-20240830143513186](C:\Users\12895\AppData\Roaming\Typora\typora-user-images\image-20240830143513186.png)
-- (DFP-GNN)( IEEE TRANSACTIONS ONMULTIMEDIA 2023)
+- (DFP-GNN)( IEEE TRANSACTIONS ON MULTIMEDIA 2023)
   - ![image-20240830143747634](C:\Users\12895\AppData\Roaming\Typora\typora-user-images\image-20240830143747634.png)
 - MFLVC(CVPR 2022)
   - ![image-20240830143927798](C:\Users\12895\AppData\Roaming\Typora\typora-user-images\image-20240830143927798.png)
