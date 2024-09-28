@@ -1,6 +1,7 @@
 - 我能不能尝试构建causal graph监督mvc？
 - ![image-20240922144453016](C:\Users\12895\AppData\Roaming\Typora\typora-user-images\image-20240922144453016.png)
   - 找找类似的近似计算的文章，看看能不能降低mvc复杂度
+- 主次因果
 
 
 
