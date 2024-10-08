@@ -10,4 +10,22 @@
 - ![image-20240924112959749](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20240924112959749.png)
 - ![image-20240924113242054](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20240924113242054.png)
 - ![image-20240924113639513](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20240924113639513.png)
+
+
+
+# 10/8
+
+- ![image-20241008090157284](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008090157284.png)
+- ![image-20241008090229735](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008090229735.png)
+- ![image-20241008090749317](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008090749317.png)
+
+- ![image-20241008091000423](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008091000423.png)
+- ![image-20241008091145368](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008091145368.png)
+- ![image-20241008091346033](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008091346033.png)
+- ![image-20241008091912381](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008091912381.png)
+- ![image-20241008092550003](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008092550003.png)
+
+- ![image-20241008094344192](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008094344192.png)
+- ![image-20241008102356356](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008102356356.png)
+- ![image-20241008103230962](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008103230962.png)
 - 
