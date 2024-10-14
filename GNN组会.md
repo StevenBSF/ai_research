@@ -28,4 +28,5 @@
 - ![image-20241008094344192](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008094344192.png)
 - ![image-20241008102356356](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008102356356.png)
 - ![image-20241008103230962](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241008103230962.png)
-- 
+- 看序列推荐
+  - 
