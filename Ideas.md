@@ -6,7 +6,7 @@
 - 我能不能做生成式的，在对于不同的点聚类信息之间做平滑？
   - 小样本数据提高鲁棒性，有通过插值做fusion的，我通过生成式数据拟合聚类信息
 
-
+- [unilm/Diff-Transformer/README.md at master · microsoft/unilm (github.com)](https://github.com/microsoft/unilm/blob/master/Diff-Transformer/README.md)
 
 
 
