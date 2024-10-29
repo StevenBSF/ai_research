@@ -25,9 +25,9 @@
 
 - 晚上在跑的代码：
 
-  - Gpu4：prompt lr=1e-3
-  - Gpu2 ：prompt lr=1e-4
-  - Gpu3 ：prompt lr=1e-2
+  - Gpu2：prompt lr=1e-2
+  - Gpu3 ：prompt lr=1e-3
+  - Gpu4 ：prompt lr=1e-4
 
 - **你可以在使用管理员权限打开CMD后，通过执行下面的命令禁用临时IPV6地址：**
 
