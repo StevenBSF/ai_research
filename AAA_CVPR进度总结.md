@@ -1,5 +1,19 @@
 # MSC-MVC
 
+- 实验数据
+
+  - NUSWIDEOBJ
+
+  - | method                                      |  ACC  |  NMI  |  PUR  |
+    | ------------------------------------------- | :---: | :---: | :---: |
+    | ICLR causal + kmeans                        | 16.02 | 6.25  | 19.38 |
+    | MFLVC                                       | 21.28 | 16.12 | 27.93 |
+    | Dealmvc                                     | 14.82 | 6.92  | 16.10 |
+    | Ours（batchsize=256，lr=0.0003，epoch=364） | 23.03 | 13.02 | 24.72 |
+    | Ours（batchsize=512，lr=0.0003，epoch=375） | 21.29 | 11.62 | 22.91 |
+
+    
+
 - 目前调研到的一些文章，AAAI 2024正好有两篇因果的图对比学习的文章：
   - Graph Contrastive Invariant Learning from the Causal Perspective
     - [shichuan.org/doc/169.pdf#page=1.29](http://www.shichuan.org/doc/169.pdf#page=1.29)
