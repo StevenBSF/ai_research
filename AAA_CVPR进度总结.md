@@ -4,15 +4,49 @@
 
   - NUSWIDEOBJ
 
-  - | method                                      |  ACC  |  NMI  |  PUR  |
-    | ------------------------------------------- | :---: | :---: | :---: |
-    | ICLR causal + kmeans                        | 16.02 | 6.25  | 19.38 |
-    | MFLVC                                       | 21.28 | 16.12 | 27.93 |
-    | Dealmvc                                     | 14.82 | 6.92  | 16.10 |
-    | Ours（batchsize=256，lr=0.0003，epoch=364） | 23.03 | 13.02 | 24.72 |
-    | Ours（batchsize=512，lr=0.0003，epoch=375） | 21.29 | 11.62 | 22.91 |
-
+  - | method                                                       |  ACC  |  NMI  |  PUR  |
+    | ------------------------------------------------------------ | :---: | :---: | :---: |
+    | ICLR causal + kmeans                                         | 16.02 | 6.25  | 19.38 |
+    | MFLVC                                                        | 18.28 | 15.12 | 23.93 |
+    | Dealmvc                                                      | 14.82 | 6.92  | 16.10 |
+    | ours                                                         | 22.14 | 17.03 | 28.30 |
+    | Ours（batchsize=256，lr=0.0003，epoch=364）                  | 23.03 | 13.02 | 24.72 |
+    | Ours（batchsize=512，lr=0.0003，epoch=375）                  | 21.29 | 11.62 | 22.91 |
+    | Ours(batchsize=256，lr=0.0003，1epoch=300,2epoch=55,3epoch=150) | 22.94 | 13.87 | 25.47 |
+    | --batch_size 256 --learning_rate 0.002 --mse_epochs 300 --con_epochs 100 --tune_epochs 150 | 11.91 |   0   | 11.91 |
+    | --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 100 --tune_epochs 150 | 12.32 | 1.84  | 12.32 |
+    | --batch_size 256 --learning_rate 0.0003 --mse_epochs 300 --con_epochs 100 --tune_epochs 150 | 22.38 | 14.06 | 25.02 |
+    | --batch_size 256 --learning_rate 0.0001 --mse_epochs 300 --con_epochs 55 --tune_epochs 23 | 20.35 | 12.06 | 22.10 |
+    | --batch_size 256 --learning_rate 0.002 --mse_epochs 300 --con_epochs 55 --tune_epochs 150 | 11.92 |   0   | 11.92 |
+    | --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 7 | 22.14 | 17.03 | 28.30 |
     
+    ```bash
+    CUDA_VISIBLE_DEVICES=0 python train6_NUSWIDEOBJ_sota.py --batch_size 256 --learning_rate 0.002 --mse_epochs 300 --con_epochs 55 --tune_epochs 150
+    ```
+
+
+  - CCV
+
+  - | method | ACC  | NMI  | PUR  |
+    | ------ | :--: | :--: | :--: |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+    |        |      |      |      |
+
+    ```bash
+    CUDA_VISIBLE_DEVICES=1 python train6_CCV_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150
+    ```
+
+
 
 - 目前调研到的一些文章，AAAI 2024正好有两篇因果的图对比学习的文章：
   - Graph Contrastive Invariant Learning from the Causal Perspective
@@ -35,6 +69,11 @@
     - 改动前
       - Among these methods, particularly the deep methods, satisfactory results have been achieved on many datasets by calculating similarity graphs and introducing contrastive learning to align latent representations. However, these methods do not fully capture more essential features, leading to significant performance degradation on some challenging datasets compared to other methods. For instance, \cite{DealMVC} combines contrastive learning and attention mechanisms to fuse features from different views, aiming to pull close different samples under various views to obtain more concentrated feature representations. This approach achieves good results on datasets with small view differences but struggles to produce satisfactory results on datasets with significant view differences. This issue arises because the intrinsic content and differences of features from different views have not been adequately explored, thereby weakening the model's generalization capability.
     - Among these methods, particularly the deep learning approaches, satisfactory results have been achieved on many datasets by calculating similarity graphs and introducing contrastive learning to align latent representations. However, these methods still face the issue of view dependency in multi-view clustering tasks, where the model may overly rely on the information from certain views while neglecting the features from the remaining views. This dependency prevents the model from fully leveraging the potential information across all views, leading to suboptimal performance, especially on datasets with significant view differences. For instance, \cite{DealMVC} combines contrastive learning and attention mechanisms to fuse features from different views, aiming to pull close the representations of samples across views and obtain more concentrated feature representations. While this approach performs well on datasets with small view differences, it struggles on datasets with larger view discrepancies. This is because the method fails to adequately handle the differences between views, causing the model to overly focus on one view and overlook the unique contributions from other views, ultimately weakening the overall generalization capability.
+  - related work
+    - 改动前
+    - 改动后
+      - In recent years, an increasing number of scholars have recognized the outstanding performance of deep methods \cite{SSGCNMVC,DFPGNN} in multi-view clustering (MVC). Given the heterogeneous nature of multi-view data, deep learning methods, with their powerful representation capabilities, can adaptively capture complex patterns in multi-view data by learning shared and view-specific features across different perspectives. Among these, autoencoders are widely used \cite{kipf2016variationalgraphautoencoders,Multimodal_deep_learning,Zhang_2019_CVPR} in graph clustering. 很多方法也利用contrasive learning的方法将不同视角下的特征进行对齐。然而由于这些方法大多从输入数据的粗粒度信息入手，对于如何让模型针对于shared and view-specific features更好地学习对于不同视角下的有效、本质、无依赖于其他视图的信息，成为当前的多视角任务下的一大难题。
+      - In recent years, an increasing number of scholars have recognized the outstanding performance of deep methods \cite{SSGCNMVC,DFPGNN} in multi-view clustering (MVC). Given the heterogeneous nature of multi-view data, deep learning methods, with their powerful representation capabilities, can adaptively capture complex patterns in multi-view data by learning shared and view-specific features across different perspectives. Among these, autoencoders are widely used \cite{kipf2016variationalgraphautoencoders,Multimodal_deep_learning,Zhang_2019_CVPR} in graph clustering. Furthermore, many approaches leverage contrastive learning to align features from different perspectives. However, as most of these methods rely on coarse-grained information from the input data, the key challenge in multi-view tasks is enabling the model to effectively capture essential, independent, and view-specific information that is informative for each perspective without depending on other views.
 
 # 第二篇Idea开荒
 
