@@ -81,6 +81,23 @@
       - In recent years, an increasing number of scholars have recognized the outstanding performance of deep methods \cite{SSGCNMVC,DFPGNN} in multi-view clustering (MVC). Given the heterogeneous nature of multi-view data, deep learning methods, with their powerful representation capabilities, can adaptively capture complex patterns in multi-view data by learning shared and view-specific features across different perspectives. Among these, autoencoders are widely used \cite{kipf2016variationalgraphautoencoders,Multimodal_deep_learning,Zhang_2019_CVPR} in graph clustering. 很多方法也利用contrasive learning的方法将不同视角下的特征进行对齐。然而由于这些方法大多从输入数据的粗粒度信息入手，对于如何让模型针对于shared and view-specific features更好地学习对于不同视角下的有效、本质、无依赖于其他视图的信息，成为当前的多视角任务下的一大难题。
       - In recent years, an increasing number of scholars have recognized the outstanding performance of deep methods \cite{SSGCNMVC,DFPGNN} in multi-view clustering (MVC). Given the heterogeneous nature of multi-view data, deep learning methods, with their powerful representation capabilities, can adaptively capture complex patterns in multi-view data by learning shared and view-specific features across different perspectives. Among these, autoencoders are widely used \cite{kipf2016variationalgraphautoencoders,Multimodal_deep_learning,Zhang_2019_CVPR} in graph clustering. Furthermore, many approaches leverage contrastive learning to align features from different perspectives. However, as most of these methods rely on coarse-grained information from the input data, the key challenge in multi-view tasks is enabling the model to effectively capture essential, independent, and view-specific information that is informative for each perspective without depending on other views.
 
+- 11月2日
+  - 薛老师
+    - Style内容需要加约束，不然无法体现对应的关系
+    - 消融实验
+    - 大样本数据集要做三到五个
+  - 欧仕龙师兄
+    - Common cause principle
+    - Noise redundant
+    - 多头还是多transformer
+    - 对于noise是应该统一成一个还是
+    - 融合是不是不合理？
+    - line 196没说清楚
+    - 表格设计有问题
+    - U=[Zc,Zs1,Zs2,...]
+
+
+
 # 第二篇Idea开荒
 
 - GCFAgg、DealMVC、MFLVC使用的是一套框架
