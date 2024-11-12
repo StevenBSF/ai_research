@@ -21,7 +21,7 @@
     | --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 7 | 22.14 | 17.03 | 28.30 |
     
     ```bash
-    CUDA_VISIBLE_DEVICES=0 python train6_NUSWIDEOBJ_sota.py --batch_size 256 --learning_rate 0.002 --mse_epochs 300 --con_epochs 55 --tune_epochs 150
+    CUDA_VISIBLE_DEVICES=0 python /mnt/sda/baosf/MSC-MVC/cvpr_caltech_7_3view_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150 --n-steps 20
     ```
 
 
