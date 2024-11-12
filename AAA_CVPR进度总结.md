@@ -46,7 +46,13 @@
     CUDA_VISIBLE_DEVICES=1 python train6_CCV_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150
     ```
 
+- view dependency on caltech101_7
 
+  ```bash
+  CUDA_VISIBLE_DEVICES=1 python /mnt/sda/baosf/MSC-MVC/train6_caltech_7_3view_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 50 --tune_epochs 150
+  ```
+
+  
 
 - 目前调研到的一些文章，AAAI 2024正好有两篇因果的图对比学习的文章：
   - Graph Contrastive Invariant Learning from the Causal Perspective
