@@ -1,3 +1,21 @@
+
+
+- View dependency，是指对于在多视角聚类任务下由于不同视角的信息源存在独特的内容、噪声和偏差，导致模型过度依赖某个视角的聚类信息，使得特定视角的独特噪声或偏差可能被过度放大，并且忽略其他视角中的补充信息，进而导致各视角的差异信息无法有效整合，其所带来额外的互补信息无法得到充分挖掘，而无法综合不同视角特征，使得多视角数据优势难以体现。
+
+- View dependency, refers to a phenomenon in multi-view clustering tasks where, due to unique content, noise, and biases within information source in each view, the model becomes overly reliant on the clustering information from some particular views. This dependency can lead to an amplification of specific view-dependent noise or bias while disregarding supplementary information from other views. Consequently, the model struggles to integrate the distinct information across views effectively, failing to fully exploit the complementary information embedded in the multi-view data. This limitation hinders the potential advantages of multi-view data and reduces the overall effectiveness of the clustering task.
+
+
+
+
+
+
+
+在多视角聚类中，**view-dependency** 是指模型过于依赖某一个视角（或多个特定视角），从而影响聚类效果的现象。具体来说，由于多视角数据来自不同的信息源，每个视角可能包含独特的内容、噪声或偏差，如果模型对某个视角的特征过度依赖，则可能导致以下问题：
+
+1. **信息丢失**：模型过度依赖一个主视角，可能忽略其他视角中的补充信息，使得聚类结果不完整，无法充分利用多视角的多样性。
+2. **噪声放大**：特定视角的独特噪声或偏差可能被过度放大，从而导致模型拟合不准确，影响聚类的准确性。
+3. **互补信息融合困难**：各视角的差异可能带来额外的互补信息，但过于依赖一个视角会使模型难以有效地综合不同视角的特征，无法充分挖掘多视角数据的优势。
+
 # 方法部分
 
 - Here, the mean and standard deviation of $\mathbf{H}^{v}$ follow $\mathcal{N}(\mu(\mathbf{H}^{v}), \Sigma^2_\mu(\mathbf{H}^{v}))$ and $\mathcal{N}(\sigma(\mathbf{H}^{v}), \Sigma^2_\sigma(\mathbf{H}^{v}))$ respectively. The parameters $\beta(\mathbf{H}^{v})$ and $\gamma(\mathbf{H}^{v})$ represent the perturbed mean and standard deviation, and $\widetilde{\mathbf{H}}^{v} $ is the transformed noise-intervened feature.因此，$\widetilde{\mathbf{H}}^{v}$也可以从因果角度reformulate成$\widetilde{\mathbf{H}}^v := g(\tilde c^v, \tilde s^v,\tilde u^v)$.

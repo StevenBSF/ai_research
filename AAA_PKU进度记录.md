@@ -18,7 +18,13 @@
     CUDA_VISIBLE_DEVICES=4 python train_prompt.py /data/dataset/baoshifeng/cifar100 --model vig_b_224_gelu_vp --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 2e-2 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained
     ```
 
-    
+- VPT
+
+  - ```bash
+    CUDA_VISIBLE_DEVICES=4 python train_prompt.py /data/dataset/baoshifeng/cifar100 --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained
+    ```
+
+  - 
 
 - 上午在跑的代码：
   - 全量微调lr=5e-4，lr=5e-3
