@@ -7,7 +7,7 @@
   - | method                                                       |  ACC  |  NMI  |  PUR  |
     | ------------------------------------------------------------ | :---: | :---: | :---: |
     | ICLR causal + kmeans                                         | 16.02 | 6.25  | 19.38 |
-    | MFLVC                                                        | 18.28 | 15.12 | 23.93 |
+    | MFLVC                                                        | 16.28 | 13.12 | 20.93 |
     | Dealmvc                                                      | 14.82 | 6.92  | 16.10 |
     | ours                                                         | 22.14 | 17.03 | 28.30 |
     | Ours（batchsize=256，lr=0.0003，epoch=364）                  | 23.03 | 13.02 | 24.72 |
@@ -63,12 +63,13 @@
       |                                                              |       |       |       |
       |                                                              |       |       |       |
       |                                                              |       |       |       |
-
+    
       ```bash
       CUDA_VISIBLE_DEVICES=1 python train6_CCV_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150
       ```
 
-      
+
+​      
 
 - view dependency on caltech101_7
 
@@ -183,3 +184,30 @@
     - ![image-20241021172626936](/Users/baoshifeng/Library/Application Support/typora-user-images/image-20241021172626936.png)
   - Integrating Vision-Language Semantic Graphs in Multi-View Clustering
     - 
+
+
+
+
+
+ CUDA_VISIBLE_DEVICES=1 python /mnt/sda/baosf/MSC-MVC/train6_caltech_7_2view_sota.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150 --n-steps 20
+
+caltech2view
+
+Epoch 360 Loss:1.276662
+ACC = 0.7286 NMI = 0.6631 PUR=0.7636
+Epoch 361 Loss:1.219858
+ACC = 0.7464 NMI = 0.6827 PUR=0.7750
+
+bbcsport
+
+CUDA_VISIBLE_DEVICES=1 python /mnt/sda/baosf/MSC-MVC/train6_citeseer_sota.py --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 150 --n-steps 15
+
+Epoch 157 Loss:0.296050
+ACC = 0.9320 NMI = 0.8202 PUR=0.9320
+
+
+
+caltech-all
+
+Epoch 360 Loss:1.550424
+ACC = 0.3261 NMI = 0.3664 PUR=0.3315
