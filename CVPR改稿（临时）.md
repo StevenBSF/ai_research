@@ -150,6 +150,15 @@ For the first limitation, we establish causal-based connections between the data
 # 视频demo稿子
 
 - Multi-view clustering is a task that uses different types of features from multiple views or data sources to find patterns and relationships in the data, while combining information from each view to improve clustering results. A central challenge in multi-view clustering involves effectively utilizing the semantic information from different views to self-supervisedly partition the data into distinct and unrelated groups. Recent works are primarily based on deep learning, which, despite their strengths, have notable limitations. First, they often rely on correlated patterns from a statistical perspective, which might be spurious connections. Second, due to variations across views, these models may overemphasize some dominant views or struggle to integrate complementary information effectively, resulting in view dependency. In real-world settings, this approach causes models to overly rely on certain specific views of the data, disregarding the original nature of the multi-view data and ultimately diverging from the essence of multi-view learning.
+- 如图所示，c、s、u表示causal factors。c表示content，s表示style，u表示noise。
+- 对于图中的例子，content表示共同的聚类信息，比如Dog，对于第一个view中的style可以表示为real-world，以及狗的品种Golden Retriever，对于第二个view中的style可以表示为Cartoon-style以及狗的品种Poodle。直观上理解而言，他们各自保留的风格信息对聚类仍保留一定语义信息，因此需要对其进行提取语义特征。
+- 接下来请看我们提出的Causal Structural Model for Multi-view Clustering。
+- 为了消除statistical spurious connections，我们需要进行transition from the statistical dependence $P(\mathbf{H}^v,Y^C)$ between the input and clustering clusters towards minimizing the gap between $P(\mathbf{H}^v)$ and $P(\mathbf{H}^v|Y^C)$, \ie,
+  \begin{equation}
+  \label{eq:minP}
+     \min \sum_{v=1}^V \|P(\mathbf{H}^v) - P(\mathbf{H}^v|Y^C) \|,
+  \end{equation}
+  where $Y^C$ denotes the clustering clusters.
 
 
 
