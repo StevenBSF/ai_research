@@ -143,3 +143,15 @@ $$\mathbf{Z}_c^v =&\ p^v_{1:|c^v|}(\mathbf{H}^{v}) \\
 
 For the first limitation, we establish causal-based connections between the data and the clustering task, leveraging  Structural Causal Model to infer essential connections（我们对于limitation2改进的方法） and thus alleviate the impact of biases or noise（limitation2改进的结果）. For the second limitation, we construct causal content-style features from an intra-view perspective while considering cross-view clustering information. This dual approach aligns causal content from both perspectives and simultaneously accounts for causal style discrepancies, enabling an adaptive balance between common and differential clustering information across views, thereby significantly alleviating performance jitter and effectively mitigating view dependency.
 
+
+
+
+
+# 视频demo稿子
+
+- Multi-view clustering is a task that uses different types of features from multiple views or data sources to find patterns and relationships in the data, while combining information from each view to improve clustering results. A central challenge in multi-view clustering involves effectively utilizing the semantic information from different views to self-supervisedly partition the data into distinct and unrelated groups. Recent works are primarily based on deep learning, which, despite their strengths, have notable limitations. First, they often rely on correlated patterns from a statistical perspective, which might be spurious connections. Second, due to variations across views, these models may overemphasize some dominant views or struggle to integrate complementary information effectively, resulting in view dependency. In real-world settings, this approach causes models to overly rely on certain specific views of the data, disregarding the original nature of the multi-view data and ultimately diverging from the essence of multi-view learning.
+
+
+
+
+

@@ -1,0 +1,7 @@
+# 视频demo稿子
+
+- Multi-view clustering is a task that uses different types of features from multiple views or data sources to find patterns and relationships in the data, while combining information from each view to improve clustering results. A central challenge in multi-view clustering involves effectively utilizing the semantic information from different views to self-supervisedly partition the data into distinct and unrelated groups. Recent works are primarily based on deep learning, which, despite their strengths, have notable limitations. First, they often rely on correlated patterns from a statistical perspective, which might be spurious connections. Second, due to variations across views, these models may overemphasize some dominant views or struggle to integrate complementary information effectively, resulting in view dependency. In real-world settings, this approach causes models to overly rely on certain specific views of the data, disregarding the original nature of the multi-view data and ultimately diverging from the essence of multi-view learning.
+- 如图所示，Y to the power of C表示聚类目标任务，虚线箭头表示statistical correlations。
+
+- 为了解决statistical correlation带来的spurious connections的问题，我们引入了causal mechanisms。对于多视角聚类任务建立Structural Causal Models，建立更为本质的因果连接
+- To address the issue of spurious connections caused by statistical correlations, we introduce causal mechanisms. For multi-view clustering tasks, we construct Structural Causal Models to establish more intrinsic causal connections.如图所示，c、s、u都表示为因果变量。c表示content，s表示style，u表示noise。
