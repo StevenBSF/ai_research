@@ -147,6 +147,211 @@ For the first limitation, we establish causal-based connections between the data
 
 
 
+# 算法复杂度分析
+
+- 在本节中，我们系统地分析了所提出的多视角聚类算法的计算复杂性。我们从Intra-view Content-Style Extraction、Cross-view Content Consistency、Causality-based Contrasive Learning三个阶段逐步分析。
+
+- 在视角内内容与风格特征提取阶段，特征扰动步骤用于对初步特征引入微小随机变化，此过程涉及均值和标准差计算、噪声生成以及特征变换，其复杂度为 \(O(Nd)\)。由于复杂度对样本数 \(N\) 呈线性增长，这一部分计算成本相对较低。其次，DiffMapping()操作捕获样本之间的关联关系，以进一步解耦内容和风格特征。具体而言，该过程需要进行 \(N \times d\) 和 \(d \times N\) 矩阵乘法以计算权重，随后生成大小为 \(N \times N\) 的注意力矩阵并进行Softmax归一化操作，最终计算差异特征。由于涉及到 \(N\) 样本间的成对交互，矩阵乘法的复杂度为 \(O(N^2d)\)。此外，为了进一步约束内容和风格特征的解耦，算法通过正交性约束强制两类特征在向量空间中彼此独立。这一过程需要计算内容特征和风格特征矩阵的内积，即 \(N \times d\) 矩阵与 \(d \times N\) 矩阵的乘法，复杂度为 \(O(N^2d)\)。所以视角内内容与风格特征提取阶段的总复杂度由差分映射的二次复杂度主导。在单视角情况下，复杂度为 \(O(N^2d)\)，当扩展到 \(V\) 个视角时，总复杂度为 \(O(VN^2d)\)。
+
+- 在跨视角内容一致性阶段，首先，特征映射用于生成跨视角一致性的标签，其复杂度为 \( O(Nd) \)。随后，通过计算所有视角对的内容一致性差异来完成跨视角对齐。由于视角对的数量为 \( \frac{V(V - 1)}{2} \)，因此该步骤的复杂度为 \( O(V^2Nd) \)。
+
+- 在因果对比学习阶段，算法通过多个关键步骤进一步优化特征表示。首先，通过加权与拼接操作生成统一的特征表示，其复杂度为 \( O(VNd) \)。接着，计算样本间的相似度矩阵，其复杂度为 \( O(N^2d) \)。基于相似度矩阵构建伪标签图时，复杂度进一步上升至 \( O(N^2C) \)，其中 \( C \) 表示聚类类别数。最后，计算伪标签图上的对比损失，其复杂度为 \( O(N^2) \)。整体而言，对比学习阶段的单视角复杂度为 \( O(N^2d) \)，扩展到 \( V \) 个视角时，总复杂度为 \( O(VN^2d) \)。
+
+  综合上述分析，算法的总体复杂度由视角内特征提取和因果对比学习阶段主导，均对样本数 \( N \) 呈现二次增长特性，因此总体复杂度为 \( O(VN^2d) \),而V通常远小于N，所以总体复杂度为O(N^2d).
+
+
+
+
+
+# 证明
+
+以下是提取的文字内容：
+
+以下是提取的文字内容：
+
+---
+
+**Definition 4.1 (Block-identifiability).** We say that the true content partition \( c = f^{-1}(x)_{1:n_c} \) is block-identified by a function \( g : \mathcal{X} \to \mathcal{Z} \) if the inferred content partition \( \hat{c} = g(x)_{1:n_c} \) contains all and only information about \( c \), i.e., if there exists an invertible function \( h : \mathbb{R}^{n_c} \to \mathbb{R}^{n_c} \) such that \( \hat{c} = h(c) \).
+
+Theorem 4.2 (Identifying content with a generative model). Consider the data generating process described in § 3, i.e., the pairs (x, x̃) of original and augmented views are generated according to (2) and (3) with \( p_{z̃|z} \) as defined in Assumptions 3.1 and 3.2. Assume further that:
+
+（i）\( f : Z \to X \) is smooth and invertible with smooth inverse (i.e., a diffeomorphism);
+
+  (ii)\( p_z \) is a smooth, continuous density on \( Z \) with \( p_z(z) > 0 \) almost everywhere;
+
+  (iii) For any \( l \in \{1, ..., n_s\} \), there exists \( A \subseteq \{1, ..., n_s\} \) such that \( l \in A \), \( p_A(A) > 0 \); \( p_{s_A|s_A} \) is smooth with respect to both \( s_A \) and \( \tilde{s}_A \); and for any \( s_A \), \( p_{\tilde{s}_A|s_A}(\cdot | s_A) > 0 \) in some open, non-empty subset containing \( s_A \).
+
+If, for a given \( n_s \) (\( 1 \leq n_s < n \)), a generative model \( (\hat{p}_z, \hat{p}_A, \hat{p}_{\tilde{s}_A | s_A}, \hat{f}) \) assumes the same generative process (§ 3), satisfies the above assumptions (i)-(iii), and matches the data likelihood,
+\[
+p_{x, \tilde{x}}(x, \tilde{x}) = \hat{p}_{x, \tilde{x}}(x, \tilde{x}), \quad \forall (x, \tilde{x}) \in \mathcal{X} \times \mathcal{X},
+\]
+then it block-identifies the true content variables via \( g = \hat{f}^{-1} \) in the sense of Defn. 4.1.
+
+
+
+**Proof.** The proof consists of two main steps.
+
+In the first step, we use assumption (i) and the matching likelihoods to show that the representation \( \hat{z} = g(x) \) extracted by \( g = \hat{f}^{-1} \) is related to the true latent \( z \) by a smooth invertible mapping \( h \), and that \( \hat{z} \) must satisfy invariance across \( (x, \tilde{x}) \) in the first \( n_c \) (content) components almost surely (a.s.) with respect to (w.r.t.) the true generative process.
+
+In the second step, we then use assumptions (ii) and (iii) to prove (by contradiction) that \( \hat{c} := \hat{z}_{1:n_c} = h(z)_{1:n_c} \) can, in fact, only depend on the true content \( c \) and not on the true style \( s \), for otherwise the invariance established in the first step would have been violated with probability greater than zero.
+
+To provide some further intuition for the second step, the assumed generative process implies that \( (c, s, \tilde{s}) | A \) is constrained to take values (a.s.) in a subspace \( \mathcal{R} \) of \( C \times S \times \tilde{S} \) of dimension \( n_c + n_s + |A| \) (as opposed to dimension \( n_c + 2n_s \) for \( C \times S \times \tilde{S} \)). In this context, assumption (iii) implies that \( (c, s, \tilde{s}) | A \) has a density with respect to a measure on this subspace equivalent to the Lebesgue measure on \( \mathbb{R}^{n_c + n_s + |A|} \). This equivalence implies, in particular, that this "subspace measure" is strictly positive: it takes strictly positive values on open sets of \( \mathcal{R} \) seen as a topological subspace of \( C \times S \times \tilde{S} \). These open sets are defined by the induced topology: they are the intersection of the open sets of \( C \times S \times \tilde{S} \) with \( \mathcal{R} \). An open set \( B \) of \( \mathcal{V} \) on which \( p(c, s, \tilde{s} | A) > 0 \) then satisfies \( P(B | A) > 0 \). We look for such an open set to prove our result.
+
+**Step 1.** From the assumed data generating process described in § 3—in particular, from the form of the model conditional \( \hat{p}_{\tilde{z} | z} \) described in Assumptions 3.1 and 3.2—it follows that:
+\[
+g(x)_{1:n_c} = g(\tilde{x})_{1:n_c} \tag{6}
+\]
+a.s., i.e., with probability one, w.r.t. the model distribution \( \hat{p}_{x, \tilde{x}} \).
+
+Due to the assumption of matching likelihoods, the invariance in (6) must also hold (a.s.) w.r.t. the true data distribution \( p_{x, \tilde{x}} \).
+
+Next, since \( f, \hat{f} : \mathcal{Z} \to \mathcal{X} \) are smooth and invertible functions by assumption (i), there exists a smooth and invertible function \( h = g \circ f : \mathcal{Z} \to \mathcal{Z} \) such that:
+\[
+g = h \circ f^{-1}. \tag{7}
+\]
+
+Substituting (7) into (6), we obtain (a.s. w.r.t. \( p \)):
+\[
+\hat{c} := \hat{z}_{1:n_c} = g(x)_{1:n_c} = h(f^{-1}(x))_{1:n_c} = h(f^{-1}(\tilde{x}))_{1:n_c}. \tag{8}
+\]
+
+Substituting \( z = f^{-1}(x) \) and \( \tilde{z} = f^{-1}(\tilde{x}) \) into (8), we obtain (a.s. w.r.t. \( p \)):
+\[
+\hat{c} = h(z)_{1:n_c} = h(\tilde{z})_{1:n_c}. \tag{9}
+\]
+
+It remains to show that \( h(\cdot)_{1:n_c} \) can only be a function of \( c \), i.e., does not depend on any other (style) dimension of \( z = (c, s) \).
+
+**Step 2.** Suppose for a contradiction that \( h_c(c, s) := h(c, s)_{1:n_c} = h(z)_{1:n_c} \) depends on some component of the style variable \( s \):
+\[
+\exists l \in \{1, ..., n_s\}, (c^*, s^*) \in C \times S, \quad \text{s.t.} \quad \frac{\partial h_c}{\partial s_l}(c^*, s^*) \neq 0, \tag{10}
+\]
+that is, we assume that the partial derivative of \( h_c \) w.r.t. some style variable \( s_l \) is non-zero at some point \( z^* = (c^*, s^*) \in \mathcal{Z} = C \times S \).
+
+Since \( h \) is smooth, so is \( h_c \). Therefore, \( h_c \) has continuous (first) partial derivatives.
+
+By continuity of the partial derivative,
+\[
+\frac{\partial h_c}{\partial s_l}
+\]
+must be non-zero in a neighbourhood of \( (c^*, s^*) \), i.e.,
+\[
+\exists \eta > 0 \quad \text{s.t.} \quad s_l \mapsto h_c(c^*, (s_{-l}^*, s_l)) \quad \text{is strictly monotonic on} \quad (s_l^* - \eta, s_l^* + \eta). \tag{11}
+\]
+where \( s_{-l} \in S_{-l} \) denotes the vector of remaining style variables except \( s_l \).
+
+Next, define the auxiliary function \( \psi : C \times S \times S \to \mathbb{R}_{\geq 0} \) as follows:
+\[
+\psi(c, s, \tilde{s}) := |h_c(c, s) - h_c(c, \tilde{s})| \geq 0. \tag{12}
+\]
+To obtain a contradiction to the invariance condition (9) from Step 1 under assumption (10), it remains to show that \( \psi \) from (12) is strictly positive with probability greater than zero (w.r.t. \( p \)).
+
+First, the strict monotonicity from (11) implies that:
+\[
+\psi(c^*, (s_{-l}^*, s_l), (s_{-l}^*, \tilde{s}_l)) > 0, \quad \forall (s_l, \tilde{s}_l) \in (s_l^* - \eta, s_l^* + \eta) \times (s_l^* - \eta, s_l^* + \eta). \tag{13}
+\]
+
+Note that in order to obtain the strict inequality in (13), it is important that \( s_l \) and \( \tilde{s}_l \) take values in disjoint open subsets of the interval \( (s_l^* - \eta, s_l^* + \eta) \) from (11).
+
+Since \( \psi \) is a composition of continuous functions (absolute value of the difference of two continuous functions), \( \psi \) is continuous.
+
+Consider the open set \( \mathbb{R}_{>0} \), and recall that, under a continuous function, pre-images (or inverse images) of open sets are always open.
+
+Applied to the continuous function \( \psi \), this pre-image corresponds to an open set:
+\[
+U \subseteq C \times S \times S \tag{14}
+\]
+in the domain of \( \psi \) on which \( \psi \) is strictly positive.
+
+Moreover, due to (13):
+\[
+\{c^*\} \times \left(\{s_{-l}^*\} \times (s_l^*, s_l^* + \eta)\right) \times \left(\{s_{-l}^*\} \times (s_l^* - \eta, s_l^*)\right) \subseteq U. \tag{15}
+\]
+so \( U \) is non-empty.
+
+Next, by assumption (iii), there exists at least one subset \( A \subseteq \{1, ..., n_s\} \) of changing style variables such that \( l \in A \) and \( p_A(A) > 0 \); pick one such subset and call it \( A \).
+
+Then, also by assumption (iii), for any \( s_A \in S_A \), there is an open subset \( \mathcal{O}(s_A) \subseteq S_A \) containing \( s_A \), such that \( p_{\tilde{s}_A | s_A}(\cdot | s_A) > 0 \) within \( \mathcal{O}(s_A) \).
+
+Define the following space:
+\[
+\mathcal{R}_A := \{(s_A, \tilde{s}_A) : s_A \in S_A, \tilde{s}_A \in \mathcal{O}(s_A)\}, \tag{16}
+\]
+and, recalling that \( A^c = \{1, ..., n_s\} \setminus A \) denotes the complement of \( A \), define:
+\[
+\mathcal{R} := C \times S_{A^c} \times \mathcal{R}_A, \tag{17}
+\]
+which is a topological subspace of \( C \times S \times S \).
+
+By assumptions (ii) and (iii), \( p_z \) is smooth and fully supported, and \( p_{\tilde{s}_A | s_A}(\cdot | s_A) \) is smooth and fully supported on \( \mathcal{O}(s_A) \) for any \( s_A \in S_A \). Therefore, the measure \( \mu_{(c, s_{A^c}, s_A, \tilde{s}_A) | A} \) has fully supported, strictly-positive density on \( \mathcal{R} \) w.r.t. a strictly positive measure on \( \mathcal{R} \). In other words, \( p_z \times p_{\tilde{s}_A | s_A} \) is fully supported (i.e., strictly positive) on \( \mathcal{R} \).
+
+Now consider the intersection \( U \cap \mathcal{R} \) of the open set \( U \) with the topological subspace \( \mathcal{R} \).
+
+Since \( U \) is open, by the definition of topological subspaces, the intersection \( U \cap \mathcal{R} \subseteq \mathcal{R} \) is open in \( \mathcal{R} \), (and thus has the same dimension as \( \mathcal{R} \) if non-empty).
+
+Moreover, since \( \mathcal{O}(s_A^*) \) is open containing \( s_A^* \), there exists \( \eta' > 0 \) such that \( \{s_{-l}^*\} \times (s_l^* - \eta', s_l^*) \subseteq \mathcal{O}(s_A^*) \). Thus, for \( \eta'' = \min(\eta, \eta') > 0 \),
+\[
+\{c^*\} \times \{s_{-l}^*\} \times (\{s_A^*\} \times (s_l^*, s_l^* + \eta)) \times (\{s_A^*\} \times (s_l^* - \eta'', s_l^*)) \subseteq \mathcal{R}. \tag{18}
+\]
+
+In particular, this implies that:
+\[
+\{c^*\} \times (\{s_{-l}^*\} \times (s_l^*, s_l^* + \eta)) \times (\{s_{-l}^*\} \times (s_l^* - \eta'', s_l^*)) \subseteq \mathcal{R}. \tag{19}
+\]
+
+Now, since \( \eta'' < \eta \), the LHS of (19) is also in \( U \) according to (15), so the intersection \( U \cap \mathcal{R} \) is non-empty.
+
+In summary, the intersection \( U \cap \mathcal{R} \subseteq \mathcal{R} \):
+
+- is non-empty (since both \( U \) and \( \mathcal{R} \) contain the LHS of (15));
+- is an open subset of the topological subspace \( \mathcal{R} \) of \( C \times S \times S \) (since it is the intersection of an open set, \( U \), with \( \mathcal{R} \));
+- satisfies \( \psi > 0 \) (since this holds for all of \( U \));
+- is fully supported w.r.t. the generative process (since this holds for all of \( \mathcal{R} \)).
+
+As a consequence,
+\[
+\mathbb{P}(\psi(c, s, \tilde{s}) > 0 | A) \geq \mathbb{P}(U \cap \mathcal{R}) > 0, \tag{20}
+\]
+where \( \mathbb{P} \) denotes probability w.r.t. the true generative process \( p \).
+
+Since \( p_A(A) > 0 \), this is a contradiction to the invariance (9) from Step 1.
+
+Hence, assumption (10) cannot hold, i.e., \( h_c(c, s) \) does not depend on any style variable \( s_l \). It is thus only a function of \( c \), i.e., \( \hat{c} = h_c(c) \).
+
+Finally, smoothness and invertibility of \( h_c : C \to C \) follow from smoothness and invertibility of \( h \), as established in Step 1.
+
+This concludes the proof that \( \hat{c} \) is related to the true content \( c \) via a smooth invertible mapping.
+
+
+
+
+
+---
+
+Theorem 4.3 (Identifying content with an invertible encoder). Assume the same data generating process (§ 3) and conditions (i)-(iv) as in Thm. 4.2. Let \( g : \mathcal{X} \to \mathcal{Z} \) be any smooth and invertible function which minimizes the following functional:
+
+\[
+\mathcal{L}_{\text{Align}}(g) := \mathbb{E}_{(x, \tilde{x}) \sim p_{x, \tilde{x}}} \left[ \left\| g(x)_{1:n_c} - g(\tilde{x})_{1:n_c} \right\|_2^2 \right] \quad (4)
+\]
+
+Then \( g \) block-identifies the true content variables in the sense of Definition 4.1.
+
+---
+
+**Theorem 4.4 (Identifying content with discriminative learning and a non-invertible encoder).** Assume the same data generating process (§ 3) and conditions (i)-(iv) as in Thm. 4.2. Let \( g : \mathcal{X} \to (0, 1)^{n_c} \) be any smooth function which minimizes the following functional:
+
+\[
+\mathcal{L}_{\text{AlignMaxEnt}}(g) := \mathbb{E}_{(x, \tilde{x}) \sim p_{x, \tilde{x}}} \left[ \left\| g(x) - g(\tilde{x}) \right\|_2^2 \right] - H(g(x)) \quad (5)
+\]
+
+where \( H(\cdot) \) denotes the differential entropy of the random variable \( g(x) \) taking values in \( (0, 1)^{n_c} \).
+
+Then \( g \) block-identifies the true content variables in the sense of Defn. 4.1.
+
+
+
+
+
 # 视频demo稿子
 
 - Multi-view clustering is a task that uses different types of features from multiple views or data sources to find patterns and relationships in the data, while combining information from each view to improve clustering results. A central challenge in multi-view clustering involves effectively utilizing the semantic information from different views to self-supervisedly partition the data into distinct and unrelated groups. Recent works are primarily based on deep learning, which, despite their strengths, have notable limitations. First, they often rely on correlated patterns from a statistical perspective, which might be spurious connections. Second, due to variations across views, these models may overemphasize some dominant views or struggle to integrate complementary information effectively, resulting in view dependency. In real-world settings, this approach causes models to overly rely on certain specific views of the data, disregarding the original nature of the multi-view data and ultimately diverging from the essence of multi-view learning.

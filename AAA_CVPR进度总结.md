@@ -211,3 +211,5 @@ caltech-all
 
 Epoch 360 Loss:1.550424
 ACC = 0.3261 NMI = 0.3664 PUR=0.3315
+
+ CUDA_VISIBLE_DEVICES=0 python train.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150 --n-steps 20
