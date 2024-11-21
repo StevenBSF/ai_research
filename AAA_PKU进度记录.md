@@ -21,7 +21,15 @@
 - VPT
 
   - ```bash
-    CUDA_VISIBLE_DEVICES=4 python train_prompt.py /data/dataset/baoshifeng/cifar100 --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained
+    CUDA_VISIBLE_DEVICES=5 python train_prompt_tuning.py /data/dataset/baoshifeng/cifar100 --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained
+    ```
+
+  - ```bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=1 python train_prompt_tuning.py /data/dataset/baoshifeng/cifar100 --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained" > train_sz80_noConv.log 2>&1 &
+    ```
+
+  - ```bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=0 python train_prompt_tuning.py  --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained" > train_sz80_noConv.log 2>&1 &
     ```
 
   - 
@@ -61,3 +69,11 @@
   - Gpu2：lr=2e-3
   - GPU3：lr=7e-3
   - GPU4：lr=2e-2
+
+# 11月20日
+
+- GPU5：padsize80 conv可训练
+- GPU1：padsize80 conv不可训练
+- GPU2：padsize160 conv可训练
+- GPU3：padsize240 conv可训练
+- 
