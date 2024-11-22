@@ -352,6 +352,20 @@ Then \( g \) block-identifies the true content variables in the sense of Defn. 4
 
 
 
+
+
+
+
+\textbf{Proposition 1} (Proposition 5 of Zimmermann et al. (2021)). Let $\mathcal{M}, \mathcal{N}$ be simply connected and oriented $C^1$ manifolds without boundaries and $h : \mathcal{M} \to \mathcal{N}$ be a differentiable map. Further, let the random variable $\mathbf{z} \in \mathcal{M}$ be distributed according to $\mathbf{z} \sim p(\mathbf{z})$ for a regular density function $p$, i.e., $0 < p < \infty$. \textbf{If the push-forward $p_{\# h}(\mathbf{z})$ through $h$ is also a regular density, i.e., $0 < p_{\# h} < \infty$, then $h$ is a bijection.} \vspace{1em} \textbf{Theorem 3.2} (Identifiability from a Set of Views). Consider a set of views $\mathbf{x}_V$ satisfying Asm. 2.1, and let $\mathcal{G}$ be a set of content encoders (Defn. 3.1) that minimizes the following objective \[ \mathcal{L}(\mathcal{G}) = \sum_{k < k' \in V} \mathbb{E} \left[\|g_k(\mathbf{x}_k) - g_{k'}(\mathbf{x}_{k'})\|_2\right] - \sum_{k \in V} H(g_k(\mathbf{x}_k)), \] where the expectation is taken w.r.t. $p(\mathbf{x}_V)$ and $H(\cdot)$ denotes differential entropy. \textbf{Then the shared content variable $\mathbf{z}_C := \{\mathbf{z}_j : j \in C\}$ is block-identified (Defn. 2.3) by $g_k \in \mathcal{G}$ for any $k \in V$.}
+
+
+
+
+
+
+
+
+
 # 视频demo稿子
 
 - Multi-view clustering is a task that uses different types of features from multiple views or data sources to find patterns and relationships in the data, while combining information from each view to improve clustering results. A central challenge in multi-view clustering involves effectively utilizing the semantic information from different views to self-supervisedly partition the data into distinct and unrelated groups. Recent works are primarily based on deep learning, which, despite their strengths, have notable limitations. First, they often rely on correlated patterns from a statistical perspective, which might be spurious connections. Second, due to variations across views, these models may overemphasize some dominant views or struggle to integrate complementary information effectively, resulting in view dependency. In real-world settings, this approach causes models to overly rely on certain specific views of the data, disregarding the original nature of the multi-view data and ultimately diverging from the essence of multi-view learning.
@@ -364,8 +378,14 @@ Then \( g \) block-identifies the true content variables in the sense of Defn. 4
      \min \sum_{v=1}^V \|P(\mathbf{H}^v) - P(\mathbf{H}^v|Y^C) \|,
   \end{equation}
   where $Y^C$ denotes the clustering clusters.
+- To eliminate statistical spurious connections, we aim to transition from the statistical dependence between P of H superscript v and Y superscript C —representing the input features and clustering assignments—towards minimizing the difference between P of H superscript v and P of H superscript v given Y superscript C. Specifically, this is achieved by minimizing the sum of the distances across all views, expressed as 右侧的公式。 Here, Y superscript C refers to the clustering assignments. 
+- 从任意两个视角回到我们的所有视角的情形，可以看到对于所有视角我们都进行构建Structual Causal Model。
+- 在建立好对于Multi-View Clustering这个任务的Structual Causal Model之后，我们引入总体方法的模型框架。我们的方法整体分为四个部分，其中我们的重点阐述对于Intra-view Content-Style Extraction、Cross-view Content Consistency和Causality-based Contrasive Learning这三部分的解释。
+- 对于Intra-view Content-Style Extraction，我们将初步获得的特征 H 进行视角内的Gaussian Perturbation，用以获得Perturbed H。
 
-
-
-
+- 之前的SCM是一种逻辑上的建模。为了实现 transitioning from theoretical formalism to a model-level implementation， 我们需要构建 a learnable deep structural mapping network. We therefore introduce a differential approach for dual content-style feature projection, denoted as Differential Mapping. 
+- 在Cross-view Content Consistency阶段， we adopt the approach of using causal content labels to supervise cross-view content consistency. Specifically, we construct the projection function zeta to obtain the label mathbf Y^v 
+-  the key advantage of causal mechanisms, compared to other deep multi-view clustering methods, lies in the handling of features.所以我们from intra-view and cross-view perspectives提取出causal content and style feature之后，we 能够propose a simple yet effective strategy to exploit complementary information by introducing learnable weight parameters  to construct self-adaptive, high-quality unified causal content-style features U。并且我们依次根据Causally unified feature U构建相应的similarity matrix和pseudo label graph用于聚类监督。
+- 在实验方面，Across all nine datasets, our model outperforms all other methods in terms of all three metrics. Notably, for more challenging datasets such as NUS wide, and Caltech-all, our model consistently achieves superior performance across all three metrics. This demonstrates that for more difficult tasks, our model effectively extracts the most essential content features while eliminating irrelevant information, thus enabling a causal understanding from intra-view and cross-view perspectives. It is also noteworthy that for the Caltech datasets, as the number of views increases, CausalMVC shows steady improvements across all three metrics.
+- We propose a novel multi-view clustering model CausalMVC, which introduces causal inference in multi-view clustering. In the Causal Content-Style Feature stage, we analyze multi-view features using a causal mechanism from both intra-view and cross-view perspectives, aiming to achieve consistency in clustering content within and across views while preserving style differentiation. At the Causality-based Contrastive Learning stage, we construct similarity and pseudo-label graphs for contrastive learning by utilizing an adaptive unified feature composed of multi-view causal content-style features. Experimental results validate the advantages of our method over existing multi-view clustering methods.
 
