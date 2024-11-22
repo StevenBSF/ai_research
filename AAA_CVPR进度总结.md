@@ -202,6 +202,8 @@ bbcsport
 
 CUDA_VISIBLE_DEVICES=1 python /mnt/sda/baosf/MSC-MVC/train6_citeseer_sota.py --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 150 --n-steps 15
 
+python train.py --dataname BBCSport --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 3 --n-steps 15
+
 Epoch 157 Loss:0.296050
 ACC = 0.9320 NMI = 0.8202 PUR=0.9320
 
@@ -212,4 +214,6 @@ caltech-all
 Epoch 360 Loss:1.550424
 ACC = 0.3261 NMI = 0.3664 PUR=0.3315
 
- CUDA_VISIBLE_DEVICES=0 python train.py --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 150 --n-steps 20
+python train.py --dataname Caltech101_all --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 55 --tune_epochs 5 --n-steps 20
+
+nohup bash -c "python train.py --dataname Caltech101_all --batch_size 256 --learning_rate 0.001 --mse_epochs 300 --con_epochs 50 --tune_epochs 10 --n-steps 20" > train.log 2>&1 &
