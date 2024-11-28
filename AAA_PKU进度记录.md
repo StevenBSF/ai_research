@@ -29,7 +29,23 @@
     ```
 
   - ```bash
-    nohup bash -c "CUDA_VISIBLE_DEVICES=0 python train_prompt_tuning.py  --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained" > train_sz80_noConv.log 2>&1 &
+    nohup bash -c "CUDA_VISIBLE_DEVICES=2 python train_prompt_tuning.py  --model vig_b_224_gelu_vpt --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained" > train_sz160_cub.log 2>&1 &
+    ```
+
+  - ``` bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=2 python train_prompt_tuning.py  --model vig_b_224_gelu --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-3 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt --pretrained" > train_sz160_cub.log 2>&1 &
+    ```
+
+  - ```bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=2 python train_prompt_tuning.py  --model vig_b_224_gelu --sched cosine --epochs 100 --opt adamw -j 8 --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --repeated-aug --remode pixel --reprob 0.25 --amp --lr 1e-4 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt " > train_raw_cub.log 2>&1 &
+    ```
+
+  - ```bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=2 python train_prompt_tuning.py  --model vig_b_224_gelu_vpt --sched cosine --epochs 200 --opt adamw --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --remode pixel --reprob 0.25 --amp --lr 5e-4 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt" > train_sz240_cub.log 2>&1 &
+    ```
+
+  - ```bash
+    nohup bash -c "CUDA_VISIBLE_DEVICES=2 python train_prompt_tuning.py  --model vig_b_224_gelu --sched cosine --epochs 150 --opt adamw --warmup-lr 1e-6 --mixup .8 --cutmix 1.0 --model-ema --model-ema-decay 0.999 --aa rand-m9-mstd0.5-inc1 --color-jitter 0.4 --warmup-epochs 20 --opt-eps 1e-8 --remode pixel --reprob 0.25 --amp --lr 1e-4 --weight-decay .05 --drop 0 --drop-path .1 -b 128 --output /data/ckpt/baoshifeng/vig_pytorch/saved_models_prompt " > train_raw_cub.log 2>&1 &
     ```
 
   - 
