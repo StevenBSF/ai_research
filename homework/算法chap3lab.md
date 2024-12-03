@@ -41,14 +41,12 @@
 
 第一行包含一个整数，为最大价值。
 
-第二行为最优组合
-
 ##### 1.4 输入输出样例
 
 | bag.in | bag.out |
 | ------ | ------- |
 | 70 3   | 3       |
-| 71 100 | 2 3     |
+| 71 100 |         |
 | 69 1   |         |
 | 1 2    |         |
 
@@ -150,76 +148,6 @@ int main() {
 - **时间复杂度**：每个物品在背包容量范围内进行转移计算，总共需要 $O(N \times V)$。
 - **空间复杂度**：使用二维数组存储状态，总共需要 $O(N \times V)$​。
 
-此外，为了实现求解最优组合，我们进一步将代码修改如下：
-```c++
-#include <bits/stdc++.h>
-using namespace std;
-
-// 定义最大容量和物品数量范围
-const int MAX_N = 2500;
-const int MAX_V = 2500;
-
-// dp[i][j] 表示前 i 件物品放入容量为 j 的背包的最大价值
-int dp[MAX_N + 1][MAX_V + 1];
-
-// w[i] 和 v[i] 分别表示第 i 件物品的重量和价值
-int w[MAX_N + 1], v[MAX_N + 1];
-
-// 记录是否选择了某件物品
-bool selected[MAX_N + 1][MAX_V + 1];
-
-int main() {
-	int V, N; // 背包容量 V 和物品数量 N
-	cin >> V >> N;
-	
-	// 输入每件物品的重量和价值
-	for (int i = 1; i <= N; i++) {
-		cin >> w[i] >> v[i];
-	}
-	
-	// 动态规划求解最大价值
-	for (int i = 1; i <= N; i++) {
-		for (int j = 0; j <= V; j++) {
-			if (j < w[i]) {
-				dp[i][j] = dp[i - 1][j]; // 无法放入当前物品
-			} else {
-				if (dp[i - 1][j] > dp[i - 1][j - w[i]] + v[i]) {
-					dp[i][j] = dp[i - 1][j];
-					selected[i][j] = false; // 当前物品未被选择
-				} else {
-					dp[i][j] = dp[i - 1][j - w[i]] + v[i];
-					selected[i][j] = true; // 当前物品被选择
-				}
-			}
-		}
-	}
-	
-	// 输出最大价值
-	cout << dp[N][V] << endl;
-	
-	// 回溯找出最优组合
-	vector<int> chosen_items; // 存储被选择的物品编号
-	int capacity = V;
-	for (int i = N; i >= 1; i--) {
-		if (selected[i][capacity]) { // 如果选择了第 i 件物品
-			chosen_items.push_back(i);
-			capacity -= w[i]; // 减少剩余容量
-		}
-	}
-	
-	// 输出最优组合
-	for (int i = chosen_items.size() - 1; i >= 0; i--) { // 从后往前输出
-		cout << chosen_items[i] << (i == 0 ? "" : " ");
-	}
-	cout << endl;
-	
-	return 0;
-}
-
-```
-
-
-
 ------
 
 #### 4. 改进算法实现
@@ -296,86 +224,6 @@ int main() {
 - **时间复杂度**：$O(N \times V)$，与基础版本一致。
 - **空间复杂度**：使用一维数组存储状态，总共需要 $O(V)$​。
 
-
-
-为了求出最优组合，我们进一步得到如下版本：
-
-```c++
-#include <bits/stdc++.h>
-using namespace std;
-
-const int MAX_V = 2500; // 背包最大容量
-int f[MAX_V + 1];       // f[j] 表示容量为 j 时的最大价值
-int w[2501], v[2501];   // 物品重量和价值
-bool choose[2501][MAX_V + 1]; // choose[i][j] 表示是否选择物品 i 达到容量 j 时的最大价值
-
-/*
-  函数功能：求解 0-1 背包问题的最大价值和选择的物品
-  函数形参：物品数量 n 和背包容量 m
-  函数返回值：返回最大价值
- */
-int fun(int n, int m) {
-	// 遍历每件物品
-	for (int i = 1; i <= n; i++) {
-		// 逆序遍历容量，避免重复使用物品
-		for (int j = m; j >= w[i]; j--) {
-			if (f[j - w[i]] + v[i] > f[j]) {
-				f[j] = f[j - w[i]] + v[i];
-				choose[i][j] = true; // 标记选择了物品 i
-			} else {
-				choose[i][j] = false;
-			}
-		}
-	}
-	return f[m];
-}
-
-/*
-  函数功能：回溯最优组合
-  函数形参：物品数量 n 和背包容量 m
-  函数返回值：返回一个包含选中物品索引的列表
- */
-vector<int> getItems(int n, int m) {
-	vector<int> result;
-	int capacity = m;
-	
-	for (int i = n; i >= 1; i--) {
-		if (choose[i][capacity]) {
-			result.push_back(i); // 记录选中的物品
-			capacity -= w[i];   // 减少背包剩余容量
-		}
-	}
-	
-	return result;
-}
-
-int main() {
-	int V, N; // 背包容量和物品数量
-	cin >> V >> N;
-	
-	// 输入物品的重量和价值
-	for (int i = 1; i <= N; i++) {
-		cin >> w[i] >> v[i];
-	}
-	
-	// 求解最大价值
-	int maxValue = fun(N, V);
-	cout << maxValue << endl;
-	
-	// 求解最优组合
-	vector<int> items = getItems(N, V);
-	for (int i = items.size() - 1; i >= 0; i--) { // 按输入顺序输出
-		cout << items[i] << " ";
-	}
-	cout << endl;
-	
-	return 0;
-}
-
-```
-
-
-
 ------
 
 #### 5. 实现结果
@@ -395,7 +243,6 @@ int main() {
 
 ```bash
 220
-2 3
 ```
 
 ##### 5.2 输入：
@@ -413,7 +260,6 @@ int main() {
 
 ```bash
 230
-1 2 4
 ```
 
 ##### 5.3 输入：
@@ -436,7 +282,6 @@ int main() {
 
 ```bash
 210
-4 6
 ```
 
 
