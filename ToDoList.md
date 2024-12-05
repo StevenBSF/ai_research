@@ -1,4 +1,4 @@
-# week 14
+# Week 14
 
 - 12.4
   - ICME
