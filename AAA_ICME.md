@@ -1,5 +1,178 @@
 https://openreview.net/forum?id=5XwylUAmnY&referrer=%5Bthe%20profile%20of%20Zhangqi%20Jiang%5D(%2Fprofile%3Fid%3D~Zhangqi_Jiang1)
 
+
+
+
+
+- Hierarchical Prompt-Guided Multi-View Clustering
+- (Multi-Level) Prompt-Guided Multi-View Clustering via/with Hierarchical Circuit Alignment
+
+- Hierarchical Prompt-Guided Circuit Alignment for Multi-View Clustering
+
+- HITORIE: **HI**erarchical Promp**T** Learning f**O**r Multi-View Clustering with Ci**R**cuit Al**I**gnm**E**nt
+
+- HTRE: **H**ierarchical Promp**T**-Guided Ci**R**cuit Alignm**E**nt for Multi-View Clustering
+- HitorieMVC
+
+# Abstract
+
+Multi-view clustering 通过explore 不同视角数据的语义信息以获得更好的表现性能。Recent works 常常通过融合不同视角信息和来考虑跨视角Heterogeneous Features.然而，这种侧重全局特征的对齐与分布匹配，对各维度特征所代表的语义信息缺乏精细的关注与控制。这种仅在隐空间层面进行粗粒度的对齐会导致对部分特征维度的过度依赖或局部最优。为了解决这个问题，我们提出了a new model 名为Hierarchical Prompt-Guided Multi-View Clustering(HiPMVC).为了对于语义信息进行细粒度的精细控制，我们在Multi-view Clustering任务中引入了prompt learning，从input-level和embedding level处理多视图Heterogeneous信息。而为了解决无监督对齐导致的局部最优问题，我们引入了hierarchical circuit alignment这个方法，实现实现更稳定、全局的分布一致性。
+
+
+
+
+
+# Introduction
+
+In recent years，在多媒体数据激增的背景下Multi-View Clustering 在无监督领域越来越备受关注。很多工作聚焦于如何挖掘多视角数据的共同语义信息，以获得更好的聚类效果。目前现有的方法大致可以分为两类，traditional multi-view clustering和 deep multi-view clustering.
+
+与traditional methods相比，deep methods最大的优势在于能够有效提取输入数据的有效表征。目前现有的deep methods中，对于表征的提取可以大致分为distinct MLP-based methods和GNN-based methods，前者常利用VAE获得有效表征，后者通过对于输入数据利用kNN建图后利用GCN架构提取特征。对于不同视角下的特征对齐，contrasive learning成为在MVC这个任务上广受欢迎的方法。例如，dealmvc通过构建对比损失约束不同样本对于with similar features的一致性。GCFAgg通过structure-guided contrasive learning 来引导聚类结果。此外，很多deep methods通过将不同视角下的特征进行融合的方式获得更好的统一表示。
+
+尽管这些方法在MVC任务中已经取得了显著的improvement，但是，对于一些较难的数据集上，现有方法对各维度特征所代表的语义信息缺乏精细的关注与控制。很多deep methods常常通过融合不同视角信息和来考虑跨视角Heterogeneous Features.并且仅在隐空间层面基于对比学习进行粗粒度的对齐会导致对部分特征维度的相似性产生过度依赖，导致出现局部最优的情况。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Related Work
+
+目前已有方法中
+
+
+
+- prompt learning
+
+- prompt learning 最初发源自NLP任务，旨在输入文本中添加一组可学习的提示参数，使得模型能够在下游任务中适应性微调。在最近几年的研究中，很多工作将提示学习的思想迁移至视觉任务中，旨在用较少的参数量达到类似于文本提示的下游任务适应性效果。Visual prompt旨在通过给输入的图片的周围添加可学习的提示参数后进行预训练模型中训练。Visual Prompt Tuning 通过在ViT上每层backbone前添加token级别的prompt来微调模型。
+  而对于Multi-view clustering任务中，我们引入prompt learning的思想，从instance-level和embedding-level同时添加prompt，用于适应性地对于输入数据的有效语义信息进行细粒度的控制。
+
+  
+
+
+
+
+
+# Methodology
+
+In this section，我们详细展开讲述our model HiPMVC的方法细节。如图1所示，对于输入数据我们从instance-level添加prompt。经过encoder层得到的特征之后添加view-specific embedding prompt和global prompt。其中处理后的特征和global prompt经过mapping encoder之后映射到统一的特征空间。最后通过伪标签分类器产生的多层级标签进行Hierarchical circuit alignment。
+
+- instance-level  prompt learning
+
+为了有效地初步提取输入数据的语义特征，我们对于每一个视角的每一个输入样本，相应地添加可学习的提示。
+
+对于多视角输入数据$\{ \mathbf{X}^v \in \mathbb{R}^{N \times D_v} \}^{V}_{v=1}$, where $N$ denotes the number of samples, $V$ represents the number of views, and $D_v$ is the dimensionality of the $v$-th view，我们设计了对于每个视角的原始输入的prompt encoder的MLP网络$\mathcal{M}_{Local}(\cdot)$，用于提取视图的特征的一种提示信息$\mathbf{P}^{v}_{L}$，表示为：
+
+$$\mathbf{P}^{v}_{L} = \mathcal{M}_{Instance}(\mathbf{X}^{v})$$
+
+where $\mathbf{P}^{v}_{L} \in \mathbb{R}^{N \times D_v}$,在样本数量和维度上和原始输入$\mathbf{X}^v$保持一致，表明一种基于原始数据的一种提示性操作。而为了提取有效语义信息，我们将$\mathbf{X}^v$和$\mathbf{P}^{v}_{L}$一同输入至特征embedding网络，获得preliminary feature $\mathbf{Z}^{v}$，其表示为：
+
+$$\mathbf{Z}^{v} = E_{shallow}(\mathbf{X}^{v}+\mathbf{P}^{v}_{L})$$
+
+，where $\mathbf{Z}^{v}_{L} \in \mathbb{R}^{N \times D}$.为了验证提示操作的普遍性作用，我们对于$E_{shallow}(\cdot)$有两种设计：distinct MLP encoder和GCN encoder，其效果我们会在experiment section中阐述。
+
+
+
+
+
+- embedding-level prompt learning
+
+目前大多现有的方法中对于提取的特征的处理，大致分为对于单视角的处理和cross-view的多视角融合处理。而仅用类似于注意力机制的融合，由于对于模型规模的限制和无监督任务的特性，在共同语义提取上缺乏细粒度的信号的引导。因此，我们的方法提出了view-specific local prompts $\mathbf{P}^{v}_{L}$和global prompts$\mathbf{P}_{G}$。其中,每个视角下的$\mathbf{P}^{v}_{L}$用于捕捉关键性的embedding-level的聚类信息。$\mathbf{P}_{G}$用于捕捉不同实例间的共同的有效聚类信息。
+
+类似于instance-level prompt learning对于prompt提取的设计，我们分别对于view-specific local prompts$\mathbf{P}^{v}_{L}$和global prompts$\mathbf{P}_{G}$设计相应的轻量级网络$\mathcal{M}_{Local}(\cdot)$和$\mathcal{M}_{Global}(\cdot)$。对于$\mathbf{P}^v_{L}$的提取如下所示：
+
+$$\mathbf{P}^{v}_{L} = \mathcal{M}^{v}_{Local}(\mathbf{X}^{v})$$
+
+where $\mathbf{P}^{v}_{L} \in \mathbb{R}^{N \times D}$。而对于为了获得global prompts$\mathbf{P}_{G}$，我们需要考虑视角之间的融合，因此我们引入了一组可学习的适应性参数weight parameters $\{w^{1}_{\alpha}, w^{2}_{\alpha}, ..., w^{v}_{\alpha} \}, v \in V$, 来动态调整融合信息。其表示如下：
+
+$$\mathbf{P}_{G} = \mathcal{M}_{Global}(\sum ^{V}_{v=1}\dfrac{e^{w^{v}_{\alpha}}}{\sum ^{V}_{k=1}e^{w^{k}_{\alpha}}}\mathbf{X}^v)$$
+
+where $\mathbf{P}^{v}_{L} \in \mathbb{R}^{N \times D}$。构建好了local和global prompts，我们的方法的下一步是将preliminary feature
+$\mathbf{Z}^v$与提示一同输入至更高level的聚类语义空间中：
+
+$$\mathbf{H}^{v} = E^{v}_{Mapping}(\mathbf{Z}^{v}+\lambda \mathbf{P}_{G} + (1-\lambda)\mathbf{P}^{v}_{L} )$$
+
+where $\lambda$是超参数。此外，inspired by DealMVC，我们利用基于注意力机制对于各视角的$\mathbf{H}^{v}$进行融合，得到unified feature$\mathbf{P}_{\mathbf{U}}$:
+
+$$\mathbf{W}^v= \texttt{Attn}(\mathbf{H}^{v})\odot \texttt{FFN}(\mathbf{H}^{v})$$
+
+$$\mathbf{H}_{\mathbf{U}}= \sum^{V}_{v=1} \mathbf{H}^v \mathbf{W}^v$$
+
+Where $\mathbf{W}^v \in \mathbb{R}^{D \times D},\mathbf{H}_{\mathbf{U}} \in \mathbb{R}^{N \times D}$,$\texttt{Attn}(\cdot)$为注意力机制网络，$\texttt{FFN}(\cdot)$为非线性MLP网络。
+
+而对于global prompts，由于其本身具有一定的共同聚类语义信息，为了进一步细粒化潜在的聚类信息，我们同样利用与$E^{v}_{Mapping}(\cdot)$具有相同架构的$E^{P}_{Mapping}(\cdot)$，将global prompts一同映射至更高level的聚类语义空间中。其表示如下：
+
+$$\mathbf{H}_{\mathbf{P}} = E^{P}_{Mapping}(\mathbf{P}_{G})$$
+
+- 
+- Hierarchical circuit alignment
+
+考虑到多视角输入数据存在特征层面的分布差异，已经对于聚类结果层面各视角的聚类结果的差异，因此我们对于这两个层面都需要进行跨视角对齐。而为了获得聚类结果，我们使用近年来广为接受的pseudo label classifier的策略。对于每个higher-level的特征$\mathbf{H}^{v}$和经过$E^{v}_{Mapping}(\cdot)$映射至统一聚类语义空间中的$\mathbf{H}_{\mathbf{P}}$构建伪标签：
+
+$$\mathbf{Y}^{v} = \mathcal{P}_{Feature}(\mathbf{H}^{v}), \mathbf{Y}_{\mathbf{U}} = \mathcal{P}_{Feature}(\mathbf{H}_{\mathbf{U}})$$
+
+$$\mathbf{Y}_{\mathbf{P}} = \mathcal{P}^{p}_{Feature}(\mathbf{X}^{v})$$
+
+where $\mathcal{P}_{Feature}(\cdot)$和$\mathcal{P}^{p}_{Feature}(\cdot)$为相同的非线性MLP架构，$\mathbf{Y}^{v}, \mathbf{Y}_{\mathbf{U}},\mathbf{Y}_{\mathbf{P}} \in \mathbb{R}^{N \times D_l}$。在获得特征层级和伪标签层级这两个层级之后，我们引入对比学习的方法，分别对于这两个层级进行对齐。我们构建的对比损失为：
+
+$$\mathcal{L}_{\text{Contra}} = - \sum\limits_{1 \leq k < k' \leq V } \sum^{N}_{i=1}  \log(\frac{\exp({D(\mathbf{H}^{k}_{i \cdot},\mathbf{H}^{k'}_{i \cdot})) / \tau_f}}{\sum^{N}_{j=1} \exp({D(\mathbf{H}^{k}_{i \cdot},\mathbf{H}^{k'}_{j \cdot})) / \tau_f}})$$
+
+$$ - \sum\limits_{1 \leq k < k' \leq V } \sum^{C}_{i=1}  \log(\frac{\exp({D((\mathbf{Y}^{k}_{\cdot i})^\top,(\mathbf{Y}^{k'}_{\cdot i})^\top) / \tau_f}}{\sum^{C}_{j=1} \exp({D((\mathbf{Y}^{k}_{\cdot i})^\top,(\mathbf{Y}^{k'}_{\cdot j})^\top)) / \tau_l}})$$
+
+Where $D(\cdot)$表示余弦相似度，$\tau_f,\tau_l$分别表示为特征层级和伪标签层级的温度参数。第一项表示为特征层级的相似性的对齐，第二项表示为伪标签层级的相似性的对齐。
+
+为了统一聚类结果的一致性，并且放大关键聚类标签的信息，我们创新性地提出了一种基于回路反馈的对齐地机制。而对于Circuit的设计，我们分为前向对齐和后向反馈。前向对齐的关键在于将更有代表性的聚类结果作为主要目标，弱化无关甚至是错误的聚类标签的影响，因此对于所有的标签我们考虑取最高值的方式获得$y_{ij}$:
+
+$$y_{ij} = \max\{(\mathbf{Y}_{\mathbf{P}})_{ij}, (\mathbf{Y}^1)_{ij}, (\mathbf{Y}^2)_{ij},...,(\mathbf{Y}^v)_{ij}, (\mathbf{Y}_{\mathbf{U}})_{ij}\}$$
+
+而为了将更具代表性的聚类标签更突出，无关甚至是错误的聚类标签进一步弱化，我们进行如下如下操作，获得全局聚类标签$\mathbf{Y}_{all}$:
+
+$$(\mathbf{Y}_{all})_{·j} = \frac{y^2_{·j}}{\sum^C_{k=1}y^2_{·k}}$$
+
+因此对于前向对齐的优化损失为：
+
+$$\mathcal{L}_{forward} = KL(\mathbf{Y}_{all} \parallel \mathbf{Y_{U}}) - \sum^{V}_{v=1} H(\mathbf{Y}^v) - H(Y_{\mathbf{P}}) $$
+
+where$KL( \cdot \parallel \cdot)$为KL散度，$KL(\mathbf{Y}_{all} \parallel \mathbf{Y_{U}})$具体形式为$$\sum_i \sum_j (\mathbf{Y_{all}})_{ij} \log \frac{(\mathbf{Y_{all}})_{ij}}{(\mathbf{Y_{U}})_{ij}}$$.$H(\cdot)$为entropy，对于$H(\mathbf{Y}^v)$而言具体形式为$-\sum^{C}_{j=1} P((\mathbf{Y}^v)_{\cdot j})logP((\mathbf{Y}^v)_{\cdot j})$。
+
+对于后向反馈部分，我们采用Mediation Mapping的方式，使得模型可以逐渐平衡对全局和局部分布的适应，在中间空间找到相对稳定的表示。对于Mediation Mapping的设计为：
+
+$$\mathbf{Y}^{*}_{\mathbf{P}} = \texttt{softmax}( \sigma(\mathbf{Y}_{\mathbf{P}} W_{f_{\mathbf{P}}}^{(1)} + b_{f_{\mathbf{P}}}^{(1)}) W_{f_{\mathbf{P}}}^{(2)} + b_{f_{\mathbf{P}}}^{(2)} )$$
+
+$$\mathbf{Y}^{*}_{\mathbf{U}} = \texttt{softmax}( \sigma(\mathbf{Y}_{\mathbf{U}} W_{f_{\mathbf{U}}}^{(1)} + b_{f_{\mathbf{U}}}^{(1)}) W_{f_{\mathbf{U}}}^{(2)} + b_{f_{\mathbf{U}}}^{(2)} )$$
+
+where$\sigma(\cdot)$为ReLU。$\mathbf{Y}^{*}_{\mathbf{P}}$和$\mathbf{Y}^{*}_{\mathbf{U}}$是从$\mathbf{Y}_{\mathbf{P}},\mathbf{Y}_{\mathbf{U}}$中学习得来的中间表示，它仍然相同的类概率空间，但参数化后可以灵活地变形、重塑分布。在训练早期， Mediation Mapping的存在缓冲了直接对 $\mathbf{Y}_{\mathbf{P}},\mathbf{Y}_{\mathbf{U}}$的强制分布对齐。因此对于后向反馈的优化损失为：
+
+$$\mathcal{L}_{backward} = KL(\mathbf{Y}^{*}_{\mathbf{U}} \parallel \mathbf{Y}_{\mathbf{P}}) + \sum^V_{v=1} KL(\mathbf{Y}^{*}_{\mathbf{P}} \parallel \mathbf{Y}^{v})$$
+
+整体的Hierarchical circuit alignment如图2所示。对于总体的损失优化目标因此有：
+$$\mathcal{L} = \mathcal{L}_{Contra} + \mathcal{L}_{forward} + \mathcal{L}_{backward}$$
+
+
+
+- 主图标题
+  - 我们通过添加input-level prompts, local embedding-level prompts和global embedding-level prompts，对于输入数据的有效语义信息进行充分挖掘。通过将数据和global embedding-level prompts经过Mapping encoder 映射到统一的空间维度$\mathcal{H}$中。数据和prompts所得到的高层次语义特征分别经过data-level和prompt-level pseudo label classfier得到相应的伪标签。得到的不同level的标签进行Hierarchical circuit alignment。
+
+
+
+
+
+
+
+
+
+
+
+
+
 (icmvc) baosf@ubuntu:/mnt/sda/baosf/ICMVC-main$ python train.py
 2024-12-06 00:04:29 - root - INFO: - Dataset:MSRC_v1
 K neighbors 10
@@ -318,3 +491,10 @@ missing_rate 0.3
                      ARI 13.69 std 1.20
 2024-12-06 00:35:28 - root - INFO: - 27.13,1.17;31.37,1.05;13.69,1.2;
 acc: 27.13 ,nmi: 31.37 ,ari: 13.69
+
+
+
+
+
+
+
