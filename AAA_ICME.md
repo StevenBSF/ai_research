@@ -30,7 +30,13 @@ In recent years，在多媒体数据激增的背景下Multi-View Clustering 在�
 
 尽管这些方法在MVC任务中已经取得了显著的improvement，但是，对于一些较难的数据集上，现有方法对各维度特征所代表的语义信息缺乏精细的关注与控制。很多deep methods常常通过融合不同视角信息和来考虑跨视角Heterogeneous Features.并且仅在隐空间层面基于对比学习进行粗粒度的对齐会导致对部分特征维度的相似性产生过度依赖，导致出现局部最优的情况。
 
+为了解决这些问题，我们创新性地提出了a new model 名为Hierarchical Prompt-Guided Circuit Alignment for Multi-View Clustering.我们引入了提示学习的思想，对于输入数据的instance-level和embedding-level的维度特征进行细粒度的控制，对于多视图的Heterogeneous信息的有效聚类信息进行特征层面的提示。为了解决基于对比学习进行粗粒度的对齐会导致对部分特征维度的相似性产生过度依赖这个问题，我们创新性地提出了hierarchical circuit alignment策略，从训练得到的不同层级的伪标签信息进行forward alignment和backward feedback。并且我们的实验证明，对于对于输入数据不同的encoder如distinct MLP encoder 或者GCN encoder，我们的方法都获得了普遍优越性。
 
+我们的贡献点如下：
+
+- 我们提出了Hierarchical Prompt-Guided Circuit Alignment network for Multi-View Clustering。我们的方法利用提示的方式对于输入数据的聚类语义信息进行细粒度掌控，并且实现更稳定、全局的分布一致性。
+- 我们分别从instance-level和embedding-level对于输入数据进行特征维度的提示设计。我们设计了通过旁路提示网络训练获得相应的提示，在embedding-level分别从local和global的角度综合获得提示信息。
+- 我们提供了一种hierarchical circuit alignment策略。对于不同层次的伪标签信息，我们通过forward alignment和backward feedback进行反馈式动态调节，从而更好对齐各视角的伪标签信息。
 
 
 
@@ -163,9 +169,39 @@ $$\mathcal{L} = \mathcal{L}_{Contra} + \mathcal{L}_{forward} + \mathcal{L}_{back
 
 
 
+w/o 1 w/o 2 w/o 3
 
 
 
+
+
+
+
+- experimental results
+
+  For instance, on the BBCSport dataset, our model significantly outperforms others, ,which not only exceeds the second-best method by 6-7% but also highlights the robustness of our hierarchical curcuit alignment mechanism. 并且对于大样本数据集Caltech-all，不同level的提示设计使得模型能够更好的捕捉各个样本内的特征维度聚类语义信息，以及样本之间的聚类关联，使得更多类别的数据集也能够更好的鉴别无监督类别信息。此外，我们注意到我们的方法基于GCN的结果优于基于distinct MLP，并且两者均优于其他比较的方法，因此说明我们的方法并不依赖于encoder层的某种具体设计，而更具有普遍优越性。
+
+
+
+
+
+
+
+
+
+Ablation study results for HTRE-MVC with different components removed. 其中IP表示instance-level prompts，EP表示embedding-level prompts。
+
+
+
+- Para sensitivity
+- 如图3所示，我们将HTRE-MVC总损失函数中的$\beta$和$\gamma$设置范围为$[0.01,0.1,1,10,100]$。我们在Citeseer和Caltech7这两个数据集上进行实验。对于Caltech7数据集而言，参数$\gamma$在1-100范围区间更为敏感。在更少的视角数的数据集Citeseer上$\beta$和$\gamma$的参数敏感性较为平缓。
+- We experimentally evaluate the effect of hyperparameters on the clustering performance of GCFAggMVC, which includes the trade-off coefficient λ (i.e., Lr + λLc) and the temperature parameter τ . Figure 3 shows the NMI of GCFAggMVC when λ is varied from 10−3 to 103 and τ from 0.2 to 0.8. From this figure, the clustering results of the proposed GCFAggMVC are insensitive to both λ and τ in the range 0.1 to 1, and the range 0.3 to 0.5, respectively. Empirically, we set λ and τ to 1.0 and 0.5.
+
+
+
+- ablation
+
+  To assess the contribution of each stage in HTRE-MVC, we conduct targeted ablation studies, with the results summarized in Table \ref{table:ablation}.
 
 
 
