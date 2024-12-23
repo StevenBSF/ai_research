@@ -42,6 +42,24 @@ In recent years，在多媒体数据激增的背景下Multi-View Clustering 在�
 
 
 
+Our contributions are summarized as follows:
+
+
+
+1.We propose the Hierarchical Prompt-Guided Circuit Alignment network for multi-view clustering. This method leverages prompts to achieve fine-grained control over the clustering semantics of input data, ensuring stable and globally consistent distributions.
+
+这个创新点是属于方法中的东西，不够直接了当，落脚点落小了，需要说更大的优点，请往特征学习、聚类方面靠
+
+2.We design prompt mechanisms at both the primary-level and embedding-level for input features. These mechanisms employ an auxiliary prompt network to train and generate the corresponding prompts. At the embedding level, prompts are derived by integrating local and global perspectives.
+
+这个创新点要讲好处，能够提取细粒度信息，能够有什么好处
+
+3. We develop a hierarchical circuit alignment strategy. This strategy dynamically adjusts pseudo-label information across different levels through forward alignment and backward feedback, effectively aligning pseudo-labels across multiple views.
+
+这个创新点要侧重讲解这么做能够解决聚类中的什么问题，现有的什么不足的地方解决了
+
+
+
 
 
 
@@ -179,13 +197,70 @@ w/o 1 w/o 2 w/o 3
 
 - experimental results
 
-  For instance, on the BBCSport dataset, our model significantly outperforms others, ,which not only exceeds the second-best method by 6-7% but also highlights the robustness of our hierarchical curcuit alignment mechanism. 并且对于大样本数据集Caltech-all，不同level的提示设计使得模型能够更好的捕捉各个样本内的特征维度聚类语义信息，以及样本之间的聚类关联，使得更多类别的数据集也能够更好的鉴别无监督类别信息。此外，我们注意到我们的方法基于GCN的结果优于基于distinct MLP，并且两者均优于其他比较的方法，因此说明我们的方法并不依赖于encoder层的某种具体设计，而更具有普遍优越性。
+  For instance, on the BBCSport dataset, our model significantly outperforms others, , which not only exceeds the second-best method by 6-7% but also highlights the robustness of our hierarchical curcuit alignment mechanism. 并且对于大样本数据集Caltech-all，不同level的提示设计使得模型能够更好的捕捉各个样本内的特征维度聚类语义信息，以及样本之间的聚类关联，使得更多类别的数据集也能够更好的鉴别无监督类别信息。此外，我们注意到我们的方法基于GCN的结果优于基于distinct MLP，并且两者均优于其他比较的方法，因此说明我们的方法并不依赖于encoder层的某种具体设计，而更具有普遍优越性。
 
 
 
 
 
 
+
+```python
+def plot_all_views_pseudo_label(model, device, cnt):
+    colors = ['#0072B2', '#D55E00', '#F0E442', '#56B4E9', '#009E73', '#CC79A7', '#E69F00', '#999999', '#000000']
+    cmap = ListedColormap(colors[:class_num])  # 根据聚类数目选择颜色
+    loader = torch.utils.data.DataLoader(
+        dataset,
+        batch_size=data_size,
+        shuffle=False,
+    )
+    model.eval()
+    scaler = MinMaxScaler()
+    all_hs = []  # 用于存储所有视角拼接后的特征
+    for step, (xs, y, _) in enumerate(loader):
+        for v in range(view):
+            xs[v] = xs[v].to(device)
+        with torch.no_grad():
+            hs, _, _, _, _, _ = model.forward(xs)
+        for v in range(view):
+            hs[v] = hs[v].cpu().detach().numpy()
+            hs[v] = scaler.fit_transform(hs[v])
+            all_hs.append(hs[v])
+
+    # 将所有视角的特征拼接在一起
+    combined_hs = np.concatenate(all_hs, axis=1)
+
+    kmeans = KMeans(n_clusters=class_num, n_init=100)
+    new_pseudo_label = []
+
+    # 利用 t-SNE 在拼接后的特征上进行降维
+    tsne = TSNE(n_components=2,   init='random',learning_rate='auto',random_state=42)
+    tsne_result = tsne.fit_transform(combined_hs)
+
+    # 聚类并生成伪标签
+    Pseudo_label = kmeans.fit_predict(combined_hs)
+    Pseudo_label = Pseudo_label.reshape(data_size, 1)
+    Pseudo_label = torch.from_numpy(Pseudo_label)
+    new_pseudo_label.append(Pseudo_label)
+
+    # 绘制 t-SNE 聚类结果散点图
+    plt.figure(figsize=(8, 6))
+    plt.scatter(tsne_result[:, 0], tsne_result[:, 1], c=Pseudo_label.numpy().flatten(), cmap=cmap)
+
+    # 保存为 PNG 文件
+    plt.savefig("tsne_cluster_result"+str(cnt)+".png", dpi=300)
+    cnt = cnt + 1
+    plt.show()
+
+    return new_pseudo_label
+
+```
+
+
+
+
+
+Visualization of clustering results on the BBCSport and Caltech7 datasets.左侧为原始特征，右侧为经过HiPMVC训练得到的结果。使用t-SNE进行可视化。
 
 
 
