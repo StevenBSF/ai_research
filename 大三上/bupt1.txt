@@ -1,0 +1,1801 @@
+<body class="zhaopinBody">
+	<div class="wrapper" style="display: block;">
+		<div id="header"><div class="header" style="background-image: url('../images/index_1/loggg.png');background-size: 100% 100px;" id="mainHeaderPlace">
+		<div class="l_con">
+			<a href="index.html" class="logo" style="width: 338px !important;display: block;background-image:url('../images/index_1/left-o.png')"></a>
+			<!-- <div class="search">
+				<i class="icon_search"></i>
+				<div class="search_box">
+					<input class="input searchVal" type="text" name="search" placeholder="请输入要搜索的关键词">
+					<button type="button" class="btn_search">搜索</button>
+				</div>
+			</div> -->
+			<div class="perInfoLogin" style="display: block;">
+				<!-- <img src="../images/indexw/sg.png" alt="" class="sg"> -->
+				<a href="javascript:;" class="login">
+					<img src="../images/index_1/pppp.png" alt="" class="logoImgWrap"><span>登录入口</span>
+				</a>
+			</div>
+			<div class="perInfo" style="display:none;">
+				<span class="photo" style="overflow: hidden;">
+					<!-- <img src="../images/indexw/perPht.png" alt=""> -->
+					<div class="img"></div>
+				</span>
+				<span class="name"></span>
+				<!-- <span class="down">
+					<img src="../images/indexw/downArow.png" alt="">
+				</span> -->
+				<div class="wDownWrap">
+					<div class="downWrap">
+						<img src="../images/indexw/jttop_03.png" alt="" class="jt">
+						<div class="userType">
+							<p class="userTit"><span></span><img src="../images/indexw/pInfo_03.png" alt=""></p>
+						</div>
+						<div class="toMainPage">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_07.png" alt="">个人主页</a>
+						</div>
+						<div class="exit">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_11.png" alt="">退出</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="nav">
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/index.html">网站首页</a>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="javascript:void(0);">招聘信息</a>
+						
+							<ul class="sub">
+								
+									<li>
+										<a href="/f/recruitmentinfo/frontRecruitinfo?positionType=1">招聘信息</a>
+									</li>
+								
+									<li>
+										<a href="/f/recruitmentinfo/frontRecruitinfo?positionType=2">实习信息</a>
+									</li>
+								
+									<li>
+										<a href="/f/recruitmentFair/frontRecruitfair">宣讲会</a>
+									</li>
+								
+									<li>
+										<a href="/f/bilateralchosefair/frontBilateralchosefair">双选会</a>
+									</li>
+								
+							</ul>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/newsList.html?id=3398de06b7ce4154bc396d23d22a920a">下载专区</a>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/newsList.html?id=21">中心介绍</a>
+						
+					</li>
+				
+			</ul>
+		</div>
+	</div>
+<script type="text/html" id="mainHeader">
+	<div class="header" style="background-image: url('../images/index_1/loggg.png');background-size: 100% 100px;">
+		<div class="l_con">
+			<a href="index.html" class="logo" style="width: 338px !important;display: block;background-image:url('../images/index_1/left-o.png')"></a>
+			<!-- <div class="search">
+				<i class="icon_search"></i>
+				<div class="search_box">
+					<input class="input searchVal" type="text" name="search" placeholder="请输入要搜索的关键词">
+					<button type="button" class="btn_search">搜索</button>
+				</div>
+			</div> -->
+			<div class="perInfoLogin" style="display: none;">
+				<!-- <img src="../images/indexw/sg.png" alt="" class="sg"> -->
+				<a href="javascript:;" class="login">
+					<img src="../images/index_1/pppp.png" alt="" class="logoImgWrap"><span>登录入口</span>
+				</a>
+			</div>
+			<div class="perInfo" style="display:none;">
+				<span class="photo" style="overflow: hidden;">
+					<!-- <img src="../images/indexw/perPht.png" alt=""> -->
+					<div class="img"></div>
+				</span>
+				<span class="name"></span>
+				<!-- <span class="down">
+					<img src="../images/indexw/downArow.png" alt="">
+				</span> -->
+				<div class="wDownWrap">
+					<div class="downWrap">
+						<img src="../images/indexw/jttop_03.png" alt="" class="jt">
+						<div class="userType">
+							<p class="userTit"><span></span><img src="../images/indexw/pInfo_03.png" alt=""></p>
+						</div>
+						<div class="toMainPage">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_07.png" alt="">个人主页</a>
+						</div>
+						<div class="exit">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_11.png" alt="">退出</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="nav">
+				{{each list}}
+					<li>
+						<a style="color:#ffffff !important" href="{{if isEmpty($value.childList)}}{{$value.url}}{{else}}javascript:void(0);{{/if}}">{{$value.name}}</a>
+						{{if !isEmpty($value.childList)}}
+							<ul class="sub">
+								{{each $value.childList}}
+									<li>
+										<a  {{if !isEmpty($value.target)}} target="{{$value.target}}" {{/if}} href="{{$value.url}}">{{$value.name}}</a>
+									</li>
+								{{/each}}
+							</ul>
+						{{/if}}
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</script>
+<script type="text/javascript">
+	$(function(){
+		if(!window._config.token){
+			$.getToken();
+		}else{
+			//头部信息
+			$.ajax({
+				type: 'get',
+				url: $.url('f/ajaxHome/ajax_cmsList'),
+				dataType: "json",
+				// beforeSend: function(xhr) {
+				// 	xhr.setRequestHeader("token",window._config.token);
+				// },
+				success: function(res){
+					if(res.state == 1){
+						tplt.draw('mainHeader',{list: $.out(res,'object')||[]});
+					}
+					afterDraw();
+				},
+				error: function(error){}
+			});
+		}
+	});
+	function afterDraw(){
+		$('.header .icon_search').on('click',function(){
+			if(!$(this).parent().hasClass('active')){
+				$(this).parent().addClass('active');
+			}else{
+				$(this).parent().removeClass('active');
+			};
+		});
+		$('.search_box input').focus(function(){
+			$(this).attr('placeholder','')
+		});
+		$('.search_box input').blur(function(){
+			$(this).attr('placeholder','请输入搜索关键词')
+		});
+		$('.search_box input').bind('keyup', function(event) {
+		　　if (event.keyCode == "13") {
+				//回车执行查询
+				$('.search_box .btn_search').click();
+			}
+		});
+		$('.search_box .btn_search').click(function(){
+			var vals = encodeURI($('.searchVal').val());
+			if(vals){
+				window.location.href = './search.html?key='+vals
+			}else{
+				$.jBox.tip('搜索内容不能为空','error',{
+					persistent: true,
+					opacity: 0,
+					timeout: 1500
+				});
+			}
+		});
+
+		$(function(){
+			var newImage1 = new Image();
+			var oldImage1 = $('.logoImgWrap').attr('src');
+			newImage1.src = '../images/index_1/jj-hover.png';
+			$(".logoImgWrap").hover(function () {
+				$('.logoImgWrap').attr('src', newImage1.src);
+			}, function () {
+				$('.logoImgWrap').attr('src', oldImage1);
+			});
+
+
+			//搜索
+			$('body').on('click','.login',function(){
+				if($('.login span').attr('type')){
+					window.location.href = window._config.domain+window._config.logout.url;
+				}else{
+					window.location.href = window._config.domain+window._config.login.url;
+				}
+			});
+			$('body').on('click','.toMainPage',function(){
+				window.location.href = window._config.domain + window._config.login.url;
+			});
+			$('body').on('click','.exit',function(){
+				window.location.href = window._config.domain + window._config.logout.url;
+			});
+	
+			if(!window._config.token){
+				$.getToken();
+			}else{
+				//是否登录
+				$.ajax({
+					type: 'get',
+					url: $.url("f/ajaxHome/ajax_getUser"),
+					dataType: "json",
+					beforeSend: function(xhr) {
+						//xhr.setRequestHeader("token",window._config.token);
+					},
+					success: function(res){
+						if( res.state == 1 ){
+							if( res.msg == '已登录' ){
+								$('.perInfo').css('display','block');
+								$('.perInfo').css('margin-left','30px');
+								$('.userType span').html(res.object.name);
+								$('.perInfoLogin').css('display','none');
+	
+								if(res.object.photo){
+									$('.perInfo .photo .img').css('background-image','url('+res.object.photo+')');
+									/*$('.perInfo .photo img').attr('src',res.object.photo);*/
+								}
+	
+								if(res.object.type == 1){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 2){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 3){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 4){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 5){
+									$('.perInfo .name').html(res.object.name);
+								}
+	
+								/*if(res.object.type == 1){
+									$('.perInfo .userTit span').html(window._config.user.user1);
+								}else if(res.object.type == 2){
+									$('.perInfo .userTit span').html(window._config.user.user2);
+								}else if(res.object.type == 3){
+									$('.perInfo .userTit span').html(window._config.user.user3);
+								}else if(res.object.type == 4){
+									$('.perInfo .userTit span').html(window._config.user.user4);
+								}else if(res.object.type == 5){
+									$('.perInfo .userTit span').html(window._config.user.user5);
+								}*/
+							}
+						}else{
+							$('.perInfo').css('display','none');
+							$('.perInfoLogin').css('display','block');
+						}
+					},
+					error: function(error){}
+				});
+			}
+		});
+	}
+</script></div>
+		<script>
+			$("#header").load("header.html?ts="+ new Date().getTime());
+		</script>
+		<div class="pageTitle zhaopinInfoTitLogo">
+			<div class="l_con l_con_clear">
+				<div class="pageHeadWrap">	
+				   <a href="index.html"><i class="iconfont icon-home"></i>首页</a><span>&gt;</span><a class="jobsTit" href="javascript:;">招聘信息</a>
+				</div>
+			</div>
+			<img src="../images/indexw/news_03.png" alt="">
+			<div class="l_con l_con_clear">
+				<div class="recruitSearchForm">
+					<span class="select2 select2-container select2-container--default" dir="ltr" style="width: 205px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2--container"><span class="select2-selection__rendered" id="select2--container" title="招聘信息">招聘信息</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><select name="" class="select2 singleSelect select2-hidden-accessible" tabindex="-1" aria-hidden="true"><option>--岗位类型--</option><option value="招聘信息">招聘信息</option><option value="实习信息">实习信息</option></select>
+					<div class="cityBox">
+						<input class="citys" type="text" readonly="readOnly" value="" placeholder="全国">
+						<input readonly="readOnly" type="hidden" id="sendId" name="city" value="">
+						<input readonly="readOnly" type="hidden" id="corporationNature" name="corporationNature" value="">
+						<input readonly="readOnly" type="hidden" id="corporationinfo" name="corporationinfo" value="">
+						<img src="../images/indexw/selectDown.png" alt="" class="selectDown">
+						<div class="slideDownBox" style="display: none;">
+							<div>
+								<a href="javascript:;">热搜城市</a>
+							</div>
+							<div class="hotList">
+								<a href="javascript:;">
+									<span class="active" areaid="">全国</span>
+									<span data-area="110000">北京市</span>
+									<span data-area="310000">上海市</span>
+									<span data-area="440100">广州市</span>
+									<span data-area="440300">深圳市</span>
+									<span data-area="330100">杭州市</span>
+									<span data-area="510100">成都市</span>
+									<span data-area="410100">郑州市</span>
+									<span data-area="120000">天津市</span>
+									<span data-area="420100">武汉市</span>
+									<span data-area="610100">西安市</span>
+								</a>
+							</div>
+							<div style="margin-top: 20px">
+								<a href="javascript:;">省市列表</a>
+							</div>
+							<div class="provinceWrap">
+								<a class="onecode" href="javascript:;">
+									<span data-index="01" data-area="340000">安徽</span>
+									<span data-index="02" data-area="110000">北京</span>
+									<span data-index="03" data-area="500000">重庆</span>
+									<span data-index="04" data-area="350000">福建</span>
+									<span data-index="05" data-area="620000">甘肃</span>
+									<span data-index="06" data-area="440000">广东</span>
+									<span data-index="07" data-area="450000">广西</span>
+									<span data-index="08" data-area="520000">贵州</span>
+									<span data-index="09" data-area="460000">海南</span>
+									<span data-index="10" data-area="230000">黑龙江</span>
+									<span data-index="11" data-area="130000">河北</span>
+									<span data-index="12" data-area="410000">河南</span>
+								</a>
+								<ul class="cityList" data-index="01">
+									<!-- <li class="areacode" data-area="34">安徽省</li>
+									<li class="areacode" data-area="340100">合肥市</li>
+									<li class="areacode" data-area="340200">芜湖市</li>
+									<li class="areacode" data-area="340300">蚌埠市</li>
+									<li class="areacode" data-area="340400">淮南市</li>
+									<li class="areacode" data-area="340500">马鞍山市</li>
+									<li class="areacode" data-area="340600">淮北市</li>
+									<li class="areacode" data-area="340700">铜陵市</li>
+									<li class="areacode" data-area="340800">安庆市</li>
+									<li class="areacode" data-area="341000">黄山市</li>
+									<li class="areacode" data-area="341100">滁州市</li>
+									<li class="areacode" data-area="341200">阜阳市</li>
+									<li class="areacode" data-area="341300">宿州市</li>
+									<li class="areacode" data-area="341500">六安市</li>
+									<li class="areacode" data-area="341600">亳州市</li>
+									<li class="areacode" data-area="341700">池州市</li>
+									<li class="areacode" data-area="341800">宣城市</li> -->
+								</ul>
+								<a class="onecode" href="javascript:;">
+									<span data-index="13" data-area="420000">湖北</span>
+									<span data-index="14" data-area="430000">湖南</span>
+									<span data-index="15" data-area="220000">吉林</span>
+									<span data-index="16" data-area="320000">江苏</span>
+									<span data-index="17" data-area="360000">江西</span>
+									<span data-index="18" data-area="210000">辽宁</span>
+									<span data-index="19" data-area="150000">内蒙古</span>
+									<span data-index="20" data-area="640000">宁夏</span>
+									<span data-index="21" data-area="630000">青海</span>
+									<span data-index="22" data-area="370000">山东</span>
+									<span data-index="23" data-area="140000">山西</span>
+									<span data-index="24" data-area="610000">陕西</span>
+								</a>
+								<ul class="cityList" data-index="01">
+
+								</ul>
+								<a class="onecode" href="javascript:;">
+									<span data-index="25" data-area="310000">上海</span>
+									<span data-index="26" data-area="510000">四川</span>
+									<span data-index="27" data-area="120000">天津</span>
+									<span data-index="28" data-area="540000">西藏</span>
+									<span data-index="29" data-area="650000">新疆</span>
+									<span data-index="30" data-area="530000">云南</span>
+									<span data-index="31" data-area="330000">浙江</span>
+									<span data-index="32" data-area="710000">台湾省</span>
+									<span data-index="33" data-area="810000">香港特别行政区</span>
+									<span data-index="34" data-area="820000">澳门特别行政区</span>
+								</a>
+								<ul class="cityList" data-index="01">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="searchWrap">
+						<input class="inputTypes" id="title" type="text" placeholder="请输入职位或公司的关键字">
+						<button class="submitBtn"><img src="../images/indexw/whitess.png" alt=""></button>
+					</div> 
+				</div>
+			</div>
+		</div>
+		<div class="zhaopinSelectType">
+			<div class="l_con">
+				<div class="searchForm" id="searchBoxPlace">
+					<div class="typeItem">
+						<div class="typeName">单位性质：</div>
+						<div class="searchList">
+							<label for="" class="active"><span><input type="radio" name="corporationNature" value=""></span>全部</label>
+
+
+​							
+							<label for=""><span><input type="radio" name="corporationNature" value="10"></span>机关</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="20"></span>科研设计单位</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="21"></span>高等教育单位</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="22"></span>中等、初等教育单位</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="23"></span>医疗卫生单位</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="29"></span>其他事业单位</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="31"></span>国有企业</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="32"></span>外商投资企业</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="33"></span>个体工商户</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="39"></span>其他企业(含民营企业等)</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="40"></span>部队</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="55"></span>农村建制村</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="56"></span>城镇社区</label>
+							
+							<label for=""><span><input type="radio" name="corporationNature" value="99"></span>其他(含社会组织、国际组织等)</label>
+
+
+​							                             
+						</div>	
+					</div>
+					<hr>
+					<div class="typeItem">
+						<div class="typeName">所属行业：</div>
+						<div class="searchList">
+							<label for="" class="active"><span><input type="radio" name="corporationinfo" value=""></span>全部</label>
+
+
+​							
+							<label for=""><span><input type="radio" name="corporationinfo" value="1"></span>制造业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="2"></span>农、林、牧、渔业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="3"></span>采矿业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="4"></span>电力、热力、燃气及水生产和供应业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="5"></span>建筑业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="6"></span>批发和零售业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="7"></span>交通运输、仓储和邮政业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="8"></span>住宿和餐饮业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="9"></span>信息传输、软件和信息技术服务业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="15"></span>金融业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="16"></span>房地产业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="17"></span>租赁和商务服务业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="18"></span>科学研究和技术服务业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="19"></span>水利、环境和公共设施管理业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="20"></span>居民服务、修理和其他服务业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="21"></span>教育</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="22"></span>卫生和社会工作</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="23"></span>文化、体育和娱乐业</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="24"></span>公共管理、社会保障和社会组织</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="25"></span>国际组织</label>
+							
+							<label for=""><span><input type="radio" name="corporationinfo" value="26"></span>军队</label>
+
+
+​							
+							<label for=""><span><input type="radio" name="corporationinfo"></span>其他类</label>     
+						</div>	
+					</div>
+					
+				</div>
+				<script id="searchBox" type="text/html"> 
+				<div class="searchForm">
+					<div class="typeItem">
+						<div class="typeName">单位性质：</div>
+						<div class="searchList">
+							<label for="" class="active"><span><input type="radio" name="corporationNature" value=""></span>全部</label>
+							{{if !isEmpty(searchBox.corporationNature)}}
+							{{each searchBox.corporationNature as value}}
+							<label for=""><span><input type="radio" name="corporationNature" value="{{value.value}}"></span>{{value.label}}</label>
+							{{/each}}  
+							{{/if}}                             
+						</div>	
+					</div>
+					<hr>
+					<div class="typeItem">
+						<div class="typeName">所属行业：</div>
+						<div class="searchList">
+							<label for="" class="active"><span><input type="radio" name="corporationinfo" value=""></span>全部</label>
+							{{if !isEmpty(searchBox.industry)}}
+							{{each searchBox.industry as value}}
+							<label for=""><span><input type="radio" name="corporationinfo" value="{{value.value}}"></span>{{value.label}}</label>
+							{{/each}}
+							{{/if}}
+							<label for=""><span><input type="radio" name="corporationinfo"></span>其他类</label>     
+						</div>	
+					</div>
+					
+				</div>
+				</script>
+			</div>
+		</div>
+		<!-- MAIN -->
+			<div class="zhaopinInfoLogoMain rslt">
+				<div class="l_con">
+					<div class="positionInfoWrap">
+						<div class="changeType" type="1">
+							<span class="cardType active"></span><span class="listType"></span>
+						</div>
+						<div class="infoTypeWrap">
+							<div class="optionWrap">
+								<label for=""><input type="checkbox" class="selectAll">全选</label>
+								<span class="addCollect"> 收藏职位</span>
+								<span class="cancleCollect">取消收藏</span>
+							</div>
+							<div class="infoList cardInfoList" id="listPlace">
+
+
+​									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202412/20241229131556c193991aea264ae692ece793d71cd33e.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202412/20241229131556c193991aea264ae692ece793d71cd33e.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=414c05d41f754c0387c68670864fe596" data-id="414c05d41f754c0387c68670864fe596" class="tit" style="color:" title="北京智讯通信诚聘英才">北京智讯通信诚聘英才</a>
+											<p class="desc">
+											
+											1个职位 | 本科,硕士<span class="time">2025-01-09</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">北京智讯通信设备有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 100人-200人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="414c05d41f754c0387c68670864fe596"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202410/2024102410285831e087f1609f4eaeafcb3b1678faf0ee.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202410/2024102410285831e087f1609f4eaeafcb3b1678faf0ee.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=7ab2fca8d62a473b9d231a6e1fdb39c7" data-id="7ab2fca8d62a473b9d231a6e1fdb39c7" class="tit" style="color:" title="湖南省衡阳市公办高校博士专职教师招聘">湖南省衡阳市公办高校博士专职教师招聘</a>
+											<p class="desc">
+											
+											1个职位 | 博士<span class="time">2025-01-07</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">湖南工学院</p>
+											<p class="eNature">高等教育单位 | 200人-500人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="7ab2fca8d62a473b9d231a6e1fdb39c7"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202412/2024120213501153c33ba56ff548cfb3ca603bdb361f9b.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202412/2024120213501153c33ba56ff548cfb3ca603bdb361f9b.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=b79133d491c54d1b88e111117bbbdcb1" data-id="b79133d491c54d1b88e111117bbbdcb1" class="tit" style="color:" title="学而思网校-25校园招聘">学而思网校-25校园招聘</a>
+											<p class="desc">
+											
+											1个职位 | 本科,硕士,博士<span class="time">2025-01-07</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">北京学而思网络科技有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="b79133d491c54d1b88e111117bbbdcb1"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202403/2024032110403475c0af3eac6c424fac0baa3a0bd4cdc7.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202403/2024032110403475c0af3eac6c424fac0baa3a0bd4cdc7.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=11f5b9e69f324510b1e26d603f2ccc27" data-id="11f5b9e69f324510b1e26d603f2ccc27" class="tit" style="color:" title="中信国际招标2025校园招聘">中信国际招标2025校园招聘</a>
+											<p class="desc">
+											
+											1个职位 | 硕士<span class="time">2025-01-07</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">中信国际招标有限公司</p>
+											<p class="eNature">国有企业 | 200人-500人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="11f5b9e69f324510b1e26d603f2ccc27"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202203/20220308141827c1981dd0a15449a489f5a9d08642c6b8.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202203/20220308141827c1981dd0a15449a489f5a9d08642c6b8.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=8e6d24411f6a4071a168b0f32049d843" data-id="8e6d24411f6a4071a168b0f32049d843" class="tit" style="color:" title="鹏城国家实验室光电信息与光线通信研究部紧缺人才招聘启事">鹏城国家实验室光电信息与光线通信研究部紧缺人才招聘启事</a>
+											<p class="desc">
+											
+											1个职位 | 硕士,博士<span class="time">2025-01-07</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">鹏城实验室</p>
+											<p class="eNature">科研设计单位 | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="8e6d24411f6a4071a168b0f32049d843"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202501/20250103133418cc23ca3eb8f14de9a69d808fce82a570.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202501/20250103133418cc23ca3eb8f14de9a69d808fce82a570.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=5b79799c60ff4db4a0e3bab478871014" data-id="5b79799c60ff4db4a0e3bab478871014" class="tit" style="color:" title="北京轨道交通技术装备集团有限公司 2025年校园招聘">北京轨道交通技术装备集团有限公司 2025年校园招聘</a>
+											<p class="desc">
+											
+											1个职位 | 硕士,博士<span class="time">2025-01-07</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">北京轨道交通技术装备集团有限公司</p>
+											<p class="eNature">国有企业 | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="5b79799c60ff4db4a0e3bab478871014"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202301/20230109154107fc8e219d303746c897502d4e6c3c45f8.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202301/20230109154107fc8e219d303746c897502d4e6c3c45f8.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=ff24b6207a1d43b6a814b4ec397ce06a" data-id="ff24b6207a1d43b6a814b4ec397ce06a" class="tit" style="color:" title="港华燃气2025届秋季校园招聘（理工类不限专业）">港华燃气2025届秋季校园招聘（理工类不限专业）</a>
+											<p class="desc">
+											
+											1个职位 | 本科,硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">港华燃气投资有限公司</p>
+											<p class="eNature">外商投资企业 | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="ff24b6207a1d43b6a814b4ec397ce06a"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202412/2024121109524330c55c619d3d424d9ebf26f70f0c15b1.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202412/2024121109524330c55c619d3d424d9ebf26f70f0c15b1.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=24f975f888c54a0596bc775b517f7e5e" data-id="24f975f888c54a0596bc775b517f7e5e" class="tit" style="color:" title="青岛东软载波科技股份有限公司2025届招聘简章">青岛东软载波科技股份有限公司2025届招聘简章</a>
+											<p class="desc">
+											
+											3个职位 | 本科,硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">青岛东软载波科技股份有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="24f975f888c54a0596bc775b517f7e5e"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202211/20221102151227bfea4c17d02747ec978ea2476b1b868c.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202211/20221102151227bfea4c17d02747ec978ea2476b1b868c.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=f4711350ee9640438f9937563fa3a47d" data-id="f4711350ee9640438f9937563fa3a47d" class="tit" style="color:" title="与优秀同行 | 方田教育北京邮电大学2025届校园招聘">与优秀同行 | 方田教育北京邮电大学2025届校园招聘</a>
+											<p class="desc">
+											
+											5个职位 | 本科,硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">合肥我们方田教育科技有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 200人-500人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="f4711350ee9640438f9937563fa3a47d"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202412/2024121116502696a1e2fd4ad84160b9420044cf14d5c8.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202412/2024121116502696a1e2fd4ad84160b9420044cf14d5c8.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=48bed125c77b462298185bb2369baee9" data-id="48bed125c77b462298185bb2369baee9" class="tit" style="color:" title="江苏网商精益管理软件有限公司2025年校园招聘">江苏网商精益管理软件有限公司2025年校园招聘</a>
+											<p class="desc">
+											
+											9个职位 | 本科<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">江苏网商精益管理软件有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 100人-200人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="48bed125c77b462298185bb2369baee9"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202412/20241224145120f2890337ed48461e93516c2620f43ec9.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202412/20241224145120f2890337ed48461e93516c2620f43ec9.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=0630bdc7fb5f43258bf9ca26c8c099b5" data-id="0630bdc7fb5f43258bf9ca26c8c099b5" class="tit" style="color:" title="北京戴纳实验科技股份有限公司校园招聘">北京戴纳实验科技股份有限公司校园招聘</a>
+											<p class="desc">
+											
+											2个职位 | 本科,硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">北京戴纳实验科技股份有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 200人-500人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="0630bdc7fb5f43258bf9ca26c8c099b5"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202202/202202231012208109e02172aa46f0ab2c0c4677a90691.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202202/202202231012208109e02172aa46f0ab2c0c4677a90691.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=32bc4995e6bd4ce78e47a6cbd214b9db" data-id="32bc4995e6bd4ce78e47a6cbd214b9db" class="tit" style="color:" title="清华大学出版社2025校园招聘">清华大学出版社2025校园招聘</a>
+											<p class="desc">
+											
+											1个职位 | 硕士,博士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">清华大学出版社有限公司</p>
+											<p class="eNature">国有企业 | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="32bc4995e6bd4ce78e47a6cbd214b9db"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202411/202411291012413f64767c4bc14f2696ce4bb5517a92b2.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202411/202411291012413f64767c4bc14f2696ce4bb5517a92b2.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=5082a8cc75fd4b9a8603b24bdc25d746" data-id="5082a8cc75fd4b9a8603b24bdc25d746" class="tit" style="color:" title="北京志远信成投资管理有限公司2025年校园招聘">北京志远信成投资管理有限公司2025年校园招聘</a>
+											<p class="desc">
+											
+											1个职位 | 硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">北京志远信成投资管理有限公司</p>
+											<p class="eNature">其他企业(含民营企业等) | 10人-50人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="5082a8cc75fd4b9a8603b24bdc25d746"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202410/20241027185153218a8072a1874f99bd917e09c9ee2a4f.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202410/20241027185153218a8072a1874f99bd917e09c9ee2a4f.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=22c2a5a0bd794a44a8f8ba0662aaa8e5" data-id="22c2a5a0bd794a44a8f8ba0662aaa8e5" class="tit" style="color:" title="华能内蒙古东部能源有限公司2025年度招聘高校毕业生公告">华能内蒙古东部能源有限公司2025年度招聘高校毕业生公告</a>
+											<p class="desc">
+											
+											1个职位 | 本科,硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">华能内蒙古东部能源有限公司</p>
+											<p class="eNature">国有企业 | 500人以上</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="22c2a5a0bd794a44a8f8ba0662aaa8e5"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									
+									<div class="infoItem collected recmmonded">
+										<span class="isSelected"></span>
+
+
+​										
+​										
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='/frontupload/corporationImages/202402/file2_companyDefault.png' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src="/frontupload/corporationImages/202402/file2_companyDefault.png" alt="">
+									    </div>
+
+
+​										
+										<div class="left">
+											<a href="/f/recruitmentinfo/show?recruitmentId=46550d1d01964f2687ab908d99e44e99" data-id="46550d1d01964f2687ab908d99e44e99" class="tit" style="color:" title="国家无线电监测中心上海监测站2024年度校园招聘">国家无线电监测中心上海监测站2024年度校园招聘</a>
+											<p class="desc">
+											
+											2个职位 | 硕士<span class="time">2025-01-06</span>
+											
+											</p>
+										</div>
+										<hr>
+										
+										<div class="mid">
+											<p class="eName">国家无线电监测中心上海监测站</p>
+											<p class="eNature">其他事业单位 | 10人-50人</p>
+										</div>
+										
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right">
+											<p class="collect" data-id="46550d1d01964f2687ab908d99e44e99"><i class="isCollected  noneBg"></i><span>收藏</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+
+
+​							
+								</div>
+							<script id="list" type="text/html">
+								{{if !isEmpty(list)}}
+								{{if list.type==1}}
+	
+								<div class="infoList cardInfoList">
+								{{else}}
+								<div class="infoList listInfoList">
+								{{/if}}
+									{{each list as value}}
+									<div class="infoItem collected recmmonded" >
+										<span class="isSelected"></span>
+										{{if !isEmpty(value.topFlag)&&value.topFlag==1}}
+										<div class="topImg">
+											 <!--[if !IE]><!--> <img src="../images/frontPage/top.svg" style="width:36px;height:21px"><!--<![endif]-->
+											 <!--[if IE]><img src="../images/frontPage/top.png"><![endif]-->
+										</div>
+										{{/if}}
+										{{if value.corporationinfo}}
+										{{if !isEmpty(value.corporationinfo.logoUrl)}}
+										<!-- <div class="logo">
+											 <img width="64" height="46" src='{{value.corporationinfo.logoUrl}}' alt="">
+										</div> -->
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src='{{value.corporationinfo.logoUrl}}' alt="">
+									    </div>
+										{{else}}
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src='../images/moren1.png' alt="" style="max-width:82px !important;max-height: 82px !important;">
+										</div>
+										{{/if}}
+										{{else}}
+										<div class="logo" style="width:82px !important;height: 82px !important;">
+											<img width="82" height="82" src='../images/moren1.png' alt="" style="max-width:82px !important;max-height: 82px !important;">
+										</div>
+										{{/if}}
+										<div class="left">
+											<a href="{{value.url}}" data-id="{{value.id}}" class="tit" style="color:{{value.titleColor}}" title="{{value.title}}">{{value.title}}</a>
+											<p class="desc">
+											{{if isEmpty(value.positionNum)}}
+											{{value.education}}<span class="time">{{value.startTime.substring(0,10)}}</span>
+											{{else if isEmpty(value.education)}}
+											{{if value.positionNum==0}}见详情页 <span class="time">{{value.startTime.substring(0,10)}}</span>
+											{{else}}
+											{{value.positionNum}}个职位  <span class="time">{{value.startTime.substring(0,10)}}</span>
+											{{/if}}
+											{{else}}
+											{{value.positionNum}}个职位 | {{value.education}}<span class="time">{{value.startTime.substring(0,10)}}</span>
+											{{/if}}
+											</p>
+										</div>
+										<hr>
+										{{if value.corporationinfo}}
+										<div class="mid">
+											<p class="eName">{{value.corporationinfo.name}}</p>
+											<p class="eNature">{{value.corporationinfo.corporationNatureValue}} | {{value.corporationinfo.corporationScaleValue}}</p>
+										</div>
+										{{/if}}
+										<style>
+											.zhaopinInfoLogoMain .positionInfoWrap .collected .noneBg{
+													background: url(../images/indexw/icon_zs9.png) center center no-repeat;
+											}
+										</style>
+										<div class="right" >
+											<p class="collect" data-id="{{value.id}}"><i class="isCollected  {{value.flag?'':'noneBg'}}" ></i><span>{{value.flag?'已收藏':'收藏'}}</span></p>
+										</div>
+										<!-- <div class="btnWrap">
+											<span>投递简历</span>
+										</div> -->
+									</div>
+									{{/each}}
+							
+								</div>
+								{{else}}
+								<div>
+								<img src="../images/frontPage/noneData.png" style="display:block;margin:150px auto 0;">
+								<div style="margin:20px auto 150px;text-align:center;color:#333">暂无相关数据</div>
+								</div>
+								{{/if}}
+							</script>
+
+
+​								
+							</div>
+						</div>
+					</div>
+					<div class="pageWrap" style="max-width: 1200px;margin:0 auto"><div class="dataNum">共<span> 782</span>条记录</div> <ul class="fPage"><li><a class="next"><em>上一页</em></a></li><li></li><li class="active"><a href="javascript:">1</a></li>
+<li><a href="javascript:" onclick="page(2,15,'');">2</a></li>
+<li><a href="javascript:" onclick="page(3,15,'');">3</a></li>
+<li class="sep"><span>...</span></li><li><a href="javascript:" onclick="page(53,15,'');">53</a></li>
+<li><a class="next" href="javascript:" onclick="page(2,15,'');"><em>下一页</em></a></li></ul></div>
+				<div class="comp_loading" style="display: none;"><div class="spinner"></div></div></div>
+​			</div>
+​			<!-- 底部 -->
+		<div id="footer"><div class="footer_1">
+	<div class="l_con">
+		<div class="left">
+			<div class="link">
+				<a href="https://www.bupt.edu.cn/" target="_blank">北京邮电大学官网</a>
+				<a href="https://www.ceeaa.org.cn/" target="_blank">中国工程教育认证协会</a>
+				<a href="http://www.heec.edu.cn/" target="_blank">教育部高等教育教学评估中心</a>
+			</div>
+			<div class="addr">
+				地址：学生活动中心1层 学生101、企业102 | 学生咨询：62282032、企业接待：62281909<br>
+			</div>
+		</div>
+		<div class="code">
+			<div class="img"></div>
+			<div class="code_txt">微信公众号</div>
+		</div>
+	</div>
+	<div class="txt">
+		版权所有：北京邮电大学
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		技术支持：北京云智小橙科技有限公司
+	</div>
+</div>
+</div>
+		<script>
+			$('#footer').load('footer.html');
+		</script>
+​	
+
+	<div class="pageToTop" style="display: block;"></div>
+	<script type="text/javascript" src="../plugins/select2/select2.full.min.js"></script>
+	<script>
+		document.title=window._config.schoolTit+'-招聘信息';
+		if(!window._config.token){
+			$.getToken()
+		}else{
+			if($.getAddrUrl('type')){
+				var data=$.getAddrUrl('type');
+				if(data==1){
+					$('.jobsTit').html('招聘信息')
+				}else if(data==2){
+					$('.jobsTit').html('实习信息')
+				}
+			}else{
+				var data=1;
+			}
+			// 请求数据
+			var getData={
+				positionType:data
+			}
+				//请求搜索栏目
+			$.ajax({
+				type:'post',
+				data:getData,
+				url:$.url('f/recruitmentinfo/ajax_search'),
+				dataType:'json',
+				beforeSend: function(xhr) {
+				   xhr.setRequestHeader("token",window._config.token);
+				},
+				success:function(res){
+					var data = res.object
+					if(data.positionType){
+						$('.select2').append('<option>--岗位类型--</option>');
+						for(var i=0;i<data.positionType.length;i++){
+							$('.select2').append('<option value='+data.positionType[i].label+'>'+data.positionType[i].label+'</option>');
+						}
+						if($.getAddrUrl('type')){
+							var dataType=$.getAddrUrl('type');
+							if(dataType==1){
+								$('.select2').val(data.positionType[0].label); 
+							}else{
+								$('.select2').val(data.positionType[1].label); 
+							}
+						}else{
+							$('.select2').val('--岗位类型--'); 
+						}
+						$('.select2').trigger('change')
+						$('.select2').select2()
+					}
+					tplt.draw('searchBox',{searchBox: $.out(res,'object')||[]});
+				},
+				error:function(error){
+				  console.log("发生错误："+ error)
+				}
+			})
+			//分页
+			function page(pages,pageSize){ //pages  当前页数   pageSize   分页条数
+				if($.getAddrUrl('type')){
+					var data=$.getAddrUrl('type');
+				}else{
+					var data=1;
+				}
+				var data={
+					'pageNo':pages,
+					'pageSize':pageSize,
+					'positionType':data,
+					'city':$('#sendId').val(),
+					'title':$('#title').val().trim(),
+					'corporationNature':$('#corporationNature').val().trim(),
+					'corporationinfo.industry':$('#corporationinfo').val().trim()
+				}
+				var load = $.loading($('.rslt'));
+				$.ajax({
+					type:"post",
+					url:$.url("f/recruitmentinfo/ajax_frontRecruitinfo"),
+					data:data,
+					async:true,
+					dataType:"json",
+					beforeSend: function(xhr) {
+					   xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){
+						if(res.state==1){
+							if(res.object.list){
+								res.object.list.type=$('.changeType').attr('type')
+								if($.getAddrUrl('type')){
+									res.object.list.jobType=$.getAddrUrl('type');
+								}
+								res.object.list.urls=window._config.imgUrl.urls
+							}
+							tplt.draw('list',{list: $.out(res,'object.list')||[]});
+							$('.pageWrap').html(res.object.cauFrontPageStr)
+							$("html, body").animate({scrollTop: 0}, 100); /* 持续时间为 100ms */
+						}
+					},
+					error:function(error){
+					  console.log("发生错误："+ error)
+					},
+					complete:function(){
+						//$('.wrapper').css('display','block')
+						$('.footerWrap').css('display','block')
+						setTimeout(function(){
+							load.remove();
+						},300);
+					}
+				});
+			}
+			   //筛选条件
+			//getSearch(1,110000,'工程师',10,1)
+			function getSearch(positionType,city,title,corporationNature,corporationinfoIndustry){
+				var data={
+					'pageNo':1,
+					'pageSize':15,
+					'positionType':positionType,
+					'city':city,
+					'title':title,
+					'corporationNature':corporationNature,
+					'corporationinfo.industry':corporationinfoIndustry
+				}
+				var load = $.loading($('.rslt'));	
+				$.ajax({
+					type:'post',
+					url:$.url('f/recruitmentinfo/ajax_frontRecruitinfo'),
+					data:data,
+					dataType:'json',
+					beforeSend: function(xhr) {
+					   xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){
+						if(res.state==1){
+							if(res.object.list){
+								res.object.list.type=$('.changeType').attr('type')
+								if($.getAddrUrl('type')){
+									res.object.list.jobType=$.getAddrUrl('type');
+								}
+								res.object.list.urls=window._config.imgUrl.urls
+							}
+							tplt.draw('list',{list: $.out(res,'object.list')||[]});
+							$('.pageWrap').html(res.object.cauFrontPageStr)
+						}
+					},
+					error:function(error){
+					  console.log("发生错误："+ error)
+					},
+					complete:function(){
+						$('.wrapper').css('display','block')
+						$('.footerWrap').css('display','block')
+						setTimeout(function(){
+							load.remove();
+						},300);
+					}
+				})
+			}
+			getSearch(data,'','','','')
+			// ajax 请求城市
+			$('.provinceWrap span').click(function(){
+				var id = $(this).attr('data-area');
+				var target = this
+				//$.ajax
+				var proData={
+					parentid:id
+				}
+				$.ajax({
+					type : "post",
+					dataType : "json",
+					data:proData,
+					url : $.url('f/treeData/ajax_getCity'),
+					beforeSend: function(xhr) {
+					   xhr.setRequestHeader("token",window._config.token);
+					},
+					success : function(res) {
+						if(res.state==1){
+							var data=res.object;
+							if(data){
+								var cityHtml = '<li data-area="'+id+'">'+$(target).html()+'</li>';
+								for(var i = 0;i < data.length; i++){
+									cityHtml+= '<li data-area="'+data[i].id+'">'+data[i].name+'</li>'
+								}
+								$('.slideDownBox ul').html('');
+								$(target).parent('a').next('ul').html(cityHtml);
+							}	
+						}else{
+							$('.slideDownBox ul').empty();
+							getDatas($(target))
+						}
+												
+					}
+				});			
+			})
+		  //收藏 
+			$('body').on('click','.collect',function(){
+				var index= $('.collect').index($(this))
+				var id=$('.collect').eq(index).attr('data-id')
+				var dataArr={
+					recruitmentinfo:id
+				}
+				$.ajax({
+					type:"post",
+					url:$.url('a/collectioninfo/saveCollection'),
+					async:true,
+					data:dataArr,
+					dataType:"json",
+					beforeSend: function(xhr) {
+					   xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){	
+						if(res.state==2){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							setTimeout(function(){
+								window.location.href=window._config.domain+window._config.jobUrl.url
+							},1000)
+						}else if(res.state==3){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==1){
+							$('.collect').eq(index).children('i').removeClass('noneBg')
+							$('.collect').eq(index).children('span').html('已收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==4){
+							$('.collect').eq(index).children('i').addClass('noneBg')
+							$('.collect').eq(index).children('span').html('收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}
+					},
+					error:function(error){
+					  console.log("发生错误："+ error.status)
+					}
+				});
+			})
+			//批量收藏
+			$('body').on('click','.addCollect',function(){
+				var ids=[];
+				for(var i=0;i<$('.infoList .selected').length;i++){
+				   ids.push($('.collect').eq(i).attr('data-id'))
+				}
+				var idsStr=ids.join(',')
+				if(ids.length==0){
+				   //alert('未选择对应的职位')
+				   $.jBox.tip('未选择对应的职位','error',{persistent:true,opacity:0,timeout:1500});
+				   return
+				}
+				var addCollect={
+					opt:'add',
+					ids:idsStr
+				}
+				$.ajax({
+					type:"post",
+					url:$.url('a/collectioninfo/saveBatchCollection'),
+					async:true,
+					data:addCollect,
+					dataType:"json",
+					beforeSend: function(xhr) {
+					   xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){	
+						if(res.state==2){
+							//alert('请重新登录')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							$('.infoList .infoItem').removeClass('selected');
+							setTimeout(function(){
+								window.location.href=window._config.domain+window._config.jobUrl.url
+							},1000)
+						}else if(res.state==3){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==1){
+							$('.collect').children('i').removeClass('noneBg')
+							$('.collect').children('span').html('收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==4){
+							$('.collect').children('i').addClass('noneBg')
+							$('.collect').children('span').html('未收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}
+					},
+					error:function(error){
+					  console.log("发生错误："+ error.status)
+					}
+				});
+			})
+			//批量取消
+			$('body').on('click','.cancleCollect',function(){
+				var ids=[]
+				for(var i=0;i<$('.infoList .selected').length;i++){
+				   ids.push($('.collect').eq(i).attr('data-id'))
+				}
+				if(ids.length==0){
+				   //alert('未选择对应的职位')
+				   $.jBox.tip('未选择对应的职位','error',{persistent:true,opacity:0,timeout:1500});
+				   return
+				}
+				var idsStr=ids.join(',');
+				var cancleCollect={
+					opt:'cancle',
+					ids:idsStr
+				}
+				$.ajax({
+					type:"post",
+					url:$.url('a/collectioninfo/saveBatchCollection'),
+					async:true,
+					data:cancleCollect,
+					dataType:"json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){	
+						if(res.state==2){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							$('.infoList .infoItem').removeClass('selected');
+							setTimeout(function(){
+								window.location.href=window._config.domain+window._config.jobUrl.url
+							},1000)
+						}else if(res.state==3){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==1){
+							$('.collect').children('i').removeClass('noneBg')
+							$('.collect').children('span').html('收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==4){
+							$('.collect').children('i').addClass('noneBg')
+							$('.collect').children('span').html('未收藏')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}
+					},
+					error:function(error){
+					  console.log("发生错误："+ error.status)
+					}
+				});
+			})
+			
+		}
+		//搜索
+		$('body').on('click','.submitBtn',function(){
+			var res=$(".singleSelect").select2("data")[0].text;
+			if(res=='实习信息'){
+				var positionType=2;
+			}else if(res=='招聘信息'){
+				var positionType=1;
+			}else{
+				var positionType='';
+			}
+			var city=$('#sendId').val();
+			if(!city){
+				var city='';
+			}
+			if($('#title').val()){
+				var title=$('#title').val().trim();
+			}else{
+				var title="";
+			}
+			var corporationNature=$('#corporationNature').val().trim();
+			var corporationinfo=$('#corporationinfo').val().trim();
+			getSearch(positionType,city,title,corporationNature,corporationinfo);
+		})
+		// totop
+		$(window).on('scroll',function(){
+			var st = $(document).scrollTop();
+			if( st>0 ){
+				$('.pageToTop').css('display','block');
+				$('.pageNavs').css('display', 'block');
+			}else{
+				$('.pageToTop').css('display','none');
+				$('.pageNavs').css('display', 'none');
+			}  
+		});
+		$('.pageNavs').click(function(){
+			if($('.pageNavsWrap').css('display')=='none'){
+				$('.pageNavsWrap').fadeIn()
+			}else{
+				$('.pageNavsWrap').fadeOut()
+			}
+		})
+		$('.closeNavs').click(function(){
+			$('.pageNavsWrap').fadeOut()
+		})
+		$('.pageToTop').click(function(){
+			$("html, body").animate({scrollTop: 0}, 100); /* 持续时间为 100ms */
+			return false;
+		});
+		// 所属行业 职位类别搜索
+		$('body').on('click','.searchForm label',function(){
+			$(this).addClass("active").siblings("label").removeClass("active");
+			$(this).siblings("label").find("input").prop('checked',false);
+			$(this).find("input").prop('checked',true);
+			if($(this).children('span').children('input').attr('name')=='corporationinfo'){
+			   $('#corporationinfo').val($(this).children('span').children('input').val())
+			}
+			if($(this).children('span').children('input').attr('name')=='corporationNature'){
+			   $('#corporationNature').val($(this).children('span').children('input').val())
+			}
+			var res=$(".singleSelect").select2("data")[0].text;
+			if(res=='实习信息'){
+				var positionType=2;
+			}else if(res=='招聘信息'){
+				var positionType=1;
+			}else{
+				var positionType='';
+			}
+			var city=$('#sendId').val();
+			if(!city){
+				var city='';
+			}
+			if($('#title').val()){
+				var title=$('#title').val().trim();
+			}else{
+				var title="";
+			}
+			var corporationNature=$('#corporationNature').val();
+			var corporationinfo=$('#corporationinfo').val();
+			getSearch(positionType,city,title,corporationNature,corporationinfo);
+		});
+		//显示城市
+		$(document).click(function(){
+			$('.slideDownBox').css('display','none');
+		});
+		$('.cityBox').click(function(e){
+			e.stopPropagation();
+			$(this).find('.slideDownBox').css('display','block');
+		});
+		// 切换类型
+		$('.changeType span').click(function(){
+			var idx = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			if($(this).hasClass('cardType')){
+				$('.infoList').removeClass('listInfoList').addClass('cardInfoList');
+				$('.changeType').attr('type','1')
+			}
+			else{
+				$('.infoList').removeClass('cardInfoList').addClass('listInfoList');
+				$('.changeType').attr('type','2')
+			}
+		});
+		//全选
+		$('.selectAll').change(function(){
+			if($(this).prop('checked')){
+				$('.infoList .infoItem').addClass('selected');
+			}else{
+				$('.infoList .infoItem').removeClass('selected');
+			}
+		});
+		// 单击收藏
+		$('.infoList .infoItem .collect').click(function(){
+			if($(this).parents('.infoItem').hasClass('collected')){
+				$(this).parents('.infoItem').removeClass('collected');
+			}else{
+				$(this).parents('.infoItem').addClass('collected');
+			};
+		});
+				// 获取id与name 并赋值
+		function getDatas(obj){
+			var val = $(obj).html(),
+				id = $(obj).attr('data-area');
+			$('.cityBox .citys').val(val);
+			$('#sendId').val(id);
+			$('.slideDownBox').css('display','none');
+		}
+		//热门城市搜索
+		$('.hotList span').click(function(e){
+			$('.cityList li').removeClass('active');
+			$('.cityList').empty();
+			getDatas(this);
+			e.stopPropagation();
+		});
+		//获取各个省份下的市级地区
+		$('.slideDownBox').on('click','.cityList li',function(e){
+			getDatas(this);
+			$(this).siblings('li').removeClass('active');
+			$(this).addClass('active');
+			e.stopPropagation();
+		});
+		
+		$('.inputTypes').focus(function(){
+			$(this).attr('placeholder','')
+		})
+		$('.inputTypes').blur(function(){
+			$(this).attr('placeholder','请输入职位或公司的关键字')
+		})
+	</script>
+
+</body>

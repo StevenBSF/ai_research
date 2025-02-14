@@ -1,0 +1,1227 @@
+<body style="background:#fafafa">
+	<div class="wrapper">
+		<div id="header"><div class="header" style="background-image: url('../images/index_1/loggg.png');background-size: 100% 100px;" id="mainHeaderPlace">
+		<div class="l_con">
+			<a href="index.html" class="logo" style="width: 338px !important;display: block;background-image:url('../images/index_1/left-o.png')"></a>
+			<!-- <div class="search">
+				<i class="icon_search"></i>
+				<div class="search_box">
+					<input class="input searchVal" type="text" name="search" placeholder="请输入要搜索的关键词">
+					<button type="button" class="btn_search">搜索</button>
+				</div>
+			</div> -->
+			<div class="perInfoLogin" style="display: block;">
+				<!-- <img src="../images/indexw/sg.png" alt="" class="sg"> -->
+				<a href="javascript:;" class="login">
+					<img src="../images/index_1/pppp.png" alt="" class="logoImgWrap"><span>登录入口</span>
+				</a>
+			</div>
+			<div class="perInfo" style="display:none;">
+				<span class="photo" style="overflow: hidden;">
+					<!-- <img src="../images/indexw/perPht.png" alt=""> -->
+					<div class="img"></div>
+				</span>
+				<span class="name"></span>
+				<!-- <span class="down">
+					<img src="../images/indexw/downArow.png" alt="">
+				</span> -->
+				<div class="wDownWrap">
+					<div class="downWrap">
+						<img src="../images/indexw/jttop_03.png" alt="" class="jt">
+						<div class="userType">
+							<p class="userTit"><span></span><img src="../images/indexw/pInfo_03.png" alt=""></p>
+						</div>
+						<div class="toMainPage">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_07.png" alt="">个人主页</a>
+						</div>
+						<div class="exit">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_11.png" alt="">退出</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="nav">
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/index.html">网站首页</a>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="javascript:void(0);">招聘信息</a>
+						
+							<ul class="sub">
+								
+									<li>
+										<a href="/f/recruitmentinfo/frontRecruitinfo?positionType=1">招聘信息</a>
+									</li>
+								
+									<li>
+										<a href="/f/recruitmentinfo/frontRecruitinfo?positionType=2">实习信息</a>
+									</li>
+								
+									<li>
+										<a href="/f/recruitmentFair/frontRecruitfair">宣讲会</a>
+									</li>
+								
+									<li>
+										<a href="/f/bilateralchosefair/frontBilateralchosefair">双选会</a>
+									</li>
+								
+							</ul>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/newsList.html?id=3398de06b7ce4154bc396d23d22a920a">下载专区</a>
+						
+					</li>
+				
+					<li>
+						<a style="color:#ffffff !important" href="/frontpage/bupt/html/newsList.html?id=21">中心介绍</a>
+						
+					</li>
+				
+			</ul>
+		</div>
+	</div>
+<script type="text/html" id="mainHeader">
+	<div class="header" style="background-image: url('../images/index_1/loggg.png');background-size: 100% 100px;">
+		<div class="l_con">
+			<a href="index.html" class="logo" style="width: 338px !important;display: block;background-image:url('../images/index_1/left-o.png')"></a>
+			<!-- <div class="search">
+				<i class="icon_search"></i>
+				<div class="search_box">
+					<input class="input searchVal" type="text" name="search" placeholder="请输入要搜索的关键词">
+					<button type="button" class="btn_search">搜索</button>
+				</div>
+			</div> -->
+			<div class="perInfoLogin" style="display: none;">
+				<!-- <img src="../images/indexw/sg.png" alt="" class="sg"> -->
+				<a href="javascript:;" class="login">
+					<img src="../images/index_1/pppp.png" alt="" class="logoImgWrap"><span>登录入口</span>
+				</a>
+			</div>
+			<div class="perInfo" style="display:none;">
+				<span class="photo" style="overflow: hidden;">
+					<!-- <img src="../images/indexw/perPht.png" alt=""> -->
+					<div class="img"></div>
+				</span>
+				<span class="name"></span>
+				<!-- <span class="down">
+					<img src="../images/indexw/downArow.png" alt="">
+				</span> -->
+				<div class="wDownWrap">
+					<div class="downWrap">
+						<img src="../images/indexw/jttop_03.png" alt="" class="jt">
+						<div class="userType">
+							<p class="userTit"><span></span><img src="../images/indexw/pInfo_03.png" alt=""></p>
+						</div>
+						<div class="toMainPage">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_07.png" alt="">个人主页</a>
+						</div>
+						<div class="exit">
+							<a href="#" style="color:#999"><img src="../images/indexw/pInfo_11.png" alt="">退出</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="nav">
+				{{each list}}
+					<li>
+						<a style="color:#ffffff !important" href="{{if isEmpty($value.childList)}}{{$value.url}}{{else}}javascript:void(0);{{/if}}">{{$value.name}}</a>
+						{{if !isEmpty($value.childList)}}
+							<ul class="sub">
+								{{each $value.childList}}
+									<li>
+										<a  {{if !isEmpty($value.target)}} target="{{$value.target}}" {{/if}} href="{{$value.url}}">{{$value.name}}</a>
+									</li>
+								{{/each}}
+							</ul>
+						{{/if}}
+					</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</script>
+<script type="text/javascript">
+	$(function(){
+		if(!window._config.token){
+			$.getToken();
+		}else{
+			//头部信息
+			$.ajax({
+				type: 'get',
+				url: $.url('f/ajaxHome/ajax_cmsList'),
+				dataType: "json",
+				// beforeSend: function(xhr) {
+				// 	xhr.setRequestHeader("token",window._config.token);
+				// },
+				success: function(res){
+					if(res.state == 1){
+						tplt.draw('mainHeader',{list: $.out(res,'object')||[]});
+					}
+					afterDraw();
+				},
+				error: function(error){}
+			});
+		}
+	});
+	function afterDraw(){
+		$('.header .icon_search').on('click',function(){
+			if(!$(this).parent().hasClass('active')){
+				$(this).parent().addClass('active');
+			}else{
+				$(this).parent().removeClass('active');
+			};
+		});
+		$('.search_box input').focus(function(){
+			$(this).attr('placeholder','')
+		});
+		$('.search_box input').blur(function(){
+			$(this).attr('placeholder','请输入搜索关键词')
+		});
+		$('.search_box input').bind('keyup', function(event) {
+		　　if (event.keyCode == "13") {
+				//回车执行查询
+				$('.search_box .btn_search').click();
+			}
+		});
+		$('.search_box .btn_search').click(function(){
+			var vals = encodeURI($('.searchVal').val());
+			if(vals){
+				window.location.href = './search.html?key='+vals
+			}else{
+				$.jBox.tip('搜索内容不能为空','error',{
+					persistent: true,
+					opacity: 0,
+					timeout: 1500
+				});
+			}
+		});
+
+		$(function(){
+			var newImage1 = new Image();
+			var oldImage1 = $('.logoImgWrap').attr('src');
+			newImage1.src = '../images/index_1/jj-hover.png';
+			$(".logoImgWrap").hover(function () {
+				$('.logoImgWrap').attr('src', newImage1.src);
+			}, function () {
+				$('.logoImgWrap').attr('src', oldImage1);
+			});
+
+
+			//搜索
+			$('body').on('click','.login',function(){
+				if($('.login span').attr('type')){
+					window.location.href = window._config.domain+window._config.logout.url;
+				}else{
+					window.location.href = window._config.domain+window._config.login.url;
+				}
+			});
+			$('body').on('click','.toMainPage',function(){
+				window.location.href = window._config.domain + window._config.login.url;
+			});
+			$('body').on('click','.exit',function(){
+				window.location.href = window._config.domain + window._config.logout.url;
+			});
+	
+			if(!window._config.token){
+				$.getToken();
+			}else{
+				//是否登录
+				$.ajax({
+					type: 'get',
+					url: $.url("f/ajaxHome/ajax_getUser"),
+					dataType: "json",
+					beforeSend: function(xhr) {
+						//xhr.setRequestHeader("token",window._config.token);
+					},
+					success: function(res){
+						if( res.state == 1 ){
+							if( res.msg == '已登录' ){
+								$('.perInfo').css('display','block');
+								$('.perInfo').css('margin-left','30px');
+								$('.userType span').html(res.object.name);
+								$('.perInfoLogin').css('display','none');
+	
+								if(res.object.photo){
+									$('.perInfo .photo .img').css('background-image','url('+res.object.photo+')');
+									/*$('.perInfo .photo img').attr('src',res.object.photo);*/
+								}
+	
+								if(res.object.type == 1){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 2){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 3){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 4){
+									$('.perInfo .name').html(res.object.name);
+								}else if(res.object.type == 5){
+									$('.perInfo .name').html(res.object.name);
+								}
+	
+								/*if(res.object.type == 1){
+									$('.perInfo .userTit span').html(window._config.user.user1);
+								}else if(res.object.type == 2){
+									$('.perInfo .userTit span').html(window._config.user.user2);
+								}else if(res.object.type == 3){
+									$('.perInfo .userTit span').html(window._config.user.user3);
+								}else if(res.object.type == 4){
+									$('.perInfo .userTit span').html(window._config.user.user4);
+								}else if(res.object.type == 5){
+									$('.perInfo .userTit span').html(window._config.user.user5);
+								}*/
+							}
+						}else{
+							$('.perInfo').css('display','none');
+							$('.perInfoLogin').css('display','block');
+						}
+					},
+					error: function(error){}
+				});
+			}
+		});
+	}
+</script></div>
+		<script>
+			$("#header").load("header.html?ts="+ new Date().getTime());
+		</script>
+		<div class="positionDetail" id="positionPlace">
+			<div class="l_con l_con_clear">
+				<div class="pageHeadWrap">
+				<a href="index.html"><i class="iconfont icon-home"></i>首页</a><span>&gt;</span><a class="goJobList" href="./recruitmentinfoList.html?type=1">招聘信息</a><span>&gt;</span><a href="javascript::">职位详情</a>
+				</div>
+			</div>
+			<img src="../images/indexw/titbg.jpg" alt="">
+			<div class="l_con">
+				<div class="infoLeft" style="margin-top:20px">
+					<div class="name getCompany" company="湖南省衡阳市公办高校博士专职教师招聘" emails="gxyrsk@126.com">湖南省衡阳市公办高校博士专职教师招聘</div>
+					<div class="desc">
+						
+						
+						<span><img src="../images/indexw/podetail_09.png" alt="">1个职位</span>
+
+
+​						
+​						
+						<span><img src="../images/indexw/podetail_11.png" alt="">博士</span>
+						
+					</div>
+					<div class="charact">
+
+
+​						
+						<span>带编制，带薪寒暑假</span>
+						
+					</div>
+					
+				</div>
+				<div class="infoRight">
+					<div class="sc collect" style="cursor:pointer;padding: 0 10px;width: 134px;height: 34px;border-radius: 5px;"><span class="wjx "></span><p style="display:inline-block">收藏</p></div>
+
+
+​					
+					<button class="joinBtn" style="width: 156px !important;">立即申请</button>
+
+
+​					
+				</div>
+			</div>
+		</div>
+		<div class="midInfo" id="positionPlace">
+			<div class="l_con">
+				发布企业：湖南工学院   &nbsp; 日期：2025-01-07   &nbsp;  浏览次数：178
+			</div>
+		</div>                 
+		<!-- main -->
+		<div class="positionDetailMain" id="positionPlace">
+			<div class="l_con">
+				<div class="positionDetailLeft">
+					
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>职位信息</span>
+					</div>
+					
+					<div class="tableList">
+						
+						<table border="0" width="100%" style="table-layout:fixed">
+							
+							<tbody><tr class="trTit">
+								<td>职位名称</td>
+								<td>学历</td>
+								<td>需求人数</td>
+							</tr>
+							
+							<tr class="ctrlCon">
+								<td class="major">专任教师</td>
+								<td>博士</td>
+								<td>50</td>
+							</tr>
+							
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>需求专业：</span>
+										电子信息,电子与通信工程,信息与通信工程,计算机科学与技术,计算机类,网络空间安全,智能科学与技术,数据科学与大数据技术,网络工程专业,软件工程,★智能科学与技术,网络工程,计算机技术,大数据技术与工程,数据科学与大数据技术专业,邮政工程(互联网与智慧物流),控制科学与工程,机械工程,人工智能,电子商务,邮政管理(互联网与智慧物流),数字媒体技术,工业设计（智能与信息交互设计）,设计学,工业设计,网络与新媒体,智能交互设计,数字媒体艺术,通信工程,电子信息,信息工程,电子信息工程,新一代电子信息技术(含量子技术等),通信工程(含宽带网络、移动通信等),人工智能,计算机技术,信息与通信工程,通信工程(含宽带网络、移动通信等),电子与通信工程,生物医学工程,计算机科学与技术,密码学,网络与信息安全,信息安全,电子信息,计算机技术,★信息安全,计算机科学与技术,网络空间安全,机器人与人工智能,机械电子工程,管理科学与工程,机械工程,自动化,控制科学与工程
+										
+										<img src="../images/release/slidedown.png" alt="">
+										
+									</div>
+									
+									<div class="long" style="display:none">
+										<span>需求专业：</span>
+	
+										电子信息,电子与通信工程,信息与通信工程,计算机科学与技术,计算机类,网络空间安全,智能科学与技术,数据科学与大数据技术,网络工程专业,软件工程,★智能科学与技术,网络工程,计算机技术,大数据技术与工程,数据科学与大数据技术专业,邮政工程(互联网与智慧物流),控制科学与工程,机械工程,人工智能,电子商务,邮政管理(互联网与智慧物流),数字媒体技术,工业设计（智能与信息交互设计）,设计学,工业设计,网络与新媒体,智能交互设计,数字媒体艺术,通信工程,电子信息,信息工程,电子信息工程,新一代电子信息技术(含量子技术等),通信工程(含宽带网络、移动通信等),人工智能,计算机技术,信息与通信工程,通信工程(含宽带网络、移动通信等),电子与通信工程,生物医学工程,计算机科学与技术,密码学,网络与信息安全,信息安全,电子信息,计算机技术,★信息安全,计算机科学与技术,网络空间安全,机器人与人工智能,机械电子工程,管理科学与工程,机械工程,自动化,控制科学与工程
+										<img src="../images/release/slideup.png" alt="">
+									</div>
+															
+								</td>
+							</tr>
+
+
+​							
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>工作地点：</span>
+										湖南省衡阳市
+										
+									</div>
+											
+								</td>
+							</tr>
+
+
+​							
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>职位描述：</span>
+										专任教师从事日常教学与科研工作
+										
+									</div>
+																
+								</td>
+							</tr>
+							
+						</tbody></table>
+						
+					</div>
+					
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>简历接收</span>
+					</div>
+					<div class="brief" style="color: #666;font-size: 16px;">
+						
+						<div class="emailTit" style="line-height:26px;"> <span style="font-weight: 600;">简历接收邮箱：</span> gxyrsk@126.com</div>
+
+
+​						
+					</div>
+
+
+​					
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>招聘简章</span>
+					</div>
+					<div class="brief">
+						<p>湖南工学院坐落于湖南省第二大城市、湖湘文化发源地之一、湘南地区中心城市—衡阳市，是2007年经教育部批准由湖南建材高等专科学校和湖南大学衡阳分校合并升格的省属公办普通本科院校，2009年12月湖南工业科技职工大学整体并入，是教育部“卓越工程师教育培养计划”高校、湖南省硕士学位授予立项建设单位。学校立足衡阳，面向湖南，辐射全国，重点面向现代工业企业，为区域经济建设和社会发展服务，是一所以工为主，经、管、文、理、艺等多学科协调发展，具有较强的科技服务能力，培养基础实、技术精、能力强、素质高，具有创新精神与社会责任感的应用型专门人才的本科院校。<br>
+主要招聘专业为：计算机科学与技术、软件工程、网络空间安全、电子信息、数学、生物信息学等计算机和信息方向交叉学科类博士。其他专业博士也可以投简历到邮箱。<br>
+&nbsp;</p>
+					</div>
+					
+					
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>联系人信息</span>
+					</div>
+					<div class="contactsInfo">
+						
+						<div>职位联系人：唐琨皓</div>
+
+
+​						
+​						
+						<div>电子邮箱：gxyrsk@126.com</div>
+
+
+​						
+						<div>手机：13975466676</div>
+						
+					</div>
+
+
+​					
+				</div>
+				<div class="positionDetailRight">
+					<div class="enterfriseInfo">
+						<div class="infoTop" style="width:90%;margin:0 auto">
+							<div class="phot">
+							  
+							  <img width="100" height="100" src="/frontupload/corporationImages/202410/2024102410285831e087f1609f4eaeafcb3b1678faf0ee.png" alt="">
+							  
+							 </div>
+							<a class="name" href="/f/corporationinfo/details?corporationinfoId=6b15e2afc1d646ccb18dcac6c141e530">湖南工学院</a>
+							
+						</div>
+						<div class="infoMid">
+							<div class="scale">
+								<p>200人-500人<span>公司规模</span></p>
+							</div>
+							<div class="nature">
+								<p>高等教育单位<span>企业性质</span></p>
+							</div>
+						</div>
+						
+						<div class="intro">
+							<div class="tit">单位简介：<a target="_blank" href="https://www.tianyancha.com/search/湖南工学院" class="skyEye"><img src="../images/indexw/tyc.png" alt="">天眼查</a></div>
+							<div class="cont" style="font-size:16px;line-height:26px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 10;overflow:hidden;">湖南工学院坐落于湖南省第二大城市、湖湘文化发源地之一、湘南地区中心城市——衡阳市，是2007年经教育部批准由湖南建材高等专科学校和湖南大学衡阳分校合并升格的省属公办普通本科院校，2009年12月湖南工业科技职工大学整体并入，是教育部“卓越工程师教育培养计划”高校、湖南省硕士学位授予立项建设单位。学校立足衡阳，面向湖南，辐射全国，重点面向现代工业企业，...</div>
+							<a href="/f/corporationinfo/details?corporationinfoId=6b15e2afc1d646ccb18dcac6c141e530" class="more">详情&gt;</a>
+						</div>
+						
+					</div>
+					<div class="aboutPosition">
+						<div class="introTit">
+							<img src="../images/indexw/enintro_07.png" alt=""><span>相关职位</span>
+						</div>
+						<div class="poList">
+							
+						</div>
+						<div class="more"><a style="color:#000" href="/f/corporationinfo/details?corporationinfoId=6b15e2afc1d646ccb18dcac6c141e530">更多相关职位&gt;</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script id="position" type="text/html">
+		<div class="positionDetail">
+			<div class="l_con l_con_clear">
+				<div class="pageHeadWrap">
+				<a href="index.html"><i class="iconfont icon-home"></i>首页</a><span>></span><a class="goJobList" href="#"></a><span>></span><a href="javascript::">职位详情</a>
+				</div>
+			</div>
+			<img src="../images/indexw/titbg.jpg" alt="">
+			<div class="l_con">
+				<div class="infoLeft" style="margin-top:20px">
+					<div class="name getCompany" company="{{position.recruitmentinfo.title}}" emails="{{position.recruitmentinfo.resumeReceiveEmail}}">{{position.recruitmentinfo.title}}</div>
+					<div class="desc">
+						{{if !isEmpty(position.recruitmentPositionSize)}}
+						{{if position.recruitmentPositionSize!=0}}
+						<span><img src="../images/indexw/podetail_09.png" alt="">{{position.recruitmentPositionSize}}个职位</span>
+						{{/if}}
+						{{/if}}
+						{{if !isEmpty(position.recruitmentinfo.education)}}
+						<span><img src="../images/indexw/podetail_11.png" alt="">{{position.recruitmentinfo.education}}</span>
+						{{/if}}
+					</div>
+					<div class="charact">
+						{{each position.recruitmentinfo.labelValue as value item}}
+						<span>{{value}}</span>
+						{{/each}}
+						{{if !isEmpty(position.recruitmentinfo.otherLabel)}}
+						<span>{{position.recruitmentinfo.otherLabel}}</span>
+						{{/if}}
+					</div>
+					{{if  position.recruitmentinfo.isFrontShow==0}}
+					<div class="noticeTit" style="font-size:12px;color:#cf0010;margin-top:6px;position:relative;padding-left:12px"><img style="width: 10px;height: 10px;top: 4px;" src="../images/frontPage/notice.png">内部消息,请勿转发</div>
+					{{/if}}
+				</div>
+				<div class="infoRight">
+					<div class="sc collect" style="cursor:pointer;padding: 0 10px;width: 134px;height: 34px;border-radius: 5px;"><span class="wjx {{!position.flag?'':'ysc'}}"></span><p style="display:inline-block">{{!position.flag?'收藏':'已收藏'}}</p></div>
+					{{if position.recruitmentinfo.isReceive == 1 }}
+					{{if position.recruitmentinfo.isPost==0}}
+					<button class="joinBtn" style="width: 156px !important;">立即申请</button>
+					{{else}}
+					<button class="joinBtn" style="width: 156px !important;">已申请</button>
+					{{/if}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		<div class="midInfo">
+			<div class="l_con">
+				发布企业：{{position.recruitmentinfo.corporationinfo.name}}   &nbsp; 日期：{{position.recruitmentinfo.startTime.slice(0,10)}}   &nbsp;  浏览次数：{{position.recruitmentinfo.browseNumber}}
+			</div>
+		</div>                 
+		<!-- main -->
+		<div class="positionDetailMain">
+			<div class="l_con">
+				<div class="positionDetailLeft">
+					{{if !isEmpty(position.recruitmentinfo.recruitmentPositionList)}}
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>职位信息</span>
+					</div>
+					{{/if}}
+					<div class="tableList">
+						{{each position.recruitmentinfo.recruitmentPositionList as value index}}
+						<table border="0" width="100%"  style="table-layout:fixed">
+							{{if index==0}}
+							<tr class="trTit">
+								<td>职位名称</td>
+								<td>学历</td>
+								<td>需求人数</td>
+							</tr>
+							{{/if}}
+							<tr class="ctrlCon">
+								<td class="major">{{value.positionName}}</td>
+								<td>{{value.studentType}}</td>
+								<td>{{value.demandNumber}}</td>
+							</tr>
+							{{if value.majorName}}
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>需求专业：</span>
+										{{#value.majorName}}
+										{{if value.majorName.length>40}}
+										<img src="../images/release/slidedown.png" alt="">
+										{{/if}}
+									</div>
+									{{if value.majorName.length>40}}
+									<div class="long" style="display:none">
+										<span>需求专业：</span>
+	
+										{{#value.majorName}}
+										<img src="../images/release/slideup.png" alt="">
+									</div>
+									{{/if}}						
+								</td>
+							</tr>
+							{{/if}}
+							{{if !isEmpty(value.cityName)}}
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>工作地点：</span>
+										{{value.cityName}}
+										{{if value.cityName.length>40}}
+										<img src="../images/release/slidedown.png" alt="">
+										{{/if}}
+									</div>
+									{{if value.cityName.length>40}}
+									<div class="long" style="display:none">
+										<span>工作地点：</span>
+										{{value.cityName}}
+										<img src="../images/release/slideup.png" alt="">
+									</div>
+									{{/if}}		
+								</td>
+							</tr>
+							{{/if}}
+							{{if value.positionDescription}}
+							<tr class="slideCon">
+								<td colspan="3">
+									<div class="short">
+										<span>职位描述：</span>
+										{{value.positionDescription.replace(/[<br/>]/g, "")}}
+										{{if value.positionDescription.length>40}}
+										<img src="../images/release/slidedown.png" alt="">
+										{{/if}}
+									</div>
+									{{if value.positionDescription.length>40}}
+									<div class="long" style="display:none">
+										<span>职位描述：</span>
+										{{#value.positionDescription}}
+										<img src="../images/release/slideup.png" alt="">
+									</div>	
+									{{/if}}							
+								</td>
+							</tr>
+							{{/if}}
+						</table>
+						{{/each}}
+					</div>
+					{{if position.recruitmentinfo.resumeReceiveEmail||position.recruitmentinfo.onlineApplicationUrl}}
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>简历接收</span>
+					</div>
+					<div class="brief" style="color: #666;font-size: 16px;">
+						{{if !isEmpty(position.recruitmentinfo.resumeReceiveEmail)}}
+						<div class="emailTit" style="line-height:26px;"> <span style="font-weight: 600;" >简历接收邮箱：</span> {{position.recruitmentinfo.resumeReceiveEmail}}</div>
+						{{/if}}
+						{{if position.recruitmentinfo.onlineApplicationUrl}}
+						<div class="emailTit" style="line-height:26px;"> <span style="font-weight: 600;">网申地址：</span> <a href="{{position.recruitmentinfo.onlineApplicationUrl}}" target="_blank">{{position.recruitmentinfo.onlineApplicationUrl}}</a></div>
+						{{/if}}
+					</div>
+					{{/if}}
+					{{if position.recruitmentinfo.content}}
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>招聘简章</span>
+					</div>
+					<div class="brief">
+						{{#position.recruitmentinfo.content}}
+					</div>
+					{{/if}}
+					{{if position.recruitmentinfo.isOpen==1}}
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>联系人信息</span>
+					</div>
+					<div class="contactsInfo">
+						{{if !isEmpty(position.recruitmentinfo.contactsName)}}
+						<div>职位联系人：{{position.recruitmentinfo.contactsName}}</div>
+						{{/if}}
+						{{if !isEmpty(position.recruitmentinfo.telephone)}}
+						<div>电话：{{position.recruitmentinfo.telephone}}</div>
+						{{/if}}
+						{{if !isEmpty(position.recruitmentinfo.email)}}
+						<div>电子邮箱：{{position.recruitmentinfo.email}}</div>
+						{{/if}}
+						{{if !isEmpty(position.recruitmentinfo.phoneNumber)}}
+						<div>手机：{{position.recruitmentinfo.phoneNumber}}</div>
+						{{/if}}
+					</div>
+					{{/if}}
+					{{if !isEmpty(position.recruitmentinfo.fileURL)}}
+					<div class="introTit">
+						<img src="../images/indexw/enintro_07.png" alt=""><span>文件信息</span>
+					</div>
+					<div class="contactsInfo">
+						<a href="{{addUrl(position.recruitmentinfo.fileURL)}}" style="font-size: 18px;color: #666;margin-top: 10px;float: left;">附件下载</a>
+					</div>
+					{{/if}}
+				</div>
+				<div class="positionDetailRight">
+					<div class="enterfriseInfo">
+						<div class="infoTop" style="width:90%;margin:0 auto">
+							<div class="phot">
+							  {{if !isEmpty(position.recruitmentinfo.corporationinfo.logoUrl)}}
+							  <img width="100" height="100" src="{{position.recruitmentinfo.corporationinfo.logoUrl}}" alt="">
+							  {{else}}
+							  <img width="100" height="100" src="../images/frontPage/logo_03.png" alt="">
+							  {{/if}}
+							 </div>
+							<a class="name" href="{{position.recruitmentinfo.corporationinfo.url}}">{{position.recruitmentinfo.corporationinfo.name}}</a>
+							{{if !isEmpty(position.recruitmentinfo.corporationinfo.officialWebsite)}}
+							<div class="wz">
+							 
+							 {{if position.recruitmentinfo.corporationinfo.officialWebsite.indexOf('http')>-1}}
+							<a class="companyUrl"  href="{{position.recruitmentinfo.corporationinfo.officialWebsite}}" target="_black">{{position.recruitmentinfo.corporationinfo.officialWebsite}}</a>
+							 {{else}}
+							 <a class="companyUrl"  href="http://{{position.recruitmentinfo.corporationinfo.officialWebsite}}" target="_black">{{position.recruitmentinfo.corporationinfo.officialWebsite}}</a>
+	
+							 {{/if}}
+							 </div>
+							 {{/if}}
+						</div>
+						<div class="infoMid">
+							<div class="scale">
+								<p>{{position.recruitmentinfo.corporationinfo.corporationScaleValue}}<span>公司规模</span></p>
+							</div>
+							<div class="nature">
+								<p>{{position.recruitmentinfo.corporationinfo.corporationNatureValue}}<span>企业性质</span></p>
+							</div>
+						</div>
+						{{if position.recruitmentinfo.corporationinfo.introduction}}
+						<div class="intro">
+							<div class="tit">单位简介：<a target="_blank" href="https://www.tianyancha.com/search/{{position.recruitmentinfo.corporationinfo.name}}" class="skyEye"><img src="../images/indexw/tyc.png" alt="">天眼查</a></div>
+							<div class="cont" style="font-size:16px;line-height:26px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 10;overflow:hidden;">{{#position.recruitmentinfo.corporationinfo.introduction}}</div>
+							<a href="{{position.recruitmentinfo.corporationinfo.url}}" class="more">详情></a>
+						</div>
+						{{/if}}
+					</div>
+					<div class="aboutPosition">
+						<div class="introTit">
+							<img src="../images/indexw/enintro_07.png" alt=""><span>相关职位</span>
+						</div>
+						<div class="poList">
+							{{each position.recruitmentinfos.list as values}}
+							<div class="poItem">
+								<a href="{{values.url}}">{{values.title}}</a>
+								<p>{{values.startTime.slice(0,10)}}</p>		
+							</div>
+							{{/each}}
+						</div>
+						<div class="more"><a style="color:#000" href="{{position.recruitmentinfo.corporationinfo.url}}" >更多相关职位></a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</script>
+		<!-- 底部 -->
+		<div id="footer"><div class="footer_1">
+	<div class="l_con">
+		<div class="left">
+			<div class="link">
+				<a href="https://www.bupt.edu.cn/" target="_blank">北京邮电大学官网</a>
+				<a href="https://www.ceeaa.org.cn/" target="_blank">中国工程教育认证协会</a>
+				<a href="http://www.heec.edu.cn/" target="_blank">教育部高等教育教学评估中心</a>
+			</div>
+			<div class="addr">
+				地址：学生活动中心1层 学生101、企业102 | 学生咨询：62282032、企业接待：62281909<br>
+			</div>
+		</div>
+		<div class="code">
+			<div class="img"></div>
+			<div class="code_txt">微信公众号</div>
+		</div>
+	</div>
+	<div class="txt">
+		版权所有：北京邮电大学
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		技术支持：北京云智小橙科技有限公司
+	</div>
+</div>
+</div>
+		<script>
+			$('#footer').load('footer.html');
+		</script>
+	</div>
+	<div class="pageToTop" style="display: block;"></div>
+	<!-- 投递简历 -->
+	
+	<div class="resumeBg" style="display: none;">
+		<div class="resumeWrap">
+			<div class="resumeHead">
+				<div class="resumenTit">职位申请</div>
+				<div class="resumenClose cancle">
+					<!--[if !IE]><!--> <img src="../images/resume/close.svg" alt=""><!--<![endif]-->
+					<!--[if IE]><img src="../images/resume/close.png" alt=""><![endif]-->
+				</div>
+			</div>
+			<div class="resumeMain">
+				<div class="positionWrap">
+					<div class="positionLabel" id="resumePlace">
+							<!--[if !IE]><!-->  <img class="lable" src="../images/resume/lable.svg" alt=""><!--<![endif]-->
+						<!--[if IE]> <img class="lable" src="../images/resume/lable.png" alt=""><![endif]-->
+							<div class="positionName">选择职位：向<span style="color: #ff7251;font-weight:550">湖南工学院</span>申请以下职位。</div>
+						</div>
+						<div class="positionList" id="resumePlace">
+							<div class="positionItem">
+								全选
+							</div>
+							<input type="hidden" id="position" val="">
+							<input type="hidden" id="positionName" val="">
+							
+							<div class="positionItem" data-ids="3eac6ad3ef8f4338af3e2f1edc4a87a1" data-name="专任教师">
+								专任教师
+							</div>
+							
+						</div>
+						<div class="moreBtn" id="resumePlace">
+							<img class="moreIcon" flags="down" src="../images/resume/downJob.png" alt="">
+						</div>
+					<script id="resume" type="text/html">
+						<div class="positionLabel">
+							<!--[if !IE]><!-->  <img class="lable" src="../images/resume/lable.svg" alt=""><!--<![endif]-->
+						<!--[if IE]> <img class="lable" src="../images/resume/lable.png" alt=""><![endif]-->
+							<div class="positionName">选择职位：向<span style="color: #ff7251;font-weight:550">{{resume.recruitmentinfo.corporationName}}</span>申请以下职位。</div>
+						</div>
+						<div class="positionList">
+							<div class="positionItem">
+								全选
+							</div>
+							<input type="hidden" id="position" val="">
+							<input type="hidden" id="positionName" val="">
+							{{each resume.recruitmentinfo.recruitmentPositionList as value}}
+							<div class="positionItem" data-ids="{{value.id}}" data-name="{{value.positionName}}">
+								{{value.positionName}}
+							</div>
+							{{/each}}
+						</div>
+						<div class="moreBtn">
+							<img class="moreIcon" flags="down" src="../images/resume/downJob.png" alt="">
+						</div>
+					</script>
+				</div>
+				<div class="resumeListWrap">
+					<div class="resumeListLabel">
+						  <!--[if !IE]><!-->  <img class="lable" src="../images/resume/lable.svg" alt=""><!--<![endif]-->
+					<!--[if IE]> <img class="lable" src="../images/resume/lable.png" alt=""><![endif]-->
+						<div class="positionName">选择简历：向<span id="comName" style="color: #ff7251;font-weight:550">湖南工学院</span>企业投递选中简历。</div>
+					</div>
+					<div id="jobPlace"></div>
+					<script id="job" type="text/html">
+					<div class="resumeList">
+						{{each job.list as valueItem index}}
+						<div class="resumeItem {{valueItem.isDefault==1?'onresume':''}}" data-id="{{valueItem.id}}" >
+							{{valueItem.name}} 
+						</div>    
+						{{if (valueItem.isDefault==1)}}
+						<input id="jobId" type="hidden" val="{{valueItem.id}}">
+						{{/if}}
+						{{/each}}
+						<div class="addPosition">
+							<!--[if !IE]><!-->  <img class="lable" src="../images/resume/add.svg" alt=""><!--<![endif]-->
+							<!--[if IE]> <img class="lable" src="../images/resume/add.png" alt=""><![endif]-->
+							<div class="addTit">添加简历</div>
+						</div>
+					</div>
+					</script>
+				</div>
+				<div class="noticeWrap">
+					<!--[if !IE]><!-->  <img class="lable" src="../images/resume/notice.svg" alt=""><!--<![endif]-->
+					<!--[if IE]> <img class="lable" src="../images/resume/notice.png" alt=""><![endif]-->
+					<div class="noticeTit">请至少选择一个职位信息和一个简历信息</div>
+				</div>
+				<div class="resumeBtnWrap">
+					<div class="resumeBtn submit">提交</div>
+					<div class="resumeCancle cancle">取消</div>
+				</div>
+	
+			</div>
+		</div>
+	</div>
+<!-- jBox -->
+<script type="text/javascript" src="../js/jBox/jBox.min.js"></script>  
+<link type="text/css" rel="stylesheet" href="../js/jBox/jBox.min.css"> 
+	<script>
+
+
+console.log($.jBox,'有吗ffffff')
+		 $('body').on('click','.moreBtn .moreIcon',function(){
+			if($(this).attr('flags')=='down'){
+				$(this).attr('src','../images/resume/upHover.png')
+				$('.positionList').css('height','auto')
+				$(this).attr('flags','up')
+			}else{
+				$(this).attr('src','../images/resume/downHover.png')
+				$('.positionList').css('height','30px')
+				$(this).attr('flags','down')
+			}
+		})
+		$('body').on('mouseover','.moreBtn .moreIcon',function(){
+			if($(this).attr('flags')=='down'){
+				$(this).attr('src','../images/resume/downHover.png')
+			}else{
+				$(this).attr('src','../images/resume/upHover.png')
+			}
+		})
+		$('body').on('mouseout','.moreBtn .moreIcon',function(){
+			if($(this).attr('flags')=='down'){
+				$(this).attr('src','../images/resume/downJob.png')
+			}else{
+				$(this).attr('src','../images/resume/upJob.png')
+			}
+		})
+		$('body').on('click','.positionList .positionItem',function(){
+			var index=$('.positionList .positionItem').index($(this))
+			if(index==0){
+				if($('.positionList .positionItem').eq(0).hasClass('onresume')){
+					$('.positionList .positionItem').removeClass('onresume')
+					$('#position').val()
+					$('#positionName').val()
+				}else{     
+					$('.positionList .positionItem').addClass('onresume')
+					var posiArr=[];var posiNameArr=[];
+					for(var i=1;i<$('.positionList .positionItem').length;i++){
+						posiArr.push($('.positionList .positionItem').eq(i).data('ids'))
+						posiNameArr.push($('.positionList .positionItem').eq(i).data('name'))
+					}
+					$('#position').val(posiArr.join(','))
+					$('#positionName').val(posiNameArr.join(','))
+				}
+			}else{
+				if($(this).hasClass('onresume')){
+					$(this).removeClass('onresume')
+					$('.positionList .positionItem').eq(0).removeClass('onresume')
+					var positionNameArr=$('#positionName').val().split(',')
+					var positionArr=$('#position').val().split(',')
+					var indexs=positionArr.indexOf($(this).data('ids'))
+					if(indexs>-1){
+						positionNameArr.splice(indexs,1)
+						positionArr.splice(indexs,1)
+						$('#positionName').val(	positionNameArr.join(','))
+						$('#position').val(positionArr.join(','))
+					}
+				}else{
+					$(this).addClass('onresume')
+					if($('#positionName').val()){
+						$('#positionName').val($('#positionName').val()+','+$(this).data('name'))	
+						$('#position').val($('#position').val()+','+$(this).data('ids'))
+					}else{
+						$('#positionName').val($(this).data('name'))
+						$('#position').val($(this).data('ids'))
+					}
+					if($('.positionList .onresume').length==$('.positionList .positionItem').length-1){
+						$('.positionList .positionItem').eq(0).addClass('onresume')
+					}
+				}
+			}
+		})
+		$('body').on('click','.resumeList .resumeItem',function(){
+			var index=$('.resumeList .resumeItem').index($(this))
+			$('.resumeList .resumeItem').eq(index).addClass('onresume').siblings().removeClass('onresume')
+		})
+		$('body').on('click','.addPosition',function(){
+			window.open(window._config.domain+'a/common/student/resumeinfo?resumeType=0',true)
+		})
+		var jobType=$.getAddrUrl('type');
+		if(!window._config.token){
+			$.getToken()
+		}else{
+			var positionDetailId=$.getAddrUrl('positionDetailId');
+			if(!positionDetailId){
+				var positionDetailId='';
+			}
+			var positionData={
+				recruitmentId:positionDetailId
+			}
+			//var load = $.loading($('body'));
+			$.ajax({
+				url:$.url('f/recruitmentinfo/ajax_show'),
+				type:'post',
+				data:positionData,
+				dataType:'json',
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader("token",window._config.token);
+				},
+				success:function(res){
+					if(res.state==0){
+						$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+					}else{
+						res.object.urls=window._config.imgUrl.urls;
+						if($.getAddrUrl('type')){
+							res.object.types=$.getAddrUrl('type');
+						}
+						tplt.draw('position',{position: $.out(res,'object')||[]});
+						tplt.draw('resume',{resume: $.out(res,'object')||[]});
+						$('.goJobList').attr('href','./recruitmentinfoList.html?type='+res.object.recruitmentinfo.positionType)
+						$('#comName').html(res.object.recruitmentinfo.corporationName)
+						var jobType=res.object.recruitmentinfo.positionType;
+						if(jobType==1){
+							$('.goJobList').html('招聘信息')
+						}else if(jobType==2){
+							$('.goJobList').html('实习信息')
+						}else if(jobType==3){
+							$('.goJobList').html('宣讲会信息')
+						}else if(jobType==4){
+							$('.goJobList').html('双选会信息')
+						}else{
+							$('.goJobList').html('招聘信息')
+						}
+						if($('.getCompany').height()>50){
+							$('.positionDetail').css('height','260px')
+						}
+						if($('.charact').height()>50){
+							$('.positionDetail').css('height','260px')
+						}
+					}
+				},
+				error:function(error){},
+				complete:function(){
+					$('.footerWrap').css('display','block')
+				}
+			})
+			// 投递简历
+			$('body').on('click','.joinBtn',function(){
+				$(this).attr('disabled','true')
+				var company=$('.getCompany').attr('company');
+				var email=$('.getCompany').attr('emails');
+			
+				var recruitmentinfoId=$.getAddrUrl('positionDetailId');
+				if(!recruitmentinfoId){
+					var recruitmentinfoId='';
+				}
+				var dataSendJob={
+					recruitmentId:recruitmentinfoId
+				}
+				$.ajax({
+					type:"get",
+					url:$.url("a/common/student/resumeinfo/getResumeList"),
+					data:dataSendJob,
+					dataType:"json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("token",window._config.token);
+					},
+					success:function(res){
+						if(res.state==1){
+							if(!res.object){
+								$.jBox.tip('请先添加简历之后再进行投递！','error',{persistent:true,opacity:0,timeout:1500});
+								setTimeout(function(){
+									window.location.href=window._config.domain+window._config.jobUrl.url
+								},1000)
+							}else{
+								var data={
+									email:email,
+									company:company,
+									list:res.object
+								}
+								$('.resumeBg').show()
+								tplt.draw('job',{job: data});
+							}
+							$('.joinBtn').removeAttr('disabled')
+						}else if(res.state==2){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							$('.joinBtn').removeAttr('disabled')
+							setTimeout(function(){
+								window.location.href=window._config.domain+window._config.jobUrl.url
+							},1000)
+						}else if(res.state==3){
+							$('.joinBtn').removeAttr('disabled')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==4){
+							$('.joinBtn').removeAttr('disabled')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==5){
+							$('.joinBtn').removeAttr('disabled')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}
+					},
+					error:function(error){
+						setTimeout(function(){
+							$('.resumeBg').show()
+						},500)
+					}
+				});
+			})
+			//提交简历
+			$('body').on('click','.submit',function(){
+				if($('.positionItem').length>1 && $('#position').val().length==0){
+					$.jBox.tip('请选择职位','error',{persistent:true,opacity:0,timeout:1500});
+					return
+				}else{
+					var datas = {
+						'resumeId': $('.resumeList .onresume').data('id'),
+						'recruitmentInfoId': $.getAddrUrl('positionDetailId'),
+						'positions': $('#position').val(),
+						'positionsName': $('#positionName').val()
+					}
+					$(this).attr('disabled','true')
+					$('.resumeBg').hide()
+					$.ajax({
+						type:"post",
+						url:$.url("a/common/student/resumeinfo/sendResume"),
+						data:datas,
+						dataType:"json",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader("token",window._config.token);
+						},
+						success:function(res){
+							if(res.state==1){
+								$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+								$('.joinBtn').html('已申请')
+								$('.resumeBg').hide()
+								$('.joinBtn').removeClass('joinBtn')
+								$('.submit').removeAttr('disabled')
+							}else if(res.state==2){
+								$('.submit').removeAttr('disabled')
+								$('.resumeBg').hide()
+								$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							}else if(res.state==0){
+								$('.submit').removeAttr('disabled')
+								$('.resumeBg').hide()
+								$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							}else{
+							}
+						},
+						error:function(error){}
+					});
+				}
+			})
+			//收藏 
+			$('body').on('click','.collect',function(){
+				var dataCollect={
+				   recruitmentinfo:$.getAddrUrl('positionDetailId')
+				}
+				$.ajax({
+					type:"get",
+					url:$.url("a/collectioninfo/saveCollection"),
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("token",window._config.token);
+					},
+					data:dataCollect,
+					async:true,
+					dataType:"json",
+					success:function(res){
+						if(res.state==2){
+							//未登录
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+							setTimeout(function(){
+								window.location.href=window._config.domain+window._config.jobUrl.url
+							},1000)
+						}else if(res.state==3){
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==1){
+							$('.collect').children('p').html('已收藏')
+							$('.collect').children('span').addClass('ysc')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}else if(res.state==4){
+							$('.collect').children('p').html('收藏')
+							$('.collect').children('span').removeClass('ysc')
+							$.jBox.tip(res.msg,'error',{persistent:true,opacity:0,timeout:1500});
+						}
+					},
+					error:function(error){
+					}
+				});
+			})
+		}
+		// totop
+		$(window).on('scroll',function(){
+			var st = $(document).scrollTop();
+			if( st>0 ){
+				$('.pageToTop').css('display','block');
+				$('.pageNavs').css('display', 'block');
+			}else{
+				$('.pageToTop').css('display','none');
+				$('.pageNavs').css('display', 'none');
+			}  
+		});
+		$('.pageNavs').click(function(){
+			if($('.pageNavsWrap').css('display')=='none'){
+				$('.pageNavsWrap').fadeIn()
+			}else{
+				$('.pageNavsWrap').fadeOut()
+			}
+		})
+		$('.closeNavs').click(function(){
+			$('.pageNavsWrap').fadeOut()
+		})
+		$('.pageToTop').click(function(){
+			$("html, body").animate({scrollTop: 0}, 100); /* 持续时间为 100ms */
+			 return false;
+		})
+		// 
+		$('.tableList').on('click','.slideBtn',function(){
+			var bool = $(this).attr('bool');
+			if(bool == 'true'){
+				$(this).attr('src','../images/release/slideDown.png');
+				$(this).parents('tr').next('tr').css('display','none');
+				$(this).attr('bool',false);
+			}else{
+				$(this).attr('src','../images/release/slideUp.png');
+				$(this).parents('tr').next('tr').css('display','table-row'); 
+				$(this).parents('tr').next('tr').find('td').attr('colspan','5'); 
+				$(this).attr('bool',true);
+			}
+		});
+		
+		$('body').on('click','.short img',function(){
+			$(this).parent().css('display','none');
+			$(this).parent().siblings('.long').css('display','block');
+		});
+		$('body').on('click','.long img',function(){
+			$(this).parent().css('display','none');
+			$(this).parent().siblings('.short').css('display','block');
+		});
+		// 标题居中
+		var marginTop = (200-$('.positionDetail .infoLeft').height())/2;
+		$('.positionDetail .infoLeft').css("marginTop",marginTop+"px");
+		// 投递简历
+		
+		$('body').on('click','.sendResume .moreResume',function(){
+			if($(this).attr('bool') == 'false'){
+				$('.resumeList').slideDown();
+				$(this).html('收起简历');
+				$(this).attr('bool','true');
+			}else{
+				$('.resumeList').slideUp();
+				$(this).html('更多简历>>');
+				$(this).attr('bool','false');
+			}
+		})
+		$('body').on('click','.sendResume .resumeList li',function(){
+			$(this).siblings('li').removeClass('selected');
+			$(this).addClass('selected');
+			$('.sendResume .default span').html($(this).html());
+			$('.sendResume .default span').attr('name',$(this).html());
+			$('.sendResume .default span').attr('value',$(this).attr('dataId'));
+		});
+		$('body').on('click','.resumeBg .cancle',function(){
+			$('.resumeBg').css('display','none');
+		});
+	  
+	</script>
+
+</body>
