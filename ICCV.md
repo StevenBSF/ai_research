@@ -95,3 +95,15 @@ To overcome these issues, we propose a novel causal-based multi-view clustering 
 ​	•	**秩最小化惩罚则能防止这种现象**，因为它倾向于完全消除相关性，而不是仅仅削弱个别相关性。
 
 ​	•	在极端情况下，最优解应当是 $\Sigma_{cs} = 0$，即**完全独立**。
+
+
+
+
+
+
+
+Noisy View Dependency的关键在于消除已有的representation中对于聚类目标存在干扰的noise factors。如定义1中描述，语义表示 \mathbf{z}_i^v 缺乏足够的判别性变化，难以区分不同的聚类。这表明视角 v 中的噪声因素干扰了有意义的语义信号的提取。
+
+
+
+相较于以往工作不同的是，$\mathbf{U} \in \mathbb{R}^{N \times D}$是一种以content-centered的具有Receptive Field的representation。
