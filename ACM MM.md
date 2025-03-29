@@ -165,3 +165,90 @@ $\log K - I(Y; X) - \log 2 \leq P_e \log K$.
 两边除以 $\log K$（注意 $\log K > 0$），得到
 
 $P_e \geq 1 - \frac{I(Y; X) + \log 2}{\log K}.$
+
+
+
+
+
+\section{预备知识}
+
+
+
+近年来，因果表示学习和对比学习理论取得了显著进展，为多视角聚类任务中实现有效语义因子分离提供了坚实的理论基础。具体来说，\textbf{Identifiability Results for Multimodal Contrastive Learning}~\cite{ref:multiModalContrastive}证明了通过精心设计的对比学习目标，可以在多模态数据中分离出共享的内容信息与视角特有的噪声或风格；而\textbf{Self-Supervised Learning with Data Augmentations Provably Isolates Content from Style}~\cite{ref:SSLDataAug}则展示了利用数据增广策略，在理论上能够保证在风格扰动下内容信息的一致性。此外，\textbf{Multi-View Causal Representation Learning with Partial Observability}~\cite{ref:partialObservability}进一步扩展了因果识别理论到部分视角可观测的场景，强调了在多视角下捕捉不变因子的重要性。
+
+
+
+在此背景下，对比学习中的InfoNCE损失函数成为理解和实现因果分离的重要理论工具。InfoNCE的核心思想在于，通过最大化正样本对（通常为同一语义下的不同增广样本）之间的相似性，同时最小化负样本（来自其他样本）的相似性，从而为编码器提供一个强有力的正向信号。其数学表达式为
+
+\[
+
+\mathcal{L}_{\mathrm{InfoNCE}} = -\log \frac{\exp\bigl(\mathrm{sim}(z, z^+)/\tau\bigr)}{\exp\bigl(\mathrm{sim}(z, z^+)/\tau\bigr) + \sum_{z^-}\exp\bigl(\mathrm{sim}(z, z^-)/\tau\bigr)},
+
+\]
+
+其中\(z\)表示锚点样本的特征，\(z^+\)表示正样本特征，\(z^-\)表示负样本特征，\(\mathrm{sim}(\cdot,\cdot)\)通常采用余弦相似度，而\(\tau\)为温度超参数。InfoNCE不仅实现了正样本对的对齐（alignment），同时也促进了样本表示的均匀分布（uniformity），从而避免了退化解的产生。
+
+
+
+多视角聚类（Multi-View Clustering, MVC）任务中，我们需要融合来自不同视角的互补信息，并同时从中提取出共享的语义内容，而剥离各视角固有的噪声与风格干扰。借鉴上述因果表示学习与对比学习的理论，我们可以构建一个统一的因果结构模型，将每个视角的表示分解为内容、风格和噪声三个部分，并利用InfoNCE及其变种作为对比损失，在各视角之间强化内容信息的一致性和语义对齐。
+
+
+
+基于这一理论基础，我们提出的CausalMVC模型正是沿袭上述因果思路，并针对多视角聚类问题进行专门设计。下一节将详细介绍\textbf{Causal Structural Model for Deep MVC}，阐释如何在多视角场景下利用因果图模型和InfoNCE损失实现内容与风格的有效解耦与融合，从而提升聚类性能。
+
+\section{Preliminaries}
+
+Recent advances in causal representation learning and contrastive learning have provided a solid theoretical foundation for effectively disentangling semantic factors in multi-view clustering tasks. Specifically, \textbf{Identifiability Results for Multimodal Contrastive Learning}~\cite{ref:multiModalContrastive} demonstrates that a carefully designed contrastive objective can separate shared content from view-specific noise or style in multimodal data; similarly, \textbf{Self-Supervised Learning with Data Augmentations Provably Isolates Content from Style}~\cite{ref:SSLDataAug} shows that data augmentation strategies can theoretically guarantee the consistency of content information even under style perturbations. Moreover, \textbf{Multi-View Causal Representation Learning with Partial Observability}~\cite{ref:partialObservability} extends causal identifiability theory to scenarios where only a subset of views is observable, emphasizing the importance of capturing invariant factors across multiple views.
+
+In this context, the InfoNCE loss function in contrastive learning serves as a key theoretical tool for understanding and achieving causal separation. The core idea of InfoNCE is to maximize the similarity between positive pairs—typically different augmentations of the same semantic instance—while minimizing the similarity with negative samples from other instances, thereby providing a strong positive signal to the encoder. Its mathematical formulation is given by
+\[
+\mathcal{L}_{\mathrm{InfoNCE}} = -\log \frac{\exp\bigl(\mathrm{sim}(z, z^+)/\tau\bigr)}{\exp\bigl(\mathrm{sim}(z, z^+)/\tau\bigr) + \sum_{z^-}\exp\bigl(\mathrm{sim}(z, z^-)/\tau\bigr)},
+\]
+where \(z\) denotes the feature of an anchor sample, \(z^+\) represents the feature of a positive sample, \(z^-\) represents the feature of a negative sample, \(\mathrm{sim}(\cdot,\cdot)\) typically uses cosine similarity, and \(\tau\) is a temperature hyperparameter. InfoNCE not only aligns positive pairs (i.e., achieves alignment) but also encourages a uniform distribution of representations, thereby preventing degenerate solutions.
+
+
+
+\textbf{Entropy-Regularized Extensions.} 
+
+To further enhance alignment and avoid representation collapse, recent work suggests incorporating an entropy-based term into the contrastive framework. In the large-sample regime (i.e., \(K \to \infty\) negative samples), a symmetrical variant of InfoNCE can be approximated by an alignment-plus-entropy objective:
+
+\begin{equation}
+
+\label{eq:AlignMaxEnt}
+
+\mathcal{L}_{\mathrm{AlignMaxEnt}}(\mathbf{g}_1, \mathbf{g}_2) 
+
+\;\approx\;
+
+\mathbb{E}_{(x_1,x_2)\sim p(x_1,x_2)}\Bigl[
+
+  -\tfrac{1}{2}\bigl(H(\mathbf{g}_1(x_1)) + H(\mathbf{g}_2(x_2))\bigr)
+
+\Bigr],
+
+\end{equation}
+
+where \(H(\cdot)\) denotes an entropy measure of the encoded representations. The negative sign indicates a maximization of representation entropy, effectively promoting a more uniform coverage of the embedding space and preventing trivial solutions. By aligning positive pairs while simultaneously expanding the distribution of each view’s latent codes, such entropy-regularized objectives further strengthen identifiability and robustness in contrastive learning~\cite{WangIsola2020}. This perspective is particularly appealing in multi-view settings, as it balances cross-view alignment against the need to preserve view-specific diversity.
+
+In the context of Multi-View Clustering (MVC), the challenge lies in integrating complementary information from different views while extracting shared semantic content and disentangling view-specific noise and style. Building on the theoretical insights of causal representation learning and contrastive learning, we can construct a unified causal structural model that decomposes each view's representation into content, style, and noise components. By leveraging InfoNCE and its variants as contrastive losses, the model reinforces content consistency and semantic alignment across views.
+
+Based on this theoretical foundation, our proposed CausalMVC model follows these causal principles and is specifically designed for the multi-view clustering problem. The next section will introduce the \textbf{Causal Structural Model for Deep MVC}, detailing how a causal graph model combined with the InfoNCE loss facilitates effective decoupling and fusion of content and style, thereby enhancing clustering performance.
+
+
+
+
+
+
+
+The main steps of our proposed method are illustrated in Figure \ref{fig2}. For the input data, we first perform a preliminary representation learning by a reconstruction loss to obtain initial representations.之后我们将得到的初始representation经过 causal content-style disentanglement得到content representation和style representation.然后对于content representation从intra-view和cross-view角度进行consistency的约束.最后通过Content-centered Style Receptive Field Module for Contrastive Learning优化聚类目标.
+
+
+
+
+
+
+
+
+
+
+
