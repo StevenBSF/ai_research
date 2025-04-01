@@ -202,7 +202,7 @@ bbcsport
 
 CUDA_VISIBLE_DEVICES=1 python /mnt/sda/baosf/MSC-MVC/train6_citeseer_sota.py --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 150 --n-steps 15
 
-python train.py --dataname BBCSport --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 3 --n-steps 15
+python train_plot2.py --dataname BBCSport --batch_size 32 --learning_rate 0.001 --mse_epochs 150 --con_epochs 4 --tune_epochs 3 --n-steps 15
 
 Epoch 157 Loss:0.296050
 ACC = 0.9320 NMI = 0.8202 PUR=0.9320
