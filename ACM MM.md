@@ -246,6 +246,28 @@ The main steps of our proposed method are illustrated in Figure \ref{fig2}. For 
 
 
 
+$$P(Y^C|c,s^1,s^2,...,s^V)=\sum^{V}_{v=1}P^{do(u^v)}(Y^C|c^v,s^v)\approx \sum^{V}_{v=1}P^{do(u^v)}(Y^C \mid c^v)P^{do(u^v)}(Y^C \mid s^v),$$
+
+$P\bigl(Y^C \,\big\vert\, c, s^1, s^2, \dots, s^V\bigr)\;=\;\sum_{v=1}^V\Bigl[P\bigl(Y^C \,\big\vert\, c\bigr)\;\times\;P\bigl(Y^C \,\big\vert\, s^v\bigr)\Bigr].$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
