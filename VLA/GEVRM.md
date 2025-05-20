@@ -2,6 +2,8 @@
 
 $p_{\Theta}(a_t, \tau_{t:T} \mid g, \tau_{0:t}) = p_{\phi}(\tau_{t:T} \mid g, \tau_{0:t})\, p_{\varphi}(a_t \mid \tau_{0:T}).$
 
+$p_{\Theta}(a_t, z_{t:T} \mid g, \tau_{0:t}) = p_{\phi}(z_{0:t} \mid g, \tau_{0:t})\, p_{\varphi}(z_{t:T} \mid z_{0:t}).$
+
 模型分为两个阶段,对于当前时刻$t$,对于指令$g$和视频/图片序列$\tau_{0:t}$生成预测帧$\tau_{t:T}$.视频/图片序列$\tau_{0:t}$和预测帧$\tau_{t:T}$共同用于生成action.
 
 我搜索到的:
@@ -33,3 +35,11 @@ Random mask mechanism这里文章只提到the understanding of physical laws and
 
 - latent space的prompt token和text指令做对齐似乎可以考虑?
 - 20-50帧的连续未来帧我认为还是太局限了,能不能想到关键帧?(不知道目前有没有相关工作)
+
+
+
+
+
+
+
+领域泛化,动作迁移

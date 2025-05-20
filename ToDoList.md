@@ -1,32 +1,17 @@
-# Week 8
+# Week 
 
-- 人大
-  - LLM量化 4.29师兄碰面
-- 夏令营准备
-  - 力扣
-  - 口语
-  - 专业课知识
-- 现代交换原理
-  - 实验报告 4.28
-- 计算机体系结构
-  - 实验4.30
-- 科研申报 4.30
+- 写自我介绍PPT
+- 软工代码 3h
+- 数据库 3h
+- 现代交换原理 2h
+  - 拿windows配置一下
+- 准备VLA 2h
+- 
 
 
 
 
 
-```bash
-v=0
-o=jrwei 2890844526 2890844526 IN IP4 10.129.214.211
-s=MicroSIP
-c=IN IP4 10.129.214.211
-t=0 0
-m=audio 40000 RTP/AVP 8
-a=rtpmap:8 PCMA/8000
-m=video 40002 RTP/AVP 96
-a=rtpmap:96 H264/90000
-a=fmtp:96 packetization-mode=1;profile-level-id=42e01f
-a=sendrecv
-```
+- 数据结构,找一下ppt
 
+- 什么是冯诺依曼结构?
