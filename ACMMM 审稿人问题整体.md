@@ -50,3 +50,45 @@
 
 
 
+总回答写在前面
+
+某个问题看G1，G2.。。。
+
+之后写单独的审稿人
+
+
+
+
+
+
+
+请你仔细阅读我们的CausalMVC这篇文章现在是ACM MM会议rebuttal阶段，我需要给审稿人的Rebuttal Questions写相应的回复。首先出于礼貌要感谢审稿人提出的问题。
+对于Model Interpretability你需要从原理上进行合理的解释，不是敷衍地说我们会补充某个section或者会写在补充材料里。
+对于Overfitting to Noise-Free Views这个提问，你要委婉的说明审稿人理解偏了，审稿人可能理解的是，对于noisy view dependency这个现象，如果说模型suffer from这些noisy view，那么模型可能会更关注于那些noise-free的view，导致Overfitting to Noise-Free Views。实际上我们已经已经将问题归纳为两个问题，noisy view dependency和dominant view dependency。而对于dominant view dependency，我们模型要去解决的就是如何平衡dominant view和非dominant view，这个其实也是解决Overfitting的问题。因此你要把审稿人的逻辑思维带到我们的motivation也就是noisy view dependency和dominant view dependency这两个问题本身上。
+
+对于Limited Explanation of Regularization Impact的提问，可以根据实验部分Table3对于L_Sparce的消融实验和我们方法部分对于regularization techniques的介绍进一步阐释。
+
+
+
+
+
+请你仔细阅读我们的CausalMVC这篇文章现在是ACM MM会议rebuttal阶段，我需要给审稿人的Rebuttal Questions写相应的回复。首先出于礼貌要感谢审稿人提出的问题。
+对于Model Interpretability你需要从原理上进行合理的解释，不是敷衍地说我们会补充某个section或者会写在补充材料里。
+对于Overfitting to Noise-Free Views这个提问，你要委婉的说明审稿人理解偏了，审稿人可能理解的是，对于noisy view dependency这个现象，如果说模型suffer from这些noisy view，那么模型可能会更关注于那些noise-free的view，导致Overfitting to Noise-Free Views。实际上我们已经已经将问题归纳为两个问题，noisy view dependency和dominant view dependency。而对于dominant view dependency，我们模型要去解决的就是如何平衡dominant view和非dominant view，这个其实也是解决Overfitting的问题。因此你要把审稿人的逻辑思维带到我们的motivation也就是noisy view dependency和dominant view dependency这两个问题本身上。
+
+对于Limited Explanation of Regularization Impact的提问，可以根据实验部分Table3对于L_Sparce的消融实验和我们方法部分对于regularization techniques的介绍进一步阐释。
+
+
+
+
+
+
+
+请你仔细阅读我们的CausalMVC这篇文章现在是ACM MM会议rebuttal阶段，我需要给审稿人的Rebuttal Questions写相应的回复。首先出于礼貌要感谢审稿人提出的问题。
+对于"The paper lacks some analysis on the identifiability of content/style decomposition. How can the proposed loss functions ensure effective disentanglement of semantic factors?"这里再解释一下。
+
+对于"The experiment results in figure 4 show improved performance of CausalMVC as the number of views increases. Could the authors clarify the underlying properties of the method that ensure this behavior?"，建议从我们这个方法的机制去解释，就是我们方法对我们方法在方法层面和技术层面和已有方法的区别。比如说利用不同视角的互补信息等等。
+
+对于"The clustering results of the proposed method depend on pseudo-labels generated from multi-view representations. Could inaccurate pseudo-labels during initialization negatively affect the final clustering performance?"就是这里我们会补充实验，就是随机初始化若干次，结果影响不大。
+对于"The experiment results of this article are excellent in MVC. Thus, I am interested in the reproducibility of the experiment results. I hope the authors can provide an anonymous code link in the reply letter, to show the reproduction of the results in Table 1, 2, 3, 4, as well as implement the corresponding hyperparameters for ten datasets."我们会在论文中稿之后开源代码。
+
