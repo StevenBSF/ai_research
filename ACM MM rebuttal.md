@@ -105,7 +105,7 @@ Secondly, and importantly, our training procedure **iteratively refines** the cl
 
 ## **Q4: Code Availability and Reproducibility**
 
-Thank you for your interest in the reproducibility of our results. We wholeheartedly agree that providing access to code and implementation details is crucial.  To maintain anonymity during the review process, we have not included the link in the submission, but we are ready to share it. As soon as the paper is accepted, we will make this repository publicly accessible (and will also include a note in the camera-ready version about the code release). All hyperparameters for each dataset and detailed instructions will be documented in the repository for full transparency. We appreciate the reviewer’s emphasis on this matter, and we are committed to enabling the community to **verify and build upon our work**. 
+Thank you for your interest in the reproducibility of our results. We wholeheartedly agree that providing access to code and implementation details is crucial.  To maintain anonymity during the review process, we have not included the link in the submission, but we are ready to share it. As soon as the paper is accepted, we will make this repository publicly accessible. All hyperparameters for each dataset and detailed instructions will be documented in the repository. We appreciate your emphasis on this matter, and we are committed to enabling the community to verify and build upon our work. 
 
 感谢审稿人对我们工作**可复现性**的关注。鉴于评审阶段的匿名要求，我们目前未在投稿中附上仓库链接，但请放心，一旦论文被接收，我们会立即将此匿名仓库开放给审稿人和社区（并会在定稿版本中注明代码提供方式）。仓库中将详细记录每个数据集的超参数配置和运行说明，以保证充分的透明度。我们感谢审稿人对复现性的重视，并承诺通过提供完整的代码和配置来帮助社区**验证并拓展我们的工作**。
 
