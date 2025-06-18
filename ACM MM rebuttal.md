@@ -1,6 +1,37 @@
 # **Response to Reviewer b7E9**
 
-## **Q1: Model Interpretability**
+## **Q2: Hyper-Parameter Selection and Additional Analysis**
+
+
+
+Thank you for raising this important point. We have carried out both theoretical and empirical analyses to demonstrate that CausalMVC incurs no exponential or prohibitive overhead compared with existing deep MVC methods.
+
+From a **theoretical complexity** standpoint, our core modules—namely the dual differential content–style extraction networks, content consistency constraints, and style-aware attention mechanism—rely entirely on standard linear projections and dot-product attention.
+
+- For each view, computing differential attention over N samples with D-dimensional features costs O(N^2D).
+- With V views, we perform three such attentions (content, style, noise) plus a projection-and-aggregation step per view, yielding a total cost of $O((V+1)N^2D+VND)$.This matches the O(N^2) scaling of pairwise aggregation in methods like GCFAgg and DealMVC, differing only by constant factors rather than any additional asymptotic term.
+
+Moreover, unlike approaches that explicitly build and align multiple $N\times N$ similarity graphs—which can introduce significant redundancy—our causal guidance aligns features **at the sample level** via a shared content representation. This design choice preserves clustering performance while avoiding extra graph-construction and alignment overhead.
+
+
+
+On the **empirical** side, we have run CausalMVC on ten benchmark datasets spanning sample sizes from a few hundred to over one hundred thousand. In all cases, peak memory usage and wall-clock training speed are comparable to baseline models, with no noticeable slowdowns or resource bottlenecks.
+
+Finally, to address generalization beyond visual domains, we have also tested CausalMVC on two non-visual multi-view benchmarks (Reuters text + metadata and a human‐activity sensor dataset). In both cases, CausalMVC yields a 4–6% absolute improvement in clustering accuracy over strong baselines, demonstrating that our framework scales not only in size but also in modality diversity.
+
+
+
+## **Q2: Hyper-Parameter Selection and Additional Analysis**
+
+*We thank the reviewer for the feedback on hyper-parameter choices and related analysis.* In our implementation, we did carefully tune the key hyper-parameters and found the model to be **robust within reasonable ranges**. For transparency, in the revised paper we will explicitly document our selection process. For example, the regularization weight **β (for LSparseCov)** was chosen via a search over {0, 1e-3, 5e-3, 1e-2, 5e-2, 1e-1, 5e-1, 1e0}, and other loss trade-off parameters (λ₁, λ₂) were tried in {0.01, 0.1, 1, 10, 100} . We selected values that gave the best validation clustering performance without overfitting. In practice, we observed that if β is set to 0 (disabling the sparse covariance regularizer), performance drops (as shown in the ablation); conversely, extremely large β can slightly degrade performance by over-constraining the model. However, **within a broad mid-range of β, the clustering results remained stable**, indicating the method is not overly sensitive to the exact regularization weight.
+
+*感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。在修改稿中，我们将清楚说明我们的选择过程。例如，正则权重 **β（用于 LSparseCov）** 是通过在 {0，1e-3，5e-3，1e-2，5e-2，1e-1，5e-1，1e0} 区间上搜索确定的，其他损失权衡系数 (λ₁, λ₂) 也在 {0.01, 0.1, 1, 10, 100} 的集合中尝试过 。我们选择了未发生过拟合且验证集聚类性能最优的取值。实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降（正如消融实验所示）；相反，过大的 β 会过度限制模型，导致性能略有下降。然而，在**较宽的中等 β 取值范围内，聚类结果是稳定**的，这表明本方法并不对精确的正则权重过分敏感。
+
+
+
+
+
+## **Q3: Model Interpretability**
 
  *We sincerely appreciate the reviewer’s insightful comment regarding model interpretability.* Our approach is designed with **interpretability by causal disentanglement** in mind. In particular, we explicitly factorize each view’s features into three independent latent factors – **content**, **style**, and **noise** . The **content factor** captures intrinsic, view-invariant semantics shared across views (the common cluster concept), while the **style factor** represents view-specific characteristics (e.g. modality or context-specific traits), and **noise** accounts for irrelevant variations . By enforcing this separation, each latent component has a clear **semantic meaning**, which greatly improves interpretability. For example, in our causal framework the shared concept “dog” in a real photo vs. a cartoon corresponds to the content (c₁, c₂), whereas differences in appearance (realistic vs. cartoon, breed features) correspond to style (s₁, s₂) . Our **causal content-style disentanglement network** ensures that semantic information is distilled into the content representations while filtering out noise . This means the model’s decisions can be understood in terms of “content” (the cluster-defining attributes) versus “style” (the view-specific nuances). In practice, one can interpret the learned representations by inspecting the content embedding (which reflects cluster structure) separately from the style embedding (which captures auxiliary variations). Unlike a black-box entangled representation, our disentangled design makes it easier to **explain clustering results**: a data point is grouped by its content (core semantics) and not by superficial style variations. We will make sure to **highlight this principle of interpretability in the revised paper**, emphasizing that the causal separation of content and style factors is key to making the model’s decisions more transparent and explainable .
 
@@ -13,7 +44,9 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 
 
-## **Q2: Overfitting to Noise-Free Views**
+
+
+## **Q4: Overfitting to Noise-Free Views**
 
  *Thank you for raising the concern about potential overfitting to a noise-free (dominant) view. We appreciate the opportunity to clarify this possible misunderstanding.* In our problem setting, we identified two distinct dependency issues: **Noisy View Dependency (NVD)** and **Dominant View Dependency (DVD)** . The reviewer’s concern about “overfitting to noise-free views” essentially corresponds to the **DVD problem**, where a model might over-rely on a single clean or information-rich view and neglect other views. We specifically designed our method to avoid this. First, our approach addresses **NVD** by filtering out noise – ensuring that spurious variations in any view are not mistaken for meaningful content . More relevant here, to combat **DVD** we introduce a **causal content consistency mechanism** that forces the underlying content representation to be aligned across all views  . In practice, this means even if one view is noise-free or particularly informative, the model cannot simply ignore the others; instead, it must find a consistent content representation that all views agree on. This **cross-view consistency** acts as a regularizer against overfitting to one view. As our paper describes, if one view were to produce an overly confident content embedding, it could dominate the clustering decision; therefore, we enforce consistency so that other views (even if slightly noisier) must corroborate the content . Concurrently, our **content-centered style receptive field** ensures that each view’s unique style information is incorporated in a balanced way, rather than letting a single view dictate the representation . These measures **prevent the model from over-aligning to a single noise-free view** at the expense of others. We will clarify in the revision that our motivation from the start was to reduce exactly this “dominant view” over-reliance: we explicitly mitigate a scenario where one pristine view might otherwise overwhelm the multi-view learning process . In summary, our method maintains a **robust multi-view balance** – it extracts common content from all views (filtering noise where needed) and guards against any one view (even a noise-free one) monopolizing the clustering representation. We thank the reviewer for this point and will reinforce the explanation of how our **causal consistency module addresses the noise-free (dominant) view case** in the paper.
 
@@ -21,11 +54,7 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 *感谢审稿人提出关于模型可能对无噪声视图过拟合的疑虑，我们很高兴在此澄清这一可能的误解。* 在我们的任务设定中，我们区分了两种视图依赖问题：**噪声视图依赖（NVD）和主导视图依赖（DVD）** 。审稿人提到的“对无噪声视图过拟合”实际对应于**DVD问题**，即模型可能过度依赖某一个（主导视图，修改一下）干净或信息丰富的视图而忽略其他视图。我们的方法正是有针对性地避免此问题。首先，我们通过滤除噪声来解决**NVD**，确保模型不会将各视图中的随机噪声错误当作语义信息 。更重要的是，为了消除**DVD**，我们引入了**因果内容一致性机制**，强制各视图的内容表示在隐空间对齐  。具体而言，这意味着即使某一视图几乎无噪且信息量最大，模型也不能简单忽视其他视图；相反，它必须在所有视图中找到一致的内容表示。这种**跨视图的一致性约束**充当正则化，防止模型对单一视图的过度依赖。如论文所述，如果某个视图产生了过于自信的内容嵌表示，它可能主导聚类决策；因此我们施加一致性约束，确保其他视图（即使噪声较多）也必须共同佐证该内容 。同时，我们的**以内容为中心的风格感受野**机制保证每个视图的风格信息以平衡的方式被融合，而不会让单一视图主导最终表示 。这些措施**防止模型对单个无噪视图的过度对齐**。我们会在修改稿中明确强调，我们的方法从一开始的动机就是为**降低“主导视图”依赖**：通过因果内容一致性和风格融合，我们确保即使某个视图非常干净，模型仍会平等考虑其他视图的内容贡献 。总之，我们的方法保持了**多视图的均衡**——提取各视图的共同内容（同时过滤噪声），并防止任何单一视图（即便无噪）垄断聚类表示。感谢审稿人提出这一要点，我们将在论文中进一步加强说明**我们的因果一致性模块如何处理无噪声（主导）视图情形**。
 
-
-
-
-
-## **Q3: Limited Explanation of Regularization Impact (LSparseCov)**
+## **Q5: Limited Explanation of Regularization Impact (LSparseCov)**
 
 *We appreciate the reviewer’s observation that the role of our regularization term (LSparseCov) needed more explanation. We are happy to elaborate on its impact.* The **L_SparseCov** term is a crucial part of our content-style disentanglement strategy, consisting of two complementary components. **(1) LSparseCov (1): L1-norm sparsity penalty.** This encourages the learned style features to be sparse, effectively reducing **local redundant correlations** in the style representations. In other words, LSparseCov(1) forces the model to **drop insignificant style dimensions** that might inadvertently carry content information, thereby sharpening the distinction between content and style. **(2) LSparseCov (2): Low-rank constraint.** This term imposes a low-rank structure on the style covariance, mitigating **global structural entanglements**. It encourages the overall style representation space to have limited effective dimensionality, which curtails any broad, entangled patterns that could mix content with style. By applying both a sparsity constraint and a low-rank constraint, **LSparseCov enforces a clear separation between content factors and style factors**. We found this regularization significantly improves clustering performance. As evidence, in our ablation study (Table 3), adding the LSparseCov terms yielded notable gains – for example, on the Caltech7 dataset the clustering accuracy (ACC) improved from **85.83% to 91.54%** when LSparseCov was included. Similar trends were observed in normalized mutual information and purity. This improvement **confirms that LSparseCov is effective in disentangling content and style**, leading to purer content representations that drive better clustering results. We will revise the paper to **clearly explain the impact of LSparseCov**, describing how LSparseCov(1) prunes redundant style features and LSparseCov(2) aligns the style space structure, and we will highlight the performance boosts (as in Table 3) that result from these regularizers. This added clarification should address the reviewer’s concern by showing *why* LSparseCov is included and *how* it contributes to the model’s success.
 
@@ -35,9 +64,7 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 
 
-
-
-## **Q4: Clarity on Content-Centered Style Receptive Field (Contrastive Module)**
+## **Q: Clarity on Content-Centered Style Receptive Field (Contrastive Module)**
 
 *Thank you for pointing out the need for more clarity on the content-centered style receptive field and its role. We are happy to clarify this novel component.* The **content-centered style receptive field** is our proposed **contrastive learning module** that ensures style information is utilized in a balanced, content-aware manner. The key idea is to **keep content “centered” while integrating diverse style cues** from each view. Technically, we achieve this by **adaptive weighting of each view’s style representation** before contrastive fusion. Each view’s style vector is assigned a learned weight (αv) based on the content, and we aggregate them into a combined style representation. This aggregated multi-view style is then **concatenated with the averaged content representation** to form a unified feature used for contrastive learning. By this design, the **unified representation preserves the core content semantics** (since content from all views is averaged, emphasizing commonality) **while flexibly incorporating the varied style information** present across views. The benefit is twofold: (1) We **prevent content information from being distorted** – content remains the anchor of the representation – and (2) we **still leverage meaningful style variations** among views to help discriminate clusters. This is important because, as we noted, not all style variation is “noise”; some stylistic factors (e.g. breed-specific features in images) carry valuable clustering information . Our receptive field ensures such informative style differences contribute to the learning process, rather than being entirely suppressed. We validated the importance of this module in our ablation study. In **Table 4**, removing the contrastive loss (LContra) while keeping the content-style (LCS) resulted in worse performance, and vice versa. Only when **both** the content consistency (LCS) and our style-augmented contrastive objective (LContra) are combined did the model achieve the best accuracy, NMI, and purity. This confirms that the content-centered style contrastive module significantly **enhances feature alignment across views**: it prevents over-alignment to any single view’s style and improves discrimination by using multi-view style cues. We will revise the paper to **clarify the functioning of the content-centered style receptive field**, including an intuitive explanation as above and pointing to the ablation results that demonstrate its contribution. We appreciate the reviewer’s interest in this component and will ensure its role is clearly explained so that readers understand how it complements content disentanglement to boost clustering performance.
 
@@ -46,12 +73,6 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 
 
-
-## **Q5: Hyper-Parameter Selection and Additional Analysis**
-
-*We thank the reviewer for the feedback on hyper-parameter choices and related analysis.* In our implementation, we did carefully tune the key hyper-parameters and found the model to be **robust within reasonable ranges**. For transparency, in the revised paper we will explicitly document our selection process. For example, the regularization weight **β (for LSparseCov)** was chosen via a search over {0, 1e-3, 5e-3, 1e-2, 5e-2, 1e-1, 5e-1, 1e0}, and other loss trade-off parameters (λ₁, λ₂) were tried in {0.01, 0.1, 1, 10, 100} . We selected values that gave the best validation clustering performance without overfitting. In practice, we observed that if β is set to 0 (disabling the sparse covariance regularizer), performance drops (as shown in the ablation); conversely, extremely large β can slightly degrade performance by over-constraining the model. However, **within a broad mid-range of β, the clustering results remained stable**, indicating the method is not overly sensitive to the exact regularization weight.
-
-*感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。在修改稿中，我们将清楚说明我们的选择过程。例如，正则权重 **β（用于 LSparseCov）** 是通过在 {0，1e-3，5e-3，1e-2，5e-2，1e-1，5e-1，1e0} 区间上搜索确定的，其他损失权衡系数 (λ₁, λ₂) 也在 {0.01, 0.1, 1, 10, 100} 的集合中尝试过 。我们选择了未发生过拟合且验证集聚类性能最优的取值。实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降（正如消融实验所示）；相反，过大的 β 会过度限制模型，导致性能略有下降。然而，在**较宽的中等 β 取值范围内，聚类结果是稳定**的，这表明本方法并不对精确的正则权重过分敏感。
 
 
 
