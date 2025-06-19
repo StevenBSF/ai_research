@@ -1,6 +1,6 @@
 # **Response to Reviewer b7E9**
 
-## **Q2: Hyper-Parameter Selection and Additional Analysis**
+## **Q2:  Computational Complexity and Limited Generalization**
 
 
 
@@ -35,7 +35,7 @@ Finally, to address generalization beyond visual domains, we have also tested Ca
 
  *We sincerely appreciate the reviewer’s insightful comment regarding model interpretability.* Our approach is designed with **interpretability by causal disentanglement** in mind. In particular, we explicitly factorize each view’s features into three independent latent factors – **content**, **style**, and **noise** . The **content factor** captures intrinsic, view-invariant semantics shared across views (the common cluster concept), while the **style factor** represents view-specific characteristics (e.g. modality or context-specific traits), and **noise** accounts for irrelevant variations . By enforcing this separation, each latent component has a clear **semantic meaning**, which greatly improves interpretability. For example, in our causal framework the shared concept “dog” in a real photo vs. a cartoon corresponds to the content (c₁, c₂), whereas differences in appearance (realistic vs. cartoon, breed features) correspond to style (s₁, s₂) . Our **causal content-style disentanglement network** ensures that semantic information is distilled into the content representations while filtering out noise . This means the model’s decisions can be understood in terms of “content” (the cluster-defining attributes) versus “style” (the view-specific nuances). In practice, one can interpret the learned representations by inspecting the content embedding (which reflects cluster structure) separately from the style embedding (which captures auxiliary variations). Unlike a black-box entangled representation, our disentangled design makes it easier to **explain clustering results**: a data point is grouped by its content (core semantics) and not by superficial style variations. We will make sure to **highlight this principle of interpretability in the revised paper**, emphasizing that the causal separation of content and style factors is key to making the model’s decisions more transparent and explainable .
 
-*非常感谢审稿人提出关于模型可解释性的宝贵意见。* 我们的方法通过**因果解耦**机制来提升模型的可解释性。在设计中，我们**明确将每个视图的表示分解为内容、风格和噪声三个独立因素** 。其中，**内容因素**指代视图无关的内在语义信息（各视图共享的聚类语义，例如“狗”的概念），**风格因素**表示特定视图的属性（如模态差异或上下文模式），**噪声因素**则代表无关的随机变动 。通过强制这种内容/风格/噪声的分离，每个潜在成分都具有清晰的**语义含义**，从而显著提高了模型的可解释性。例如，在我们的因果框架中，真实照片与卡通图片中共享的语义概念“狗”对应于内容变量(c₁, c₂)，而外观上的差异（真实vs卡通风格、品种特征等）对应于风格变量(s₁, s₂) 。我们的**因果内容-风格解耦网络**确保语义信息被提炼到内容表示中，同时过滤掉噪声干扰 。这意味着模型判别依据可以用“内容”（决定聚类的核心语义特征）和“风格”（视图特有的变化）来解释。实际上，我们可以分别检查模型学习到的内容嵌入和风格嵌入来理解其聚类决策：内容嵌表示例的聚类语义，风格嵌表则捕获附加的视图差异。与黑箱的纠缠特征不同，我们解耦的设计使**解释聚类结果**更加容易——数据点因其内容（核心语义）而分组，不受表层风格差异的干扰。我们将在论文的修改稿中**强调这一可解释性原则**，明确说明通过因果内容-风格分离来赋予模型决策更高的透明度和可解释性。
+*非常感谢审稿人提出关于模型可解释性的宝贵意见。* 我们的方法通过**因果解耦**机制来提升模型的可解释性。在设计中，我们**明确将每个视图的表示分解为内容、风格和噪声三个独立因素** 。其中，**内容因素**指代视图无关的内在语义信息（各视图共享的聚类语义，例如“狗”的概念），**风格因素**表示特定视图的属性（如模态差异或上下文模式），**噪声因素**则代表无关的随机变动 。通过强制这种内容/风格/噪声的分离，每个潜在成分都具有清晰的**语义含义**，从而显著提高了模型的可解释性。例如，在我们的因果框架中，真实照片与卡通图片中共享的语义概念“狗”对应于内容变量(c_1, c_2)，而外观上的差异（真实vs卡通风格、品种特征等）对应于风格变量(s_1, s_2) 。我们的**因果内容-风格解耦网络**确保语义信息被提炼到内容表示中，同时过滤掉噪声干扰 。这意味着模型判别依据可以用“内容”（决定聚类的核心语义特征）和“风格”（视图特有的变化）来解释。实际上，我们可以分别检查模型学习到的内容嵌入和风格嵌入来理解其聚类决策：内容嵌表示例的聚类语义，风格嵌表则捕获附加的视图差异。与黑箱的纠缠特征不同，我们解耦的设计使**解释聚类结果**更加容易——数据点因其内容（核心语义）而分组，不受表层风格差异的干扰。我们将在论文的修改稿中**强调这一可解释性原则**，明确说明通过因果内容-风格分离来赋予模型决策更高的透明度和可解释性。
 
 The complex causal content-style disentanglement makes the model difficult to interpret
 
@@ -52,7 +52,9 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 
 
-*感谢审稿人提出关于模型可能对无噪声视图过拟合的疑虑，我们很高兴在此澄清这一可能的误解。* 在我们的任务设定中，我们区分了两种视图依赖问题：**噪声视图依赖（NVD）和主导视图依赖（DVD）** 。审稿人提到的“对无噪声视图过拟合”实际对应于**DVD问题**，即模型可能过度依赖某一个（主导视图，修改一下）干净或信息丰富的视图而忽略其他视图。我们的方法正是有针对性地避免此问题。首先，我们通过滤除噪声来解决**NVD**，确保模型不会将各视图中的随机噪声错误当作语义信息 。更重要的是，为了消除**DVD**，我们引入了**因果内容一致性机制**，强制各视图的内容表示在隐空间对齐  。具体而言，这意味着即使某一视图几乎无噪且信息量最大，模型也不能简单忽视其他视图；相反，它必须在所有视图中找到一致的内容表示。这种**跨视图的一致性约束**充当正则化，防止模型对单一视图的过度依赖。如论文所述，如果某个视图产生了过于自信的内容嵌表示，它可能主导聚类决策；因此我们施加一致性约束，确保其他视图（即使噪声较多）也必须共同佐证该内容 。同时，我们的**以内容为中心的风格感受野**机制保证每个视图的风格信息以平衡的方式被融合，而不会让单一视图主导最终表示 。这些措施**防止模型对单个无噪视图的过度对齐**。我们会在修改稿中明确强调，我们的方法从一开始的动机就是为**降低“主导视图”依赖**：通过因果内容一致性和风格融合，我们确保即使某个视图非常干净，模型仍会平等考虑其他视图的内容贡献 。总之，我们的方法保持了**多视图的均衡**——提取各视图的共同内容（同时过滤噪声），并防止任何单一视图（即便无噪）垄断聚类表示。感谢审稿人提出这一要点，我们将在论文中进一步加强说明**我们的因果一致性模块如何处理无噪声（主导）视图情形**。
+*感谢审稿人提出关于模型可能对无噪声视图过拟合的疑虑，我们很高兴在此澄清这一可能的误解。* 在我们的任务设定中，我们区分了两种视图依赖问题：**噪声视图依赖（NVD）和主导视图依赖（DVD）** 。审稿人提到的“对无噪声视图过拟合”实际对应于**DVD问题**，即模型可能过度依赖某一个信息丰富的视图,即主导视图，而忽略其他视图。我们的方法正是有针对性地避免此问题。
+
+首先，我们通过滤除噪声来解决**NVD**，确保模型不会将各视图中的随机噪声错误当作语义信息 。更重要的是，为了消除**DVD**，我们引入了**因果内容一致性机制**，强制各视图的内容表示在隐空间对齐  。具体而言，这意味着即使某一视图几乎无噪且信息量最大，模型也不能简单忽视其他视图；相反，它必须在所有视图中找到一致的内容表示。这种**跨视图的一致性约束**充当正则化，防止模型对单一视图的过度依赖。如论文所述，如果某个视图产生了过于自信的内容嵌表示，它可能主导聚类决策；因此我们施加一致性约束，确保其他视图（即使噪声较多）也必须共同佐证该内容 。同时，我们的**以内容为中心的风格感受野**机制保证每个视图的风格信息以平衡的方式被融合，而不会让单一视图主导最终表示 。这些措施**防止模型对单个无噪视图的过度对齐**。我们会在修改稿中明确强调，我们的方法从一开始的动机就是为**降低“主导视图”依赖**：通过因果内容一致性和风格融合，我们确保即使某个视图非常干净，模型仍会平等考虑其他视图的内容贡献 。总之，我们的方法保持了**多视图的均衡**——提取各视图的共同内容（同时过滤噪声），并防止任何单一视图（即便无噪）垄断聚类表示。感谢审稿人提出这一要点，我们将在论文中进一步加强说明**我们的因果一致性模块如何处理无噪声（主导）视图情形**。
 
 ## **Q5: Limited Explanation of Regularization Impact (LSparseCov)**
 
@@ -60,7 +62,13 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 
 
-*感谢审稿人指出我们对于正则项 L_SparseCov 的作用解释不够充分的问题。我们愿意详细说明该正则项的影响。* **LSparseCov** 是我们内容-风格解耦策略中的关键组成，包含两个互补部分。**(1) LSparseCov (1)：L1范数稀疏惩罚。** 该项鼓励模型学习的风格特征呈现稀疏性，有效减少风格表示中**局部的冗余相关**。直观地说，LSparseCov(1)促使模型**舍弃不重要的风格维度**（这些维度可能无意中携带内容信息），从而更加明确地区分内容和风格。**(2) LSparseCov (2)：低秩约束。** 该项在风格表示的协方差上施加低秩结构，以缓解**全局结构纠缠**。它鼓励风格表示空间整体上具有较低的有效维度，限制那些可能将内容与风格混杂在一起的宽泛相关模式。通过同时施加稀疏性和低秩约束，**LSparseCov 强制内容因素与风格因素的更清晰分离**。我们发现这一正则项对聚类性能有显著提升作用。实验消融研究（表3）表明，加入 LSparseCov 后模型性能明显提高——例如，在 Caltech7 数据集上，当包含 LSparseCov 正则时，聚类准确率从**85.83%提升至91.54%**。归一化互信息和纯度指标也有类似的增益。这些结果**验证了 LSparseCov 在解耦内容和风格方面的有效性**，使得提取的内容表示更加纯净，从而带来更好的聚类效果。我们将修改论文以**清楚解释 LSparseCov 的作用机理**，详细描述 LSparseCov(1) 如何剪除冗余风格特征、LSparseCov(2) 如何规范风格空间结构，并强调这些正则项带来的性能提升（如表3所示）。这些补充说明将直接回应审稿人的关切，阐明我们引入 LSparseCov **的原因**以及它**如何**助力模型性能。
+*感谢审稿人指出我们对于正则项 L_SparseCov 的作用解释不够充分的问题。我们愿意详细说明该正则项的影响。* **LSparseCov** 是我们内容-风格解耦策略中的关键组成，包含两个互补部分。**(1) LSparseCov (1)：L1范数稀疏惩罚。** 该项鼓励模型学习的风格特征呈现稀疏性，有效减少风格表示中**局部的冗余相关**。直观地说，LSparseCov(1)促使模型**舍弃不重要的风格维度**（这些维度可能无意中携带内容信息），从而更加明确地区分内容和风格。**(2) LSparseCov (2)：低秩约束。** 该项在风格表示的协方差上施加低秩结构，以缓解**全局结构纠缠**。它鼓励风格表示空间整体上具有较低的有效维度，限制那些可能将内容与风格混杂在一起的宽泛相关模式。通过同时施加稀疏性和低秩约束，**LSparseCov 强制内容因素与风格因素的更清晰分离**。消融实验
+
+
+
+
+
+我们发现这一正则项对聚类性能有显著提升作用。实验消融研究（表3）表明，加入 LSparseCov 后模型性能明显提高——例如，在 Caltech7 数据集上，当包含 LSparseCov 正则时，聚类准确率从**85.83%提升至91.54%**。归一化互信息和纯度指标也有类似的增益。这些结果**验证了 LSparseCov 在解耦内容和风格方面的有效性**，使得提取的内容表示更加纯净，从而带来更好的聚类效果。我们将修改论文以**清楚解释 LSparseCov 的作用机理**，详细描述 LSparseCov(1) 如何剪除冗余风格特征、LSparseCov(2) 如何规范风格空间结构，并强调这些正则项带来的性能提升（如表3所示）。这些补充说明将直接回应审稿人的关切，阐明我们引入 LSparseCov **的原因**以及它**如何**助力模型性能。
 
 
 
@@ -68,7 +76,7 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 *Thank you for pointing out the need for more clarity on the content-centered style receptive field and its role. We are happy to clarify this novel component.* The **content-centered style receptive field** is our proposed **contrastive learning module** that ensures style information is utilized in a balanced, content-aware manner. The key idea is to **keep content “centered” while integrating diverse style cues** from each view. Technically, we achieve this by **adaptive weighting of each view’s style representation** before contrastive fusion. Each view’s style vector is assigned a learned weight (αv) based on the content, and we aggregate them into a combined style representation. This aggregated multi-view style is then **concatenated with the averaged content representation** to form a unified feature used for contrastive learning. By this design, the **unified representation preserves the core content semantics** (since content from all views is averaged, emphasizing commonality) **while flexibly incorporating the varied style information** present across views. The benefit is twofold: (1) We **prevent content information from being distorted** – content remains the anchor of the representation – and (2) we **still leverage meaningful style variations** among views to help discriminate clusters. This is important because, as we noted, not all style variation is “noise”; some stylistic factors (e.g. breed-specific features in images) carry valuable clustering information . Our receptive field ensures such informative style differences contribute to the learning process, rather than being entirely suppressed. We validated the importance of this module in our ablation study. In **Table 4**, removing the contrastive loss (LContra) while keeping the content-style (LCS) resulted in worse performance, and vice versa. Only when **both** the content consistency (LCS) and our style-augmented contrastive objective (LContra) are combined did the model achieve the best accuracy, NMI, and purity. This confirms that the content-centered style contrastive module significantly **enhances feature alignment across views**: it prevents over-alignment to any single view’s style and improves discrimination by using multi-view style cues. We will revise the paper to **clarify the functioning of the content-centered style receptive field**, including an intuitive explanation as above and pointing to the ablation results that demonstrate its contribution. We appreciate the reviewer’s interest in this component and will ensure its role is clearly explained so that readers understand how it complements content disentanglement to boost clustering performance.
 
-*感谢审稿人指出需要进一步澄清“以内容为中心的风格感受野”模块及其作用。我们很乐意详细说明这一新颖组件。* **以内容为中心的风格感受野**是我们提出的**对比学习模块**，旨在以内容为核心、平衡地利用各视图的风格信息。其核心思想是在融合风格特征时，**保持内容“居中”同时整合不同视图的风格线索**。在技术实现上，我们通过**自适应加权各视图的风格表示**来做到这一点：模型为每个视图的风格向量分配一个基于内容的可学习权重 (αv)，并将加权后的多视图风格特征聚合在一起。随后，我们将聚合得到的风格表示与平均后的内容表示**拼接**，形成用于对比学习的统一特征。这样的设计使得**统一表示在保留核心内容语义**的同时（通过各视图内容取平均，突出公共语义），**灵活融入来自多视图的风格多样性**。其带来的好处有两点：（1）**防止内容信息被扭曲**——内容始终是表示的锚点；（2）**充分利用有意义的风格差异**来辅助区分聚类。这里要强调的是，并非所有风格差异都是“噪声”；某些风格因素（例如图像中与品种相关的特征）实际上包含重要的聚类信息 。我们的感受野模块确保这些含有信息量的风格差异在学习过程中有所贡献，而不是被完全忽略。我们在消融实验中验证了该模块的重要性。在**表4**中，只保留内容一致性损失 LCS 去除对比损失 LContra 会导致性能下降，反之亦然。只有当**内容一致性 (LCS)和我们融入风格的对比目标 (LContra) 同时存在时，模型才能达到最佳的准确率、NMI 和纯度。这证实了以内容为中心的风格对比模块可以显著增强跨视图特征对齐**：它避免模型过度对齐于任一视图的风格，并通过利用多视图风格线索提高聚类判别力。我们将在论文修改中**澄清该风格感受野模块的工作原理**，包括如上所述的直观解释，并引用消融结果以展示其贡献。我们感谢审稿人对这一模块的关注，我们将确保清晰说明其作用，使读者理解它如何与内容解耦相辅相成，从而提升聚类性能。
+*感谢审稿人指出需要进一步澄清“以内容为中心的风格感受野”模块及其作用。我们很乐意详细说明这一新颖组件。* **以内容为中心的风格感受野**是我们提出的**对比学习模块**，旨在以内容为核心、平衡地利用各视图的风格信息。其核心思想是在融合风格特征时，**保持内容“居中”同时整合不同视图的风格线索**。在技术实现上，我们通过**自适应加权各视图的风格表示**来做到这一点：模型为每个视图的风格向量分配一个基于内容的可学习权重 ，并将加权后的多视图风格特征聚合在一起。随后，我们将聚合得到的风格表示与平均后的内容表示**拼接**，形成用于对比学习的统一特征。这样的设计使得**统一表示在保留核心内容语义**的同时（通过各视图内容取平均，突出公共语义），**灵活融入来自多视图的风格多样性**。其带来的好处有两点：（1）**防止内容信息被扭曲**——内容始终是表示的锚点；（2）**充分利用有意义的风格差异**来辅助区分聚类。这里要强调的是，并非所有风格差异都是“噪声”；某些风格因素（例如图像中与品种相关的特征）实际上包含重要的聚类信息 。我们的感受野模块确保这些含有信息量的风格差异在学习过程中有所贡献，而不是被完全忽略。我们在消融实验中验证了该模块的重要性。在**表4**中，只保留内容一致性损失 LCS 去除对比损失 LContra 会导致性能下降，反之亦然。只有当**内容一致性 (LCS)和我们融入风格的对比目标 (LContra) 同时存在时，模型才能达到最佳的准确率、NMI 和纯度。这证实了以内容为中心的风格对比模块可以显著增强跨视图特征对齐**：它避免模型过度对齐于任一视图的风格，并通过利用多视图风格线索提高聚类判别力。我们将在论文修改中**澄清该风格感受野模块的工作原理**，包括如上所述的直观解释，并引用消融结果以展示其贡献。我们感谢审稿人对这一模块的关注，我们将确保清晰说明其作用，使读者理解它如何与内容解耦相辅相成，从而提升聚类性能。
 
 
 
@@ -156,15 +164,23 @@ Once again, we sincerely appreciate the reviewer’s professional feedback. We b
 
 从实证结果看，我们在十个标准数据集（规模从几百到十万）上进行了训练测试，训练时间与内存开销与现有方法基本持平，未出现明显放缓或资源瓶颈，证明该方法具备良好的可扩展性。我们将在修改稿中加入训练资源统计，以进一步佐证模型的实用性与计算可控性。再次感谢审稿人的专业建议，我们相信 CausalMVC 兼具有效性与计算效率，可广泛适用于大规模多视图聚类任务。
 
-**Impact of Content-Style Receptive Field vs. Standard Fusion:** In our ablation study, we found that incorporating the content-centered style receptive field yields a significant performance boost over standard fusion strategies. Quantitatively, removing the style receptive field (i.e. using only content-based fusion) causes notable drops in clustering accuracy. This improvement is also evident qualitatively: without the style component, the learned clusters are more dispersed, whereas integrating both content and style yields much more compact, well-defined clusters (see Fig. 5(b) vs 5(c)) . We will emphasize in the revision that this module substantially enhances clustering performance by better exploiting complementary style information, as opposed to standard feature fusion.
+**Impact of Content-Style Receptive Field vs. Standard Fusion:** In our ablation study, we found that incorporating the content-centered style receptive field yields a significant performance boost over standard fusion strategies. This improvement is also evident qualitatively: without the style component, the learned clusters are more dispersed, whereas integrating both content and style yields much more compact, well-defined clusters (see Fig. 5(b) vs 5(c)) . 
 The following table reports the results of three different configurations in terms of ACC, NMI, and PUR:
-Content-Only refers to the variant that uses only the dual differential content-style network and content-level cross-view consistency, without any style fusion module. Std-Fusion represents a baseline where style features from each view are simply concatenated or linearly combined with the content features, and the result is used as input to the contrastive learning module.
+
+|Dataset||ACC|NMI|PUR|
+| - | - | - | - | - |
+|Caltech7 | Std-Fusion| 89.12| 81.64 | 89.43 |
+|| Ours| 91.54|84.57 |91.56 |
+| YouTubeFace| Std-Fusion|38.97|36.14|45.87|
+|| Ours|40.33| 37.32|47.36 |
+
+Std-Fusion represents a baseline that fuses content and style representations using an existing attention-based network.
 
 **内容-风格感受野模块的作用（对比标准融合方法）：** 消融实验表明，引入以内容为中心的风格感受野模块相对于标准融合策略可以显著提升性能。定量而言，去除该感受野模块（即仅采用内容融合）会导致聚类性能明显下降。这种提升在质化结果中也很明显：不包含风格成分时，学到的聚类分布较为松散；而融合内容和风格信息后，簇内样本更加紧致，簇结构更清晰（参见图5(b) 和 5(c) 的对比） 。在修改稿中，我们将强调该模块有效利用了视图间互补的风格信息，相较于标准特征融合显著提升了聚类表现。
 
 下表列出了三种设置在 ACC、NMI 和 PUR 三项指标上的结果：
 
-| **数据集**      | **设置**               | **ACC (%)** | **NMI (%)** | **PUR (%)** |
+| Dataset         |                        | **ACC (%)** | **NMI (%)** | **PUR (%)** |
 | --------------- | ---------------------- | ----------- | ----------- | ----------- |
 | **Caltech7**    | Content-Only（不用加） | 83.72       | 77.27       | 83.58       |
 |                 | Std-Fusion             | 89.12       | 81.64       | 89.43       |
