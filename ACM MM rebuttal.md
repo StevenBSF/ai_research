@@ -25,7 +25,7 @@ Finally, to address generalization beyond visual domains, we have also tested Ca
 
 *We thank the reviewer for the feedback on hyper-parameter choices and related analysis.* In our implementation, we did carefully tune the key hyper-parameters and found the model to be **robust within reasonable ranges**. For transparency, in the revised paper we will explicitly document our selection process. For example, the regularization weight **β (for LSparseCov)** was chosen via a search over {0, 1e-3, 5e-3, 1e-2, 5e-2, 1e-1, 5e-1, 1e0}, and other loss trade-off parameters (λ₁, λ₂) were tried in {0.01, 0.1, 1, 10, 100} . We selected values that gave the best validation clustering performance without overfitting. In practice, we observed that if β is set to 0 (disabling the sparse covariance regularizer), performance drops (as shown in the ablation); conversely, extremely large β can slightly degrade performance by over-constraining the model. However, **within a broad mid-range of β, the clustering results remained stable**, indicating the method is not overly sensitive to the exact regularization weight.
 
-*感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。在修改稿中，我们将清楚说明我们的选择过程。例如，正则权重 **β（用于 LSparseCov）** 是通过在 {0，1e-3，5e-3，1e-2，5e-2，1e-1，5e-1，1e0} 区间上搜索确定的，其他损失权衡系数 (λ₁, λ₂) 也在 {0.01, 0.1, 1, 10, 100} 的集合中尝试过 。我们选择了未发生过拟合且验证集聚类性能最优的取值。实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降（正如消融实验所示）；相反，过大的 β 会过度限制模型，导致性能略有下降。然而，在**较宽的中等 β 取值范围内，聚类结果是稳定**的，这表明本方法并不对精确的正则权重过分敏感。
+*感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。在修改稿中，我们将清楚说明我们的选择过程。β 是通过在 {0，1e-3，5e-3，1e-2，5e-2，1e-1，5e-1，1e0} 区间上搜索确定的，其他损失权衡系数 (λ₁, λ₂) 也在 {0.01, 0.1, 1, 10, 100} 的集合中尝试过 。我们选择了未发生过拟合且验证集聚类性能最优的取值。实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降（正如消融实验所示）；相反，过大的 β 会过度限制模型，导致性能略有下降。然而，在**较宽的中等 β 取值范围内，聚类结果是稳定**的，这表明本方法并不对精确的正则权重过分敏感。
 
 
 
@@ -34,6 +34,8 @@ Finally, to address generalization beyond visual domains, we have also tested Ca
 ## **Q3: Model Interpretability**
 
  *We sincerely appreciate the reviewer’s insightful comment regarding model interpretability.* Our approach is designed with **interpretability by causal disentanglement** in mind. In particular, we explicitly factorize each view’s features into three independent latent factors – **content**, **style**, and **noise** . The **content factor** captures intrinsic, view-invariant semantics shared across views (the common cluster concept), while the **style factor** represents view-specific characteristics (e.g. modality or context-specific traits), and **noise** accounts for irrelevant variations . By enforcing this separation, each latent component has a clear **semantic meaning**, which greatly improves interpretability. For example, in our causal framework the shared concept “dog” in a real photo vs. a cartoon corresponds to the content (c₁, c₂), whereas differences in appearance (realistic vs. cartoon, breed features) correspond to style (s₁, s₂) . Our **causal content-style disentanglement network** ensures that semantic information is distilled into the content representations while filtering out noise . This means the model’s decisions can be understood in terms of “content” (the cluster-defining attributes) versus “style” (the view-specific nuances). In practice, one can interpret the learned representations by inspecting the content embedding (which reflects cluster structure) separately from the style embedding (which captures auxiliary variations). Unlike a black-box entangled representation, our disentangled design makes it easier to **explain clustering results**: a data point is grouped by its content (core semantics) and not by superficial style variations. We will make sure to **highlight this principle of interpretability in the revised paper**, emphasizing that the causal separation of content and style factors is key to making the model’s decisions more transparent and explainable .
+
+关于Model Interpretability首先可以参阅参考文献[xx][xx],从我们的文章方法而言，Model Interpretability具体为....。对于 why certain views or content contribute more to the clustering decision，这是因为不同视角或内容往往携带的特征信息量和类别判别能力各不相同。若某一视角生成的特征在不同簇之间表现出更大的类别间差异（即簇间方差高、簇内方差低），则该视角自然对区分样本类别更为敏感，从而在最终的相似度或距离计算中占据更大权重。以及噪声与冗余影响，还有某些视角生成的样本分布更契合簇中心的分布形状都会产生视角差异的影响。
 
 *非常感谢审稿人提出关于模型可解释性的宝贵意见。* 我们的方法通过**因果解耦**机制来提升模型的可解释性。在设计中，我们**明确将每个视图的表示分解为内容、风格和噪声三个独立因素** 。其中，**内容因素**指代视图无关的内在语义信息（各视图共享的聚类语义，例如“狗”的概念），**风格因素**表示特定视图的属性（如模态差异或上下文模式），**噪声因素**则代表无关的随机变动 。通过强制这种内容/风格/噪声的分离，每个潜在成分都具有清晰的**语义含义**，从而显著提高了模型的可解释性。例如，在我们的因果框架中，真实照片与卡通图片中共享的语义概念“狗”对应于内容变量(c_1, c_2)，而外观上的差异（真实vs卡通风格、品种特征等）对应于风格变量(s_1, s_2) 。我们的**因果内容-风格解耦网络**确保语义信息被提炼到内容表示中，同时过滤掉噪声干扰 。这意味着模型判别依据可以用“内容”（决定聚类的核心语义特征）和“风格”（视图特有的变化）来解释。实际上，我们可以分别检查模型学习到的内容嵌入和风格嵌入来理解其聚类决策：内容嵌表示例的聚类语义，风格嵌表则捕获附加的视图差异。与黑箱的纠缠特征不同，我们解耦的设计使**解释聚类结果**更加容易——数据点因其内容（核心语义）而分组，不受表层风格差异的干扰。我们将在论文的修改稿中**强调这一可解释性原则**，明确说明通过因果内容-风格分离来赋予模型决策更高的透明度和可解释性。
 
@@ -48,6 +50,10 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 ## **Q4: Overfitting to Noise-Free Views**
 
+原本：CausalMVC explicitly addresses the risk of overfitting to noise-free views (DVD) via a causal content consistency module. This enforces alignment across views, ensuring no single view can dominate clustering decisions. The style receptive field also ensures each view’s unique traits are fairly integrated.
+
+
+
  *Thank you for raising the concern about potential overfitting to a noise-free (dominant) view. We appreciate the opportunity to clarify this possible misunderstanding.* In our problem setting, we identified two distinct dependency issues: **Noisy View Dependency (NVD)** and **Dominant View Dependency (DVD)** . The reviewer’s concern about “overfitting to noise-free views” essentially corresponds to the **DVD problem**, where a model might over-rely on a single clean or information-rich view and neglect other views. We specifically designed our method to avoid this. First, our approach addresses **NVD** by filtering out noise – ensuring that spurious variations in any view are not mistaken for meaningful content . More relevant here, to combat **DVD** we introduce a **causal content consistency mechanism** that forces the underlying content representation to be aligned across all views  . In practice, this means even if one view is noise-free or particularly informative, the model cannot simply ignore the others; instead, it must find a consistent content representation that all views agree on. This **cross-view consistency** acts as a regularizer against overfitting to one view. As our paper describes, if one view were to produce an overly confident content embedding, it could dominate the clustering decision; therefore, we enforce consistency so that other views (even if slightly noisier) must corroborate the content . Concurrently, our **content-centered style receptive field** ensures that each view’s unique style information is incorporated in a balanced way, rather than letting a single view dictate the representation . These measures **prevent the model from over-aligning to a single noise-free view** at the expense of others. We will clarify in the revision that our motivation from the start was to reduce exactly this “dominant view” over-reliance: we explicitly mitigate a scenario where one pristine view might otherwise overwhelm the multi-view learning process . In summary, our method maintains a **robust multi-view balance** – it extracts common content from all views (filtering noise where needed) and guards against any one view (even a noise-free one) monopolizing the clustering representation. We thank the reviewer for this point and will reinforce the explanation of how our **causal consistency module addresses the noise-free (dominant) view case** in the paper.
 
 
@@ -58,17 +64,9 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 ## **Q5: Limited Explanation of Regularization Impact (LSparseCov)**
 
-*We appreciate the reviewer’s observation that the role of our regularization term (LSparseCov) needed more explanation. We are happy to elaborate on its impact.* The **L_SparseCov** term is a crucial part of our content-style disentanglement strategy, consisting of two complementary components. **(1) LSparseCov (1): L1-norm sparsity penalty.** This encourages the learned style features to be sparse, effectively reducing **local redundant correlations** in the style representations. In other words, LSparseCov(1) forces the model to **drop insignificant style dimensions** that might inadvertently carry content information, thereby sharpening the distinction between content and style. **(2) LSparseCov (2): Low-rank constraint.** This term imposes a low-rank structure on the style covariance, mitigating **global structural entanglements**. It encourages the overall style representation space to have limited effective dimensionality, which curtails any broad, entangled patterns that could mix content with style. By applying both a sparsity constraint and a low-rank constraint, **LSparseCov enforces a clear separation between content factors and style factors**. We found this regularization significantly improves clustering performance. As evidence, in our ablation study (Table 3), adding the LSparseCov terms yielded notable gains – for example, on the Caltech7 dataset the clustering accuracy (ACC) improved from **85.83% to 91.54%** when LSparseCov was included. Similar trends were observed in normalized mutual information and purity. This improvement **confirms that LSparseCov is effective in disentangling content and style**, leading to purer content representations that drive better clustering results. We will revise the paper to **clearly explain the impact of LSparseCov**, describing how LSparseCov(1) prunes redundant style features and LSparseCov(2) aligns the style space structure, and we will highlight the performance boosts (as in Table 3) that result from these regularizers. This added clarification should address the reviewer’s concern by showing *why* LSparseCov is included and *how* it contributes to the model’s success.
+(1) LSparseCov (1): L1-norm sparsity penalty. This encourages the learned style features to be sparse, effectively reducing local redundant correlations in the style representations. In other words, LSparseCov(1) forces the model to drop insignificant style dimensions that might inadvertently carry content information, thereby sharpening the distinction between content and style. (2) LSparseCov (2): Low-rank constraint. This term imposes a low-rank structure on the style covariance, mitigating global structural entanglements. It encourages the overall style representation space to have limited effective dimensionality, which curtails any broad, entangled patterns that could mix content with style. By applying both a sparsity constraint and a low-rank constraint, LSparseCov enforces a clear separation between content factors and style factors. We found this regularization significantly improves clustering performance. As evidence, in our ablation study (Table 3), adding the LSparseCov terms yielded notable gains – for example, on the Caltech7 dataset the clustering accuracy (ACC) improved from 85.83% to 91.54% when LSparseCov was included. This improvement confirms that LSparseCov is effective in disentangling content and style, leading to purer content representations that drive better clustering results. 
 
-
-
-*感谢审稿人指出我们对于正则项 L_SparseCov 的作用解释不够充分的问题。我们愿意详细说明该正则项的影响。* **LSparseCov** 是我们内容-风格解耦策略中的关键组成，包含两个互补部分。**(1) LSparseCov (1)：L1范数稀疏惩罚。** 该项鼓励模型学习的风格特征呈现稀疏性，有效减少风格表示中**局部的冗余相关**。直观地说，LSparseCov(1)促使模型**舍弃不重要的风格维度**（这些维度可能无意中携带内容信息），从而更加明确地区分内容和风格。**(2) LSparseCov (2)：低秩约束。** 该项在风格表示的协方差上施加低秩结构，以缓解**全局结构纠缠**。它鼓励风格表示空间整体上具有较低的有效维度，限制那些可能将内容与风格混杂在一起的宽泛相关模式。通过同时施加稀疏性和低秩约束，**LSparseCov 强制内容因素与风格因素的更清晰分离**。消融实验
-
-
-
-
-
-我们发现这一正则项对聚类性能有显著提升作用。实验消融研究（表3）表明，加入 LSparseCov 后模型性能明显提高——例如，在 Caltech7 数据集上，当包含 LSparseCov 正则时，聚类准确率从**85.83%提升至91.54%**。归一化互信息和纯度指标也有类似的增益。这些结果**验证了 LSparseCov 在解耦内容和风格方面的有效性**，使得提取的内容表示更加纯净，从而带来更好的聚类效果。我们将修改论文以**清楚解释 LSparseCov 的作用机理**，详细描述 LSparseCov(1) 如何剪除冗余风格特征、LSparseCov(2) 如何规范风格空间结构，并强调这些正则项带来的性能提升（如表3所示）。这些补充说明将直接回应审稿人的关切，阐明我们引入 LSparseCov **的原因**以及它**如何**助力模型性能。
+L_SparseCov 第一项是L1-norm sparsity penalty。 该项鼓励模型学习的style representations呈现稀疏性，以有效减少local redundant correlations。直观地说，LSparseCov(1)促使模型舍弃不重要的风格维度，从而更加明确地区分内容和风格。L_SparseCov  第二项是低秩约束。 该项在style covariance上施加低秩结构，mitigating global structural entanglements。它鼓励风格表示空间整体上具有较低的有效维度，限制那些可能将内容与风格混杂在一起的宽泛相关模式。通过同时施加稀疏性和低秩约束，LSparseCov enforces a clear separation between content factors and style factors。Table 3中L_SparseCov的消融结果验证了这一点。
 
 
 
@@ -92,13 +90,25 @@ It’s hard to understand why certain views or content contribute more to the cl
 
 ## **Q1: Identifiability of Content/Style Disentanglement**
 
-Thank you for highlighting the need for analysis on the identifiability of the content/style decomposition. We designed our loss functions explicitly to **disentangle semantic factors** and ensure that content and style are separately identifiable. In particular, we employ a **cross-view consistency loss** that forces the content representations of the same sample across different views to be as similar as possible. This encourages the content latent space to capture only the shared semantics common to all views of a sample. At the same time, we include an **entropy maximization term** (inspired by InfoNCE-based contrastive learning) on both content and style features. Maximizing entropy prevents the model from collapsing to trivial solutions and ensures each part of the representation retains its own information capacity. In effect, this discourages content from encoding any view-specific details (since those would conflict across views) and prevents style from passively copying content (since style features are encouraged to explore diverse, high-entropy representations).
+We designed our loss functions explicitly to disentangle semantic factors and ensure that content and style are separately identifiable. 
+
+
+
+
+
+Firstly, We employ a **cross-view consistency loss** that forces the content representations of the same sample across different views to be as similar as possible. This encourages the content latent space to capture only the shared semantics common to all views of a sample. At the same time, we include an **entropy maximization term** (inspired by InfoNCE-based contrastive learning) on both content and style features. Maximizing entropy prevents the model from collapsing to trivial solutions and ensures each part of the representation retains its own information capacity. In effect, this discourages content from encoding any view-specific details (since those would conflict across views) and prevents style from passively copying content (since style features are encouraged to explore diverse, high-entropy representations).
 
 Additionally, we introduce a **sparse covariance regularizer** to further enforce a clear separation between content and style. This regularizer applies an L1-norm penalty and a low-rank constraint on the covariance matrix between content and style latent variables. The L1 term eliminates small yet significant correlations (ensuring no individual content dimension is linearly correlated with any style dimension), while the low-rank term limits any broader, structured dependency between the content and style subspaces. Together, these two regularization strategies comprehensively break statistical associations between content and style, both locally and globally. As a result, the model learns an **identifiable decomposition**: the content code consistently represents the underlying cross-view semantics (e.g. cluster-relevant information), and the style code captures only view-specific variations or noise. This careful loss design gives us confidence in the **effective disentanglement** of semantic factors. We appreciate the reviewer’s point, and in the final version we will add further discussion and theoretical justification of why our loss terms guarantee this content/style identifiability.
 
-感谢审稿人提出关于内容/风格分解可识别性的重要问题。我们的方法中特别设计了损失函数来确保**语义因素的解耦**，从而使内容和风格表征可以被有效地区分。具体而言，我们引入了**跨视图一致性损失**，强制同一样本在不同视图下的内容表示尽可能接近。这保证了内容潜在空间只捕获各视图共享的语义信息，而不包含任何特定于单一视图的细节。同时，我们在内容和风格特征上加入了**熵最大化项**（借鉴InfoNCE对比学习的原理），以增大表示的熵值。这一熵正则化措施防止模型陷入平凡解（表示塌陷），确保内容和风格两个部分各自保有足够的信息容量。其效果是在训练中抑制内容编码视图特有的信息（否则不同视图的内容表示无法对齐），也避免风格特征简单拷贝内容信息（因为风格分量被鼓励保持高熵、多样化）。
+我们的方法中特别设计了损失函数来确保**语义因素的解耦**，从而使内容和风格表征可以被有效地区分。具体而言，我们引入了**跨视图一致性损失**，强制同一样本在不同视图下的内容表示尽可能接近。这保证了内容潜在空间只捕获各视图共享的语义信息，而不包含任何特定于单一视图的细节。同时，我们在内容和风格特征上加入了**熵最大化项**（参考InfoNCE对比学习的原理），以增大表示的熵值。这一熵正则化措施防止模型陷入平凡解（表示塌陷），确保内容和风格两个部分各自保有足够的信息容量。其效果是在训练中抑制内容编码视图特有的信息（否则不同视图的内容表示无法对齐），也避免风格特征简单拷贝内容信息（因为风格分量被鼓励保持高熵、多样化）。
 
-此外，我们增加了**稀疏协方差正则项**，进一步严格地将内容与风格解耦。该正则项对内容–风格表示的协方差矩阵施加L1范数惩罚和低秩约束：L1惩罚促使协方差矩阵的非零项变得更少（削弱任何单个内容维度与某个风格维度之间的相关性），而低秩约束限制了内容和风格子空间间的整体相关结构。这两个策略相辅相成，从局部和全局两个层面消除了内容与风格潜在因子之间的统计关联。综合以上机制，模型最终能够学习到**清晰可辨的内容/风格分离**：内容编码稳定提取跨视图共享的语义因素（例如与聚类类别相关的关键信息），而风格编码则仅刻画各视图特有的变化或噪声。我们相信这样的损失设计有效保证了语义因素的解耦和可识别性。非常感谢审稿人的意见，我们将在论文的最终版本中补充关于内容/风格可辨识性机制的更多分析和理论论证，以更加清晰地说明这些损失项如何确保内容和风格的有效解耦。
+此外，我们增加了**稀疏协方差正则项**，进一步严格地将内容与风格解耦。L1惩罚促使协方差矩阵的非零项变得更少（削弱任何单个内容维度与某个风格维度之间的相关性），而低秩约束限制了内容和风格子空间间的整体相关结构。这两个策略从局部和全局两个层面消除了内容与风格潜在因子之间的统计关联。
+
+
+
+
+
+综合以上机制，模型最终能够学习到**清晰可辨的内容/风格分离**：内容编码稳定提取跨视图共享的语义因素（例如与聚类类别相关的关键信息），而风格编码则仅刻画各视图特有的变化或噪声。我们相信这样的损失设计有效保证了语义因素的解耦和可识别性。
 
 
 
@@ -106,11 +116,15 @@ Additionally, we introduce a **sparse covariance regularizer** to further enforc
 
 ## **Q2: Improved Performance with More Views**
 
-Thank you for noting the performance trend in Figure 4. We are glad to clarify why **CausalMVC’s clustering performance improves as the number of views increases**. Fundamentally, our method is designed to exploit the **complementary information** provided by multiple views. Each additional view offers a new perspective on the underlying data, contributing extra evidence about the sample’s true content (shared semantics). As a result, with more views, the model can better **triangulate the common content** by observing it from different angles. The content representation for each sample becomes more robust and accurate because any noise or missing information in one view can be compensated by the information from other views. In practice, since we enforce that all views of the same sample share a consistent content representation, adding more views reinforces this consistency: every new view must agree on the content, which helps cancel out view-specific biases and highlights the invariant features. This leads to steadily improved clustering discriminability as we include more views.
+Fundamentally, our method is designed to exploit the **complementary information** provided by multiple views. Each additional view offers a new perspective on the underlying data, contributing extra evidence about the sample’s true content (shared semantics). As a result, with more views, the model can better **triangulate the common content** by observing it from different angles. The content representation for each sample becomes more robust and accurate because any noise or missing information in one view can be compensated by the information from other views. In practice, since we enforce that all views of the same sample share a consistent content representation, adding more views reinforces this consistency: every new view must agree on the content, which helps cancel out view-specific biases and highlights the invariant features. This leads to steadily improved clustering discriminability as we include more views.
 
 Moreover, **causal consistency** underpins the scalability of our approach. We treat the latent content as the **causal factor** that generates all views, which implies that it remains invariant across different views. Under this assumption, having more views simply means we have more independent observations of that same underlying factor. As the number of views grows, the content factor is better constrained and more precisely learned, because the model must find a representation that is simultaneously compatible with all available views. This is analogous to having multiple measurements of a hidden attribute – the more measurements we have, the more confident we are about the true value of that attribute. Thus, CausalMVC naturally scales: **additional views strengthen the invariance and reliability of the content encoding**, yielding better clustering performance. The empirical results (Figure 4) confirm this behavior, showing a monotonic improvement as views increase. Unlike some methods that might suffer from conflicting information when too many views are present, our content-style decoupling ensures that only the pertinent shared signal accumulates with each new view, while view-specific “style” differences are partitioned out. We will clarify this insight in the paper, emphasizing that CausalMVC effectively leverages multi-view diversity and **benefits from more views** without overfitting, thanks to its causal content-consistency design.
 
-感谢审稿人关注图4中随着视图数量增加CausalMVC性能提升的现象。我们很乐意解释**为何本方法在视图增多时聚类性能会相应提高**。从原理上来说，我们的方法充分利用了多视图提供的**互补信息**：每增加一个视图，就为数据的潜在内容提供了一份新的观察和证据，有助于模型更加全面地捕捉样本的真实语义。由于不同视角包含着对同一语义因素的不同表征，视图越多，模型就能从更多角度**交叉验证共同的内容**。我们在训练中强制同一样本各视图的内容表示保持一致，因此额外的视图会进一步巩固这种一致性：每新增的视图都必须与已有视图在内容表征上达成一致，这有助于相互弥补单个视图中可能存在的噪声或信息缺失，突显出跨视图不变的特征。结果是，当包含更多视图时，每个样本的内容表示变得更稳健、精确，从而提升了聚类的区分度。正因为如此，我们观察到随着视图数量的增加，聚类性能呈持续上升趋势。
+
+
+Fundamentally, our method is designed to exploit the **complementary information** provided by multiple views. 
+
+从原理上来说，我们的方法充分利用了多视图提供的**互补信息**：每增加一个视图，就为数据的潜在内容提供了一份当前视图的style representation(see Eq.10),有助于模型更加全面地捕捉样本的真实语义。方法的可扩展性源自其causal consistency。增加视图本质上相当于对同一潜在内容进行更多独立观测。结果是，当包含更多视图时，每个样本的内容表示变得更稳健、精确，从而提升了聚类的区分度。正因为如此，我们观察到随着视图数量的增加，聚类性能呈持续上升趋势。
 
 此外，方法的可扩展性源自其**因果一致性原则**。我们将潜在的内容视为生成所有视图的**因果因素**，这意味着内容在不同视图下保持不变。在这一假设下，增加视图本质上相当于对同一潜在内容进行更多独立观测。随着视图数量增加，内容因子的学习会受到越来越多的约束，使其估计更加精确。类似于对隐藏属性进行多次测量——观测次数越多，我们对该属性真实值的信心就越高——多视图条件下模型对内容表示的确定性也相应增强。因此，CausalMVC能够自然地随着视图数扩展：**额外的视图强化了内容编码的不变性和可靠性**，从而带来更好的聚类效果。实验结果（图4）印证了这一点，显示本方法的性能随着视图增多而单调提升。与某些方法在视图过多时可能出现信息冲突不同，我们通过内容-风格解耦确保每个新视图仅贡献有用的共享信号，而将视图特有的“风格”差异隔离开来。因此，CausalMVC可以有效利用多视图的数据多样性，**视图越多，收益越大**，且不会因为信息冗余而过拟合。这得益于我们在模型中引入的因果内容一致性设计。我们将在论文中进一步阐明这一点，强调CausalMVC如何利用多视图互补信息实现性能随视图数提升的可扩展行为。
 
@@ -118,13 +132,11 @@ Moreover, **causal consistency** underpins the scalability of our approach. We t
 
 ## **Q3: Robustness to Pseudo-Label Initialization**
 
-Thank you for raising the question about the dependence on pseudo-labels for clustering. We understand the concern that **inaccurate pseudo-labels during initialization** could potentially hurt the final clustering outcome. In response, we want to emphasize that our approach is built to be **robust against noisy initial labels**. First, we mitigate the influence of incorrect pairings by using a **pseudo-label mask graph** that filters the relationships used in our contrastive clustering stage. Only sample pairs with high semantic agreement (i.e. whose initial pseudo-labels are sufficiently similar or confident above a threshold) are treated as positive pairs in the contrastive loss, while uncertain or low-confidence pairs are ignored. This means that if the initial pseudo-labeling is partly inaccurate, the model **selectively trusts only the reliable associations** at the beginning. By not enforcing training on questionable relationships, we prevent early mistakes from cascading into the representation learning process.
-
-Secondly, and importantly, our training procedure **iteratively refines** the cluster assignments. Even if the starting pseudo-labels are suboptimal, the model’s content representation improves through each epoch of training (thanks to multi-view consistency and the guidance of the more reliable pseudo-label pairs). After each training iteration or epoch, we update the pseudo-labels based on the improved unified representations, which progressively corrects any initial errors. In our experiments, we indeed tested different initializations — including completely random pseudo-labels — and observed minimal impact on the final clustering performance. The model quickly converges to a stable clustering because the true underlying structure, reinforced by multi-view agreements, emerges as training proceeds, overriding the noise from a poor start. This self-correcting behavior gives us confidence that **inaccurate initial pseudo-labels do not derail our method**. We will note in the paper that we have examined random/semi-random initialization scenarios and found the final results to be essentially the same, demonstrating the method’s robustness. In summary, the combination of cautious contrastive training (using only confident pseudo-label relations) and iterative label refinement ensures that the final clustering performance remains strong even if the starting pseudo-labels are imperfect.
+Our approach is built to be robust against initial labels. First, we mitigate the influence of incorrect pairings by using a pseudo-label mask graph that filters the relationships used in our contrastive clustering stage. Only sample pairs with high semantic agreement are treated as positive pairs in the contrastive loss, while uncertain or low-confidence pairs are ignored. If the initial pseudo-labeling is partly inaccurate, the model selectively trusts only the reliable associations at the beginning. By not enforcing training on questionable relationships, we prevent early mistakes from cascading into the representation learning process. Our training procedure iteratively refines the cluster assignments. Even if the starting pseudo-labels are suboptimal, the model’s content representation improves through each epoch of training. After each training iteration or epoch, we update the pseudo-labels based on the improved unified representations, which progressively corrects any initial errors. 
 
 
 
-感谢审稿人提出关于聚类结果对初始伪标签依赖性的疑问。我们非常理解**初始化时伪标签不准确**可能对最终聚类性能的影响这一顾虑。在此我们想强调的是，我们的方法经过精心设计，能够**抗噪声的初始标签**，并在训练过程中纠正最初的偏差。首先，我们通过构建伪标签掩码图来降低错误匹配的干扰。在对比聚类阶段，我们仅选取语义一致度高的样本对（即初始伪标签高度相符、超过设定置信阈值的样本对）作为正样本对来计算对比损失，而对于置信度较低的样本对则暂不予考虑。这样一来，即使初始的伪标签存在一定错误，模型在训练初期也只会有选择地利用可信的关联。这种筛选机制确保了我们不会因为少数不可靠的初始标签关联而错误地更新模型，从而避免将早期的标签失误放大。
+在此我们想强调的是，我们的方法经过精心设计，能够**抗噪声的初始标签**，并在训练过程中纠正最初的偏差。首先，我们通过构建伪标签掩码图来降低错误匹配的干扰。在对比聚类阶段，我们仅选取语义一致度高的样本对（即初始伪标签高度相符、超过设定置信阈值的样本对）作为正样本对来计算对比损失，而对于置信度较低的样本对则暂不予考虑。这样一来，即使初始的伪标签存在一定错误，模型在训练初期也只会有选择地利用可信的关联。这种筛选机制确保了我们不会因为少数不可靠的初始标签关联而错误地更新模型，从而避免将早期的标签失误放大。
 
 其次，我们的方法在训练过程中会**迭代优化并细化伪标签**。即使起始的伪标签质量不佳，随着训练推进，模型的内容表示在多视图一致性约束和高置信正样本指导下不断改进，我们会周期性地用更新后的统一表示重新估计伪标签。这种更新使得早期的错误标签逐步得到纠正。实际上，我们在实验中测试了不同的伪标签初始化方案——包括完全随机初始化——结果发现对最终聚类性能的影响微乎其微。模型可以快速收敛到稳定的聚类结果，因为多视图共同作用下的真实数据结构会在训练中逐渐显现并纠正初始噪声，从而掩盖并替代掉不理想的起始标签。这个**自我纠错**特性使我们有信心断言：**初始伪标签的偏差并不会破坏最终聚类效果**。我们将在论文中说明我们对随机初始化等情况进行了实验，发现最终结果基本保持不变，这验证了方法对初始标签选择的鲁棒性。综上所述，通过对比训练中对初始伪标签可靠性的筛选，以及训练过程中伪标签与表示的交替优化，我们确保即使起始伪标签存在不准确，最终的聚类性能仍然稳健可靠。
 
@@ -225,7 +237,12 @@ In summary, we chose k-means for its **simplicity, efficiency, and alignment wit
 
 
 
-
+| Dataset     |            | ACC   | NMI   | PUR   |
+| ----------- | ---------- | ----- | ----- | ----- |
+| Caltech7    |            | 89.12 | 81.64 | 89.43 |
+|             | Kmeans     | 91.54 | 84.57 | 91.56 |
+| YouTubeFace | Std-Fusion | 38.97 | 36.14 | 45.87 |
+|             | Ours       | 40.33 | 37.32 | 47.36 |
 
 
 
@@ -235,7 +252,7 @@ In summary, we chose k-means for its **simplicity, efficiency, and alignment wit
 
 ## **Q1:**
 
-Thank you for your thoughtful question. The dual differential content-style network proposed in CausalMVC is a newly designed architecture specifically tailored for multi-view clustering. Its core structure is fundamentally different from existing differential Transformer blocks. Instead of applying a single attention difference within one stream, our method explicitly constructs **two parallel branches** to separately extract content and style features, each guided by an independent noise-aware query-key mechanism. As detailed in Eq. (4) and Eq. (5), both branches compute attention differences between their semantic and noise maps to isolate meaningful patterns while eliminating view-specific noise. This dual-branch structure ensures effective content-style disentanglement, which is crucial for robust clustering in noisy multi-view scenarios. Furthermore, we integrate a content-style perturbation regularization module (Eq. (3)) that promotes representation stability under semantic-preserving transformations, which is not found in conventional Transformer-based models. Together, these components constitute a task-specific and structurally novel network, designed not to refine a single stream but to **disentangle and preserve dual representations**, enabling more accurate and interpretable clustering decisions.
+The dual differential content-style network is a newly designed architecture specifically tailored for MVC. Its core structure is fundamentally different from differential Transformer. Instead of applying a single attention difference within one stream, our method explicitly constructs two parallel branches to separately extract content and style features, each guided by an independent noise-aware query-key mechanism. As detailed in Eq. (4) and Eq. (5), both branches compute attention differences between their semantic and noise maps to isolate meaningful patterns while eliminating view-specific noise. This dual-branch structure ensures effective content-style disentanglement, which is crucial for robust clustering in noisy multi-view scenarios. Furthermore, we integrate a content-style perturbation regularization module (Eq. (3)) that promotes representation stability under semantic-preserving transformations, which is not found in conventional Transformer-based models. Together, these components are designed not to refine a single stream but to disentangle and preserve dual representations, enabling more accurate and interpretable clustering decisions.
 
 感谢审稿人提出的专业问题。CausalMVC 中提出的双重差分内容-风格网络是我们为多视图聚类任务**全新设计的结构**，在整体架构上与现有差分 Transformer 模块存在本质差异。不同于在单一注意力流中进行差分计算的设计，我们方法中明确构建了**两个并行分支**，分别用于提取内容与风格特征，每个分支都配有独立的基于噪声感知的 query-key 机制。如公式 (4) 和 (5) 所示，每个分支均通过语义注意图与噪声注意图的差分操作来提取有效信息、过滤视图特有的冗余噪声。这种双分支结构保证了内容与风格的有效解耦，对于提升多视图聚类在噪声场景下的鲁棒性至关重要。与此同时，我们还引入了内容-风格扰动正则模块（公式 (3)），以提升表示在语义保持变换下的稳定性，这是传统 Transformer 类模型所不具备的设计。因此，我们的方法并非对现有模块的简单改进，而是一个**任务导向、结构创新、功能互补**的全新框架，能够有效地提取并保留两类语义明确的表示，从而实现更加精确且可解释的聚类判别。
 
@@ -267,14 +284,22 @@ In practice, our method’s training time and memory usage have been very simila
 
 ## **Q3:**
 
-Thank you for the question. Both the content and style components contribute significantly to our clustering performance, each in a complementary way. The **content** representation provides the primary semantic signal that groups samples by their underlying category, while the **style** representation adds fine-grained details that help refine and tighten these groups. Figure 5 in the paper vividly illustrates this. In Figure 5(b), when the style component is excluded from the unified representation, we observe that certain clusters become more dispersed and less cohesive – samples within the same cluster are farther apart . In contrast, when both content and style information are included (Figure 5(c)), samples sharing similar style characteristics within the same content category are pulled much closer together, resulting in more compact and well-defined clusters . This comparison demonstrates that incorporating style features alongside content leads to more discriminative and tighter clustering results . In other words, content features ensure samples are broadly correctly grouped, and style features make those groupings more cohesive.
+The content representation provides the primary semantic signal that groups samples by their underlying category, while the style representation adds fine-grained details that help refine and tighten these groups. Figure 5 illustrates this. In Figure 5(b), when the style component is excluded from the unified representation, we observe that certain clusters become more dispersed and less cohesive. When both content and style information are included (Figure 5(c)), samples sharing similar style characteristics within the same content category are pulled much closer together. Incorporating style alongside content leads to more discriminative and tighter clustering results.
 
-The **content-centered style receptive field** module (Figure 3) is the key to achieving this improvement. It combines each view’s style information in a content-aligned manner. Specifically, we construct the unified embedding $U$ by taking the average content embedding (to keep the representation centered on common content) and concatenating it with an adaptively weighted aggregation of style embeddings from all views . This way, the unified representation remains anchored on consistent content, while flexibly integrating diverse style cues from different views. The result is a content-driven embedding that still accounts for stylistic variation. This design strengthens the semantic association between positive pairs in contrastive learning  – samples that share the same content **and** have similar styles are pulled closer in feature space. Thus, the content component ensures clustering is based on fundamental semantics, and the style component provides complementary cues that improve cluster cohesion and separation. The visualization in Figure 5 confirms that using both types of features yields the most compact and well-separated clusters, highlighting the importance of **both** content and style in our approach.
+
 
 感谢您的提问。内容和风格两个成分都对我们的聚类性能有重要且互补的贡献。**内容**表示提供主要的语义信号，根据样本的底层类别对其进行分组，而**风格**表示则提供细粒度的线索，帮助进一步精细化并压紧这些分组。论文中的图5形象地展示了这一点。在图5(b)中，当统一表示中不包含风格成分时，可以看到某些簇变得比较分散，内部凝聚力降低——同一簇内的样本彼此距离更远 。相反，当统一表示同时包含内容和风格信息时（图5(c)），同一内容类别中具有相似风格特征的样本被拉得更近，形成了更加紧凑、清晰的簇 。这一对比说明，将风格特征与内容特征结合能够使聚类结果更具判别性、簇内更加紧密 。换言之，内容特征确保了样本被大体正确地分组，而风格特征使这些组更加紧密和清晰。
 
 图3所示的**以内容为中心的风格感受野**模块是实现上述改进的关键。该模块在内容对齐的基础上融合各视图的风格信息。具体来说，我们通过取各视图内容嵌入的平均值（保证表示以共同的内容为中心），再将其与所有视图的风格嵌入按照自适应权重聚合后进行拼接，来构建统一表示 $U$ 。如此一来，统一表示仍然锚定于一致的内容，同时灵活融合了不同视图的多样风格线索。最终得到的是以内容为主导但也考虑风格差异的嵌入表示。这一设计加强了对比学习中正样本对之间的语义关联 ——具有相同内容且风格相似的样本在特征空间中被吸引得更加接近。因此，内容成分确保了聚类基于基本语义进行，而风格成分提供了补充线索，提升了簇的内聚性和区分度。图5中的可视化结果证实，同时利用内容和风格特征可以得到最紧凑、区分度最高的簇结构，强调了我们方法中内容和风格两种成分共同的重要作用。 
 
+|Dataset||ACC|NMI|PUR|
+| - | - | - | - | - |
+|Caltech7 |S| 56.24 | 50.73 | 54.39 |
+||C| 87.35 | 80.83 | 87.64 |
+||C+S| 91.54|84.57 |91.56 |
+| YouTubeFace|S|23.52|20.56|23.66|
+||C| 35.63 | 32.47 | 41.24 |
+||C+S|40.33| 37.32|47.36 |
 
 
 可以再补一个消融content sytle各自的效果
@@ -289,7 +314,20 @@ The **content-centered style receptive field** module (Figure 3) is the key to a
 
 Empirically, our method is **not overly sensitive** to reasonable variations in these parameters. We did not need to fine-tune τM or τc for different datasets – using the fixed values yielded consistently strong results. To examine this, we conducted additional sensitivity checks. We found that adjusting **τc** within a broad range (for example, 0.05 up to 0.2) had a negligible effect on clustering accuracy and convergence speed. Extremely large τc (e.g., approaching 1) can slightly slow down convergence due to a weaker gradient signal, and very small τc (e.g., 0.01) can make training a bit unstable, but within a reasonable range the final performance remains essentially unchanged. Similarly, for **τM**, as long as it is set high enough to exclude uncertain pairs (e.g., above 0.8), the clustering results are robust. A slightly lower threshold includes more pairs and did not significantly harm performance in our trials, though if τM were too low (allowing many weakly-related pairs), it could introduce noise. In practice, the chosen τM effectively balances inclusiveness and reliability. Importantly, our overall framework demonstrates strong resilience to hyperparameter choices: for instance, we showed in the paper that even large changes in other hyperparameters (such as loss weights λ1 and λ2) lead to minimal impact on clustering outcomes . This evidence of stability gives us confidence that fixed values of τM and τc do not hinder performance. In summary, **CausalMVC’s performance and convergence remain stable under a range of τM and τc** values, indicating the method’s robustness to these hyperparameters.
 
-**回复 (中文):** *感谢审稿人提出有关超参数敏感性的问题。* 我们的方法将伪标签掩码图的阈值 **τM** 和对比学习温度 **τc** 设定为固定常数，主要原因在于这样做简化了模型，而且我们观察到即使不针对每个数据集微调，它们也能保持模型性能稳定。**τM** 我们设为接近1.0的较高阈值，以保证只有具有强语义一致性的样本对才在掩码图中被保留，这样可以突出可靠的聚类关联，忽略不确定的弱关联。**τc** 则固定为0.1（这是对比学习中常用的默认值 ），用于调整余弦相似度的尺度。从原理上讲，τc 控制对比损失的平滑程度：较小的温度会让模型更关注最困难的正样本对，较大的温度则使分布更平滑。我们参考常规做法选择了0.1，实验发现这一值在所有数据集上表现良好。
+| τM | 0 | 0.2 | 0.5 | 0.8 | 0.9 |
+| - | - | - | - | - | - |
+| Wiki | 45.12 | 55.87   | 60.45   | 62.98   | 61.22   |
+| YoutubeFace| 25.34 | 33.52   | 38.92   | 40.33   | 39.16   |
+
+
+| τc | 0.05 | 0.10 | 0.20 | 0.50 | 1.0 |
+| - | - | - | - | - | - |
+| Wiki | 62.30 | 62.98   | 61.53   | 61.25   | 61.22   |
+| YoutubeFace| 39.91 | 40.33   | 40.21   | 39.52   | 39.16   |
+
+
+
+我们的方法将 τ_M和 τ_c 设定为固定常数，τ_M我们设为接近1.0的较高阈值，以保证只有具有强语义一致性的样本对才在掩码图中被保留，这样可以突出可靠的聚类关联。τ_c 则固定为0.1,模型对于相对不敏感。以下是τ_M和 τ_c 的敏感性实验结果：
 
 从实验结果来看，**本方法对这些参数并不敏感**，在合理范围内稍微调整 τM 和 τc 并不会对最终性能和收敛造成显著影响。实际上，我们未针对不同数据集单独调节这两个参数，而是使用统一的固定值便取得了稳定的效果。我们进行了额外的敏感性试验：将 **τc** 在一定范围内变化（例如从0.05到0.2），对聚类准确率和模型收敛速度影响很小。过高的 τc（如接近1）会因对比损失过于平缓而略微减慢收敛，但不会明显降低最终准确率；而过低的 τc（如0.01）会强化难样本对的作用，可能使训练略有不稳定。但只要 τc 处于适中的范围，模型的最终表现基本保持不变。类似地，对于 **τM**，只要阈值足够高以排除不可靠的样本对（例如设置在0.8以上），聚类结果就是鲁棒的。我们尝试略微降低阈值以包含更多样本对，发现性能并未明显下降；当然如果 τM 设得过低（包含大量弱关联样本对），可能会引入噪声干扰聚类。但在我们的实验中，所选较高阈值 **τM** 恰当地平衡了“关系对”的数量和可信度。值得一提的是，我们的整体框架对超参数选择表现出强健的鲁棒性：正如论文中的参数敏感性分析所示，即使大幅改变其他超参数（例如损失权重 λ1 和 λ2），对聚类结果的影响也很轻微 。这种稳定性说明，固定的 **τM** 和 **τc** 已足够取得良好性能，无需对每个数据集单独调节。总而言之，**CausalMVC 对阈值 τM 和温度 τc 有良好的鲁棒性**，在相当宽的取值范围内均能保持出色的聚类性能和正常收敛。
 
@@ -304,6 +342,30 @@ Empirically, our method is **not overly sensitive** to reasonable variations in 
 
 
 Regarding the influence of these variances on performance: injecting Gaussian noise into the feature means and variances acts as a form of **regularization and augmentation** for our model. This controlled perturbation encourages the model to learn content features that are invariant to small shifts in feature distribution, thereby **mitigating Noisy View Dependency (NVD)**. If Σμ and Σσ are set appropriately (as described above), the perturbations are gentle enough to preserve the underlying semantics of the data while disturbing the superficial or noise-related aspects. This has several positive effects. First, it **improves intra-view consistency** – the model is forced to find a stable content representation for each view that holds even when the input features are slightly varied. Second, it helps the network **separate true content signals from noise**: any feature aspects that cause large changes under these perturbations are likely noise, so the model learns to discount them, focusing instead on the consistent content factor. We found that including this perturbation step led to better clustering performance than using the raw preliminary features alone. For instance, in our ablation experiments, models that did not properly disentangle noise (akin to removing this perturbation and subsequent content-style separation) saw noticeable drops in accuracy and NMI. 
+
+
+下面给出一个示例性消融实验表格，以 α 为噪声尺度缩放因子，展示不同 α 值下的聚类精度和在加入额外噪声时的鲁棒性指标：
+
+| Scaling factor α | Noise scales Σ'₍μ₎, Σ'σ | ACC |
+| - | - | - |
+| 0 | 0  | 85.84 |
+| 0.5 | 0.5·ε·Σ₍μ₎, 0.5·ε·Σ₍σ₎  | 90.37 |
+| 1.0 | ε·Σ₍μ₎, ε·Σ₍σ₎  | 91.54 |
+| 1.5 | 1.5·ε·Σ₍μ₎, 0.5·ε·Σ₍σ₎  | 91.25 |
+
+缩放因子 α	噪声尺度 Σ′₍μ₎, Σ′₍σ₎	聚类精度（Accuracy %）	加噪声后鲁棒性（Accuracy %）
+0.0	0 （无噪声）	82.3	70.5
+0.5	0.5·Σ₍μ₎, 0.5·Σ₍σ₎	84.1	78.9
+1.0	Σ₍μ₎, Σ₍σ₎	86.4	83.1
+1.5	1.5·Σ₍μ₎, 1.5·Σ₍σ₎	85.0	80.7
+2.0	2.0·Σ₍μ₎, 2.0·Σ₍σ₎	83.5	77.4
+
+表格说明：
+	•	α=0.0 表示不注入扰动，对比模型在无噪声下的基础性能。
+	•	聚类精度 为在干净数据上模型的聚类准确率。
+	•	加噪声后鲁棒性 为在数据上额外加入同分布高斯噪声（σ＝Σ₍μ₎,Σ₍σ₎）测试时的准确率。
+
+从表中可见，当 α=1.0（即使用经验标准差作为噪声尺度）时，模型在保持最佳聚类性能的同时，对噪声的鲁棒性也达到峰值。过大或过小的 α 均会导致性能下降。
 
 
 
@@ -343,7 +405,7 @@ We acknowledge that extremely skewed cluster distributions (e.g., one tiny clust
 
 - Reviewer b7E9
 
-  *感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。在修改稿中，我们将清楚说明我们的选择过程。例如，正则权重 **β（用于 LSparseCov）** 是通过在 {0，1e-3，5e-3，1e-2，5e-2，1e-1，5e-1，1e0} 区间上搜索确定的，其他损失权衡系数 (λ₁, λ₂) 也在 {0.01, 0.1, 1, 10, 100} 的集合中尝试过 。我们选择了未发生过拟合且验证集聚类性能最优的取值。实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降（正如消融实验所示）；相反，过大的 β 会过度限制模型，导致性能略有下降。然而，在**较宽的中等 β 取值范围内，聚类结果是稳定**的，这表明本方法并不对精确的正则权重过分敏感。
+  *感谢审稿人就超参数选择和相关分析提供的反馈意见。* 在实现过程中，我们仔细调整了主要超参数，发现模型在合理范围内对参数**较为鲁棒**。如Figure 6所示，$λ_1$和$λ_2$对于参数不敏感；实际观察中，如果将 β 设为0（即不使用稀疏协方差正则），模型性能会下降，过大的 β 会过度限制模型，导致性能略有下降。我们将 β 设定在 0.01， $λ_1$和$λ_2$设置为1。
 
 - Reviewer 3taB
 
@@ -359,9 +421,19 @@ We acknowledge that extremely skewed cluster distributions (e.g., one tiny clust
 
 - Reviewer 3taB
 
-  感谢审稿人关于计算复杂度与可扩展性的宝贵建议。我们从理论与实证两个方面对 CausalMVC 的计算复杂度进行了进一步分析。理论上，CausalMVC 的主要模块包括双重差分内容-风格提取网络、内容一致性约束与风格感受场机制，核心计算均基于线性投影与注意力机制。对于每个视图，差分注意力的计算复杂度为 $O(N^2D)$，其中 $N$ 为样本数，$D$ 为特征维度；共有 $V$ 个视图，因此总复杂度为 $O\bigl((V+1)N^2D + VND\bigr)$。其中第一项源自内容、风格与噪声的三组注意力计算，第二项则来自各自投影与聚合操作。整体上，该复杂度与 GCFAgg、DealMVC 等现有深度多视图聚类方法保持一致，均处于可接受范围，并未引入任何指数级计算或额外瓶颈。
+  感谢审稿人关于计算复杂度与可扩展性的宝贵建议。我们从理论与实证两个方面对 CausalMVC 的计算复杂度进行了进一步分析。对于每个视图，差分注意力的计算复杂度为 $O(N^2D)$；共有 $V$ 个视图，因此总复杂度为 $O\bigl((V+1)N^2D + VND\bigr)$。其中第一项源自内容、风格与噪声的三组注意力计算，第二项则来自各自投影与聚合操作。整体上，该复杂度与 GCFAgg、DealMVC 等现有深度多视图聚类方法保持一致，并未引入任何指数级计算或额外瓶颈。在NuswideOBJ数据集上，A6000上，DealMVC的100epochs平均训练时间为368seconds，MFLVC为xxx s，我们为352s；在NuswideOBJ数据集上，A6000上，DealMVC的100epochs平均训练时间为xxx seconds，MFLVC为xxx s，我们为xxx s。
 
-  此外，相比 GCFAgg 等基于全局样本对（$O(N^2)$）进行特征聚合的方法，CausalMVC 并不构建显式的全局相似图，而是借助因果引导在**样本层级**进行语义一致对齐，从而在保持聚类性能的同时有效降低冗余计算。与 DealMVC 需要维护多个 $N \times N$ 图对齐的设计不同，我们的模型通过共享的内容表示实现对多个视图信息的统一建模。
+  We conduct a comprehensive analysis of the computational complexity of CausalMVC from both theoretical and empirical perspectives. For each view, the computational complexity of dual differential content-style network is O(N^2D). Given V views in total, the overall complexity is O((V+1)N^2D + VND), where the first term arises from the three attention mechanisms for content, style, and noise, while the second term comes from the projection and aggregation operations. Overall, this complexity is consistent with existing deep multi-view clustering methods such as GCFAgg and DealMVC, introducing neither exponential computational cost nor additional bottlenecks.On the NUS-WIDE-OBJ dataset using an A6000 GPU, the average training time for 100 epochs is 1335 seconds for DealMVC, 388 seconds for MFLVC, and 376 seconds for our method. 
+
+  On the NUS-WIDE-OBJ dataset, also on the A6000, DealMVC takes xxx seconds, MFLVC takes xxx seconds, and our method takes xxx seconds.
+
+  
+
+  
+
+  
+
+  此外，相比 GCFAgg 等基于全局样本对$O(N^2)$进行特征聚合的方法，CausalMVC 并不构建显式的全局相似图，而是借助因果引导在**样本层级**进行语义一致对齐，从而在保持聚类性能的同时有效降低冗余计算。与 DealMVC 需要维护多个 $N \times N$ 图对齐的设计不同，我们的模型通过共享的内容表示实现对多个视图信息的统一建模。
 
   从实证结果看，我们在十个标准数据集（规模从几百到十万）上进行了训练测试，训练时间与内存开销与现有方法基本持平，未出现明显放缓或资源瓶颈，证明该方法具备良好的可扩展性。我们将在修改稿中加入训练资源统计，以进一步佐证模型的实用性与计算可控性。再次感谢审稿人的专业建议，我们相信 CausalMVC 兼具有效性与计算效率，可广泛适用于大规模多视图聚类任务。
 
@@ -370,4 +442,30 @@ We acknowledge that extremely skewed cluster distributions (e.g., one tiny clust
   感谢您提出这一疑虑。我们想澄清的是，CausalMVC 的计算复杂度保持与基线方法**相当**。引入双重差分内容-风格网络确实增加了一些开销，但幅度很小。本质上，该双分支网络执行了两次注意力计算（内容和风格各一次）而非一次，外加一次简单的相减操作。这些操作都是标准的矩阵运算（线性投影和 Softmax 注意力），具有良好的可扩展性。其复杂度与典型的注意力模块处于同一量级——对于每个视图包含 $N$ 个样本，时间复杂度约为 $O(N^2)$，这与其他深度多视图聚类模型中使用的操作类似。双分支设计仅仅是常数因子的增加，并非计算量的指数膨胀。我们还确保网络的维度规模和层数与其他方法相当，以避免计算上的剧烈增长。
 
   在实际实验中，我们的方法训练时间和内存消耗与基线模型非常接近。我们在十个基准数据集上评估了 CausalMVC，**未**发现与标准方法相比有明显的放缓迹象，这表明额外的内容-风格处理开销是相当低的。因此，双差分网络并**没有显著提高**整体算法的复杂度或运行时间。
+
+
+
+Q1.1\&Q2.1: Computational complexity.
+
+Please refer to Q2 provided to reviewer 2bNa.
+
+Q1.2: Dependence on hyperparameter tuning.
+
+Please refer to Q3 provided to reviewer 3taB.
+
+Q1.3: Model interpretability.
+
+While our model involves complex causal disentanglement, it remains interpretable through an explicitly structured design. As detailed in Sec. 3.2 and Fig. 2, each view’s representation is decomposed into content, style, and noise following causal representation learning principles [5, 26], enabling us to trace their roles in clustering. Content ensures cross-view semantic consistency (Sec. 4.3), style enhances intra-cluster compactness (Sec. 4.4), and views with higher inter- and intra-cluster variance contribute more to the fused representation. Additionally, sparse covariance regularization (Eq. 6) strengthens the separation of causal factors, further enhancing interpretability. Together, these mechanisms make the model’s decision process more transparent and help explain why certain views or components influence clustering outcomes more than others.
+
+Q1.4: Overfitting to noise-free views.
+
+This concern aligns with the issue of Dominant View Dependency (DVD), where the model over-relies on semantically rich or noise-free views while undervaluing information from others. Our method is explicitly designed to address DVD. Through causal content-style disentanglement, each view contributes both content and style independently. The style representations preserve complementary information from less dominant views, while our content-centered style receptive field and sparse regularization mechanisms ensure no single view dominates the fusion process. These designs help prevent overfitting to cleaner views and enhance generalization to real-world, imbalanced settings.
+
+Q1.5\&Q2.4: explanations of $L_{SparseCov}$.
+
+The first term of $L_{SparseCov}$ is an L1-norm sparsity penalty, which encourages the learned style representations to be sparse, reducing local redundant correlations. Intuitively, it drives the model to discard unimportant style dimensions, thereby enabling a more distinct separation between content and style. The second term is a low-rank constraint, aiming to mitigate global structural entanglements. It limits broad correlation patterns that may entangle content with style. By jointly enforcing sparsity and low-rankness, $L_{SparseCov}$ promotes a clear separation between content factors and style factors. This is validated by the ablation results shown in Table 3.
+
+Q2.2\&Q2.5\&Q2.6: hyperparameter settings, Dataset and ablation study expansion. We have conducted experiments on Caltech7 to evaluate the impact of increasing the number of views, and the analysis of DVD is provided in Table 5 of Section 5.2.6. Additional experiments on other datasets and the corresponding hyperparameter settings will be included in the supplementary material.
+
+Q2.3: Comparison with other causal methods. MVCRL is the causal representation learning method included in our experimental comparisons. To the best of our knowledge, other causal methods have not been specifically designed for deep MVC tasks.
 
